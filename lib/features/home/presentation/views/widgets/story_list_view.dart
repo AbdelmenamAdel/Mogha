@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'custom_story_item.dart';
@@ -13,6 +12,7 @@ class StoryListView extends StatelessWidget {
     return SizedBox(
       height: height,
       child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 8),
         itemCount: 10,
         scrollDirection: Axis.horizontal,
