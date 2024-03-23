@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "840323369559",
+    "project_id": "mogha-266d4",
+    "storage_bucket": "mogha-266d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840323369559:android:1989d5f504943ae3663112",
+        "android_client_info": {
+          "package_name": "com.example.moga"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlVe01jcmzcjj_ivuuLegzzvjOi2eb6tM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,11 @@
+{
+"userName":"User name...",
+  "email": "Email...",
+  "password": "Password...",
+  "signIn":"SIGN-IN",
+  "signInM":"SIGN IN",
+  "signUp":"SIGN-UP",
+  "forgetPass": "Forgotten password!",
+  "cNA": "Create a new Account",
+  "mogha": "MOGHA"
+}
