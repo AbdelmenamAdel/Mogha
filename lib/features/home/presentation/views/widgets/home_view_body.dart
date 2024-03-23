@@ -23,9 +23,10 @@ class HomeViewBody extends StatelessWidget {
                 ],
               ),
             ),
-            SliverFillRemaining(
-              child: const PostsListView(),
-            ),
+
+            // SliverFillRemaining(
+            //   child: const PostsListView(),
+            // ),
             SliverToBoxAdapter(
               child: CustomGNavBar(currentIndex: 0, tabs: [
                 GButton(icon: Icons.home, text: 'home'),
@@ -33,7 +34,7 @@ class HomeViewBody extends StatelessWidget {
                 GButton(icon: Icons.add, text: 'add'),
                 GButton(icon: Icons.settings, text: 'settings'),
               ]),
-            )
+            ),
           ],
         ),
       ),
