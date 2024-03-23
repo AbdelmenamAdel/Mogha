@@ -54,6 +54,7 @@ dependencies:
   cached_network_image: ^3.3.1
   shimmer: ^3.0.0
   google_nav_bar: ^5.0.6
+  hidable: ^1.0.6
   # persistent_bottom_nav_bar: ^5.0.2
 
 dev_dependencies:

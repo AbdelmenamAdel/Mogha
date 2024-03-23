@@ -19,7 +19,7 @@ class Mogha extends StatelessWidget {
       builder: (context, child) {
         return BlocProvider(
           create: (context) => sl<GlobalCubit>()..updateLangage(),
-          child: BlocBuilder<GlobalCubit,GlobalState>(
+          child: BlocBuilder<GlobalCubit, GlobalState>(
             builder: (context, state) => MaterialApp.router(
               localizationsDelegates: const [
                 AppLocalizations.delegate,

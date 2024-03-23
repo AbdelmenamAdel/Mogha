@@ -14,17 +14,24 @@ class CustomGNavBar extends StatelessWidget {
   final List<GButton> tabs;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-      child: GNav(
-        activeColor: AppColors.kPrimary,
-        selectedIndex: currentIndex,
-        tabBackgroundColor: Colors.purple.withOpacity(0.1),
-        padding: const EdgeInsets.all(16),
-        tabBorderRadius: 16,
-        gap: 8,
-        onTabChange: onChanged,
-        tabs: tabs,
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: GNav(
+          color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+          backgroundColor:
+              Theme.of(context).bottomNavigationBarTheme.backgroundColor!,
+          activeColor:
+              Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+          selectedIndex: currentIndex,
+          tabBackgroundColor: AppColors.grey.withOpacity(0.3),
+          padding: const EdgeInsets.all(16),
+          tabBorderRadius: 16,
+          gap: 8,
+          onTabChange: onChanged,
+          tabs: tabs,
+        ),
       ),
     );
   }
