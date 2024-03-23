@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,11 +6,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:moga/core/bloc/global_cubit/app_language_cubit.dart';
 import 'package:moga/core/bloc/global_cubit/app_language_states.dart';
 import 'package:moga/core/local/app_local.dart';
-import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/core/utils/app_strings.dart';
-import 'package:moga/core/widgets/custom_navigate.dart';
 import 'package:moga/core/widgets/custom_text_form_field.dart';
 import 'package:moga/features/auth/presentation/views/manager/auth/auth_cubit.dart';
 import 'package:rive/rive.dart';
@@ -81,6 +78,7 @@ class LoginViewBody extends StatelessWidget {
                                                   'please fill all fields')));
                                       return '';
                                     }
+                                    return null;
                                   },
                                 ),
                                 CustomTextFormField(
@@ -92,6 +90,7 @@ class LoginViewBody extends StatelessWidget {
                                                   'please fill all fields')));
                                       return '';
                                     }
+                                    return null;
                                   },
                                   icon: Icons.lock_outline,
                                   hintText: Strings.password.tr(context),
