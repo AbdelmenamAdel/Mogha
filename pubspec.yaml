@@ -117,13 +117,26 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
+
+  fonts:
+    - family: Dosis
+      fonts:
+        - asset: assets/fonts/Dosis/Dosis-Bold.ttf
+        - asset: assets/fonts/Dosis/Dosis-ExtraBold.ttf
+        - asset: assets/fonts/Dosis/Dosis-ExtraLight.ttf
+        - asset: assets/fonts/Dosis/Dosis-Light.ttf
+        - asset: assets/fonts/Dosis/Dosis-Medium.ttf
+        - asset: assets/fonts/Dosis/Dosis-Regular.ttf
+        - asset: assets/fonts/Dosis/Dosis-SemiBold.ttf
+        - asset: assets/fonts/Dosis/Dosis-VariableFont_wght.ttf
+          style: normal
+          weight: 500
+          
+    - family: Limelight
+      fonts:
+        - asset: assets/fonts/Limelight-Regular.ttf
+          style: normal
+          weight: 100
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf

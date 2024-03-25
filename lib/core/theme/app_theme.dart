@@ -14,6 +14,7 @@ ThemeData getAppDarkTheme() {
         selectedItemColor: AppColors.black,
         unselectedItemColor: AppColors.grey,
       ),
+      cardColor: AppColors.black,
       //appBar theme
       appBarTheme: AppBarTheme(backgroundColor: AppColors.background),
       textTheme: TextTheme(
@@ -50,8 +51,10 @@ ThemeData getAppLightTheme() {
     primaryColor: AppColors.black,
     //scaffoldBackgroundColor
     scaffoldBackgroundColor: AppColors.white,
+    cardColor: AppColors.white.withOpacity(.9),
+
     //appBar theme
-    appBarTheme: AppBarTheme(backgroundColor: AppColors.grey),
+    appBarTheme: AppBarTheme(backgroundColor: AppColors.white.withOpacity(.9)),
     textTheme: TextTheme(
       titleLarge: GoogleFonts.lato(
         color: AppColors.black.withOpacity(.87),

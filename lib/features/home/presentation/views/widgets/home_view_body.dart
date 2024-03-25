@@ -13,7 +13,12 @@ class HomeViewBody extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       slivers: [
         SliverToBoxAdapter(
-          child: StoryListView(),
+          child: Column(
+            children: [
+              StoryListView(),
+              Divider(),
+            ],
+          ),
         ),
         SliverFillRemaining(
           child: const PostsListView(),

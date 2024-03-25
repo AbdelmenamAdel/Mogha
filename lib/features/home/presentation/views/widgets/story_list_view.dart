@@ -13,7 +13,7 @@ class StoryListView extends StatelessWidget {
       height: height,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 8),
+        padding: EdgeInsets.only(left: 8, right: 8, top: 8),
         itemCount: 10,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) => Padding(
