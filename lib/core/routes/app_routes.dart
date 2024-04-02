@@ -7,6 +7,7 @@ import 'package:moga/features/auth/presentation/views/manager/auth/auth_cubit.da
 import 'package:moga/features/auth/presentation/views/send_code_view.dart';
 import 'package:moga/features/auth/presentation/views/sign_up_view.dart';
 import 'package:moga/features/home/presentation/views/home_view.dart';
+import 'package:moga/onboarding.dart';
 
 import '../services/service_locator.dart';
 
@@ -27,8 +28,9 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: AppRoutes.initialRoute,
-        builder: (context, state) => const HomeView(),
-      ), GoRoute(
+        builder: (context, state) => const OnBoardingView(),
+      ),
+      GoRoute(
         path: AppRoutes.home,
         builder: (context, state) => const HomeView(),
       ),
