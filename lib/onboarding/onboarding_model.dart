@@ -14,28 +14,23 @@ class OnBoardingModel {
   static List<OnBoardingModel> onBoardingScreens = [
     OnBoardingModel(
         imgPath: AppImages.on1,
-        title:
-            "Lorem ipsum dolor \nsit amet, consectetur adipiscing \n elit placerat. ",
+        title: "Welcome to Mogha! Entertainment where connecting with friends",
         subTitle: Strings.password),
     OnBoardingModel(
         imgPath: AppImages.on2,
-        title:
-            "Lorem ipsum dolor \nsit amet, consectetur adipiscing \n elit placerat. ",
+        title: " sharing moments, and discovering new content",
         subTitle: Strings.password),
     OnBoardingModel(
         imgPath: AppImages.on3,
-        title:
-            "Lorem ipsum dolor \nsit amet, consectetur adipiscing \n elit placerat. ",
+        title: "Express yourself through photos, videos, and stories.",
         subTitle: Strings.password),
     OnBoardingModel(
         imgPath: AppImages.on4,
-        title:
-            "Lorem ipsum dolor \nsit amet, consectetur adipiscing \n elit placerat. ",
+        title: "Endless possibilities. Let's make memories together!",
         subTitle: Strings.password),
     OnBoardingModel(
         imgPath: AppImages.on5,
-        title:
-            "Lorem ipsum dolor \nsit amet, consectetur adipiscing \n elit placerat. ",
+        title: "Start intaractiving with share and emogis",
         subTitle: Strings.password),
   ];
 }

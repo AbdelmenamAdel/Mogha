@@ -1,13 +1,13 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/widgets/custom_navigate.dart';
 import 'package:moga/onboarding/onboarding_model.dart';
 import 'package:rive/rive.dart';
 import 'core/utils/app_images.dart';
+import 'onboarding/custom_pagination_builder.dart';
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({super.key});
@@ -46,7 +46,6 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                     _currentIndex = index;
                   });
                 },
-                // loop: false,
                 itemBuilder: (context, index) {
                   return _buildPage(
                     title: OnBoardingModel.onBoardingScreens[index].title,
@@ -138,7 +137,10 @@ class _OnBoardingViewState extends State<OnBoardingView> {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.displaySmall,
+            style: Theme.of(context)
+                .textTheme
+                .displayMedium!
+                .copyWith(fontWeight: FontWeight.w400),
           ),
           const SizedBox(height: 10),
         ],
@@ -148,7 +150,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 }
 
 ////////////////////////////////////////////////////////////////////?
-
+/*
 class PNetworkImage extends StatelessWidget {
   final String image;
   final BoxFit? fit;
@@ -172,72 +174,4 @@ class PNetworkImage extends StatelessWidget {
     );
   }
 }
-
-//////////////////////////////////////////////////////////////?
-
-class CustomPaginationBuilder extends SwiperPlugin {
-  final Color? activeColor;
-  final Color? color;
-  final Size activeSize;
-  final Size size;
-  final double space;
-
-  final Key? key;
-
-  const CustomPaginationBuilder(
-      {this.activeColor,
-      this.color,
-      this.key,
-      this.size = const Size(10.0, 2.0),
-      this.activeSize = const Size(10.0, 2.0),
-      this.space = 3.0});
-
-  @override
-  Widget build(BuildContext context, SwiperPluginConfig config) {
-    ThemeData themeData = Theme.of(context);
-    Color activeColor = this.activeColor ?? themeData.primaryColor;
-    Color color = this.color ?? themeData.scaffoldBackgroundColor;
-
-    List<Widget> list = [];
-
-    if (config.itemCount > 20) {
-      print(
-          "The itemCount is too big, we suggest use FractionPaginationBuilder instead of DotSwiperPaginationBuilder in this sitituation");
-    }
-
-    int itemCount = config.itemCount;
-    int activeIndex = config.activeIndex;
-
-    for (int i = 0; i < itemCount; ++i) {
-      bool active = i == activeIndex;
-      Size size = active ? activeSize : this.size;
-      list.add(SizedBox(
-        width: size.width,
-        height: size.height,
-        child: Container(
-          decoration: BoxDecoration(
-              color: active ? activeColor : color,
-              borderRadius: BorderRadius.circular(10.0)),
-          key: Key("pagination_$i"),
-          margin: EdgeInsets.all(space),
-        ),
-      ));
-    }
-
-    if (config.scrollDirection == Axis.vertical) {
-      return Column(
-        key: key,
-        mainAxisSize: MainAxisSize.min,
-        children: list,
-      );
-    } else {
-      return Row(
-        key: key,
-        mainAxisSize: MainAxisSize.min,
-        children: list,
-      );
-    }
-  }
-}
-//////////////////////////////////////////////////////////////?
-
+*/

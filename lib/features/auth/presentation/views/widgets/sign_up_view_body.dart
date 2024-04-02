@@ -3,14 +3,18 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/widgets/custom_image_picker.dart';
+import 'package:moga/core/widgets/custom_navigate.dart';
 import 'package:moga/core/widgets/custom_pick_image.dart';
+import 'package:moga/core/widgets/custom_profile_image.dart';
 import 'package:moga/core/widgets/custom_text_form_field.dart';
 import 'package:moga/core/local/app_local.dart';
 import 'package:rive/rive.dart';
@@ -28,8 +32,6 @@ class SignUpViewBody extends StatefulWidget {
 }
 
 class _SignUpViewBodyState extends State<SignUpViewBody> {
-  File? selectedImage;
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -55,72 +57,12 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 child: Column(
                   children: [
                     const Expanded(child: SizedBox()),
+                    CustomImageProfile(),
                     Expanded(
                       flex: 4,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Stack(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return ImagePickerComponent(
-                                          cameraOnTap: () async {
-                                            pickImage(ImageSource.camera).then(
-                                              (value) {
-                                                setState(() {
-                                                  selectedImage =
-                                                      File(value!.path);
-                                                });
-                                              },
-                                            );
-                                            GoRouter.of(context).pop();
-                                          },
-                                          galleryOnTap: () {
-                                            pickImage(ImageSource.gallery).then(
-                                              (value) {
-                                                setState(() {
-                                                  selectedImage =
-                                                      File(value!.path);
-                                                });
-                                              },
-                                            );
-                                            GoRouter.of(context).pop();
-                                          },
-                                        );
-                                      });
-                                },
-                                child: selectedImage == null
-                                    ? const CircleAvatar(
-                                        radius: 40,
-                                        backgroundImage:
-                                            AssetImage(AppImages.appIcon),
-                                      )
-                                    : CircleAvatar(
-                                        radius: 40,
-                                        backgroundImage:
-                                            FileImage(selectedImage!),
-                                      ),
-                              ),
-                              Positioned.fill(
-                                child: BackdropFilter(
-                                  filter: ImageFilter.blur(sigmaX: .4, sigmaY: .2),
-                                  child:   IconButton(
-                                    onPressed: () {},
-                                    icon:const Icon(
-                                      Icons.add,
-                                      color: AppColors.kPrimary,
-                                      size: 32,
-                                    ),
-                                  ),
-                                ),
-                              ),
-
-                            ],
-                          ),
                           Text(
                             '${Strings.signUp.tr(context)} ${Strings.mogha.tr(context)}',
                             style: Theme.of(context).textTheme.titleMedium,
@@ -149,7 +91,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.pop(context);
+                                  context.navigate(AppRoutes.login, context);
                                 },
                                 child: Text(
                                   Strings.signIn.tr(context),
