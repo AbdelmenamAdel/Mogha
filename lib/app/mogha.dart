@@ -31,7 +31,9 @@ class Mogha extends StatelessWidget {
                 Locale('en', "US"),
                 Locale('ar', "EG"),
               ],
-              locale: Locale(BlocProvider.of<GlobalCubit>(context).langCode),
+              locale: Locale(
+                BlocProvider.of<GlobalCubit>(context).langCode,
+              ),
               debugShowCheckedModeBanner: false,
               routerConfig: AppRouter.route,
               theme: getAppDarkTheme(),

@@ -1,9 +1,10 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
+import 'package:moga/core/routes/app_routes.dart';
+import 'package:moga/core/widgets/custom_navigate.dart';
 import 'package:moga/onboarding/onboarding_model.dart';
 import 'package:rive/rive.dart';
 import 'core/utils/app_images.dart';
@@ -100,7 +101,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               if (_currentIndex < _pageCount - 1) {
                 _swiperController.next();
               } else {
-                // Navigator.of(context).pushReplacementNamed('challenge_home');
+                context.navigate(AppRoutes.signUp, context);
               }
             },
           )
@@ -110,8 +111,6 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   }
 
   Widget _buildPage({required String title, required String image}) {
-    const TextStyle titleStyle =
-        TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0);
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 75.0, vertical: 150),
@@ -139,7 +138,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: titleStyle.copyWith(color: Colors.white),
+            style: Theme.of(context).textTheme.displaySmall,
           ),
           const SizedBox(height: 10),
         ],
