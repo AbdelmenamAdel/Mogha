@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hidable/hidable.dart';
-import 'package:moga/core/local/app_local.dart';
-import 'package:moga/core/utils/app_colors.dart';
-import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/utils/custom_gnav_bar.dart';
 import 'package:moga/features/home/presentation/views/widgets/custom_app_bar.dart';
 
