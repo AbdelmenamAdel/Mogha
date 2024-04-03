@@ -8,6 +8,7 @@ import 'package:moga/features/auth/presentation/views/send_code_view.dart';
 import 'package:moga/features/auth/presentation/views/sign_up_view.dart';
 import 'package:moga/features/home/presentation/views/home_view.dart';
 import 'package:moga/onboarding.dart';
+import 'package:moga/onboarding/splach_view.dart';
 
 import '../services/service_locator.dart';
 
@@ -15,6 +16,7 @@ class AppRoutes {
   static const String initialRoute = '/';
   static const String chageLang = '/chageLang';
   static const String login = '/login';
+  static const String onBoarding = '/onBoarding';
   static const String sendCode = '/sendCode';
   static const String profileHome = '/profileHome';
   static const String settings = '/settings';
@@ -28,6 +30,10 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: AppRoutes.initialRoute,
+        builder: (context, state) => const SplashScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.onBoarding,
         builder: (context, state) => const OnBoardingView(),
       ),
       GoRoute(

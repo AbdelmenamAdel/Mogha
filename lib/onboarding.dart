@@ -2,11 +2,14 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
+import 'package:moga/core/database/cache/cache_helper.dart';
 import 'package:moga/core/routes/app_routes.dart';
+import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/widgets/custom_navigate.dart';
 import 'package:moga/onboarding/onboarding_model.dart';
 import 'package:rive/rive.dart';
 import 'core/utils/app_images.dart';
+import 'core/utils/app_strings.dart';
 import 'onboarding/custom_pagination_builder.dart';
 
 class OnBoardingView extends StatefulWidget {
@@ -100,7 +103,14 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               if (_currentIndex < _pageCount - 1) {
                 _swiperController.next();
               } else {
-                context.navigate(AppRoutes.signUp, context);
+                await sl<CacheHelper>()
+                    .saveData(key: Strings.onBoardingKey, value: true)
+                    .then((value) {
+                  debugPrint('onBoarding is Visited');
+                  context.navigate(AppRoutes.chageLang, context);
+                }).catchError((e) {
+                  debugPrint(e.toString());
+                });
               }
             },
           )
