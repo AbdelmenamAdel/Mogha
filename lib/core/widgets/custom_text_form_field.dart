@@ -7,6 +7,7 @@ class CustomTextFormField extends StatelessWidget {
     super.key,
     required this.hintText,
     this.icon,
+    this.onPressed,
     this.type = TextInputType.text,
     this.isPassword = false,
     this.onChanged,
@@ -26,6 +27,7 @@ class CustomTextFormField extends StatelessWidget {
   final void Function(String)? onChanged;
   final TextEditingController? controller;
   final IconData? s_icon;
+  final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -54,7 +56,13 @@ class CustomTextFormField extends StatelessWidget {
           border: InputBorder.none,
           hintMaxLines: 1,
           hintText: hintText,
-          suffixIcon: Icon(s_icon),
+          suffixIcon: IconButton(
+            onPressed: onPressed,
+            icon: Icon(
+              s_icon,
+              color: AppColors.kPrimary,
+            ),
+          ),
           hintStyle: TextStyle(
             fontSize: 14,
             color: Colors.white.withOpacity(.5),
