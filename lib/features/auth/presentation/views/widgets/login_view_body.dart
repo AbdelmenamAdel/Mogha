@@ -70,6 +70,7 @@ class LoginViewBody extends StatelessWidget {
                                   icon: Icons.email_outlined,
                                   hintText: Strings.email.tr(context),
                                   type: TextInputType.emailAddress,
+                                  controller: cubit.emailController,
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       ScaffoldMessenger.of(context)
@@ -82,6 +83,9 @@ class LoginViewBody extends StatelessWidget {
                                   },
                                 ),
                                 CustomTextFormField(
+                                  controller: cubit.passwordController,
+                                  isPassword: cubit.isPassword,
+                                  s_icon: cubit.secure,
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       ScaffoldMessenger.of(context)
@@ -103,11 +107,14 @@ class LoginViewBody extends StatelessWidget {
                             scale: scale,
                             text: Strings.signIn.tr(context),
                             onTap: () {
-                              if (cubit.loginformkey.currentState!.validate()) {
-                                // context.navigate(AppRoutes.signUp,context);
+                              if (cubit.loginformkey.currentState?.validate() ??
+                                  true) {
                                 HapticFeedback.lightImpact();
                                 Fluttertoast.showToast(
-                                  msg: 'SIGN-IN button pressed',
+                                    msg: 'SIGN-IN button pressed');
+                                cubit.login(
+                                  email: cubit.emailController.text,
+                                  password: cubit.passwordController.text,
                                 );
                               }
                             },

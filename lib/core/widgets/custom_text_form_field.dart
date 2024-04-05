@@ -6,12 +6,14 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     super.key,
     required this.hintText,
-     this.icon,
+    this.icon,
     this.type = TextInputType.text,
     this.isPassword = false,
     this.onChanged,
     this.onSaved,
     this.onFieldSubmitted,
+    this.controller,
+    this.s_icon,
   });
 
   final bool isPassword;
@@ -22,7 +24,8 @@ class CustomTextFormField extends StatelessWidget {
   final void Function(String)? onFieldSubmitted;
   final void Function(String?)? onSaved;
   final void Function(String)? onChanged;
-
+  final TextEditingController? controller;
+  final IconData? s_icon;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -42,6 +45,7 @@ class CustomTextFormField extends StatelessWidget {
         style: TextStyle(color: AppColors.white.withOpacity(.9)),
         obscureText: isPassword,
         keyboardType: type,
+        controller: controller,
         decoration: InputDecoration(
           prefixIcon: Icon(
             icon,
@@ -50,6 +54,7 @@ class CustomTextFormField extends StatelessWidget {
           border: InputBorder.none,
           hintMaxLines: 1,
           hintText: hintText,
+          suffixIcon: Icon(s_icon),
           hintStyle: TextStyle(
             fontSize: 14,
             color: Colors.white.withOpacity(.5),

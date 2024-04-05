@@ -1,9 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:moga/features/auth/data/firebase/firebase_auth_repo_services_implementation.dart';
-
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -11,10 +10,23 @@ class AuthCubit extends Cubit<AuthState> {
   final AuthRepoImplementation authRepo;
   GlobalKey<FormState> loginformkey = GlobalKey<FormState>();
   GlobalKey<FormState> signupformkey = GlobalKey<FormState>();
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   late Either<String, String> res;
+  bool isPassword = true;
+  IconData? secure = Icons.visibility_off;
+  void togglePassword() {
+    emit(IsPasswordLoadingState());
+    isPassword = !isPassword;
+    secure = isPassword ? Icons.visibility_off : Icons.visibility;
+    emit(IsPasswordSuccessState());
+  }
+
   Future<void> register({
     required String email,
     required String password,
+    required String userName,
   }) async {
     emit(RegisterLoadingState());
     res = await authRepo.register(
@@ -29,6 +41,10 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
+  Future<UserCredential> registerWithGoogle() async {
+    return await authRepo.registerWithGoogle();
+  }
+
   Future<void> login({
     required String email,
     required String password,
@@ -38,6 +54,7 @@ class AuthCubit extends Cubit<AuthState> {
       email: email,
       password: password,
     );
+
     res.fold((failure) {
       emit(LoginErrorState());
     }, (success) {

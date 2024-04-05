@@ -41,19 +41,13 @@ class ChangeLangView extends StatelessWidget {
                 const SizedBox(),
                 Text(
                   'Welcome to Mogha App',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(fontSize: 30),
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 SizedBox(height: 54.h),
                 Text(
                   'Please choose your language ',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context)
-                      .textTheme
-                      .displaySmall!
-                      .copyWith(fontSize: 22),
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
                 SizedBox(
                   height: 120.h,
@@ -64,7 +58,8 @@ class ChangeLangView extends StatelessWidget {
                       children: [
                         CustomButton(
                           onPressed: () {
-                            BlocProvider.of<GlobalCubit>(context).changeLang('ar');
+                            BlocProvider.of<GlobalCubit>(context)
+                                .changeLang('ar');
                             context.navigate(AppRoutes.login, context);
                           },
                           text: 'العربية',
@@ -72,7 +67,8 @@ class ChangeLangView extends StatelessWidget {
                         const Spacer(),
                         CustomButton(
                           onPressed: () {
-                            BlocProvider.of<GlobalCubit>(context).changeLang('en');
+                            BlocProvider.of<GlobalCubit>(context)
+                                .changeLang('en');
                             context.navigate(AppRoutes.login, context);
                           },
                           text: 'English',

@@ -2,12 +2,13 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:moga/features/auth/data/firebase/firebase_auth_repo_services.dart';
 
 class AuthRepoImplementation implements FirebaseAuthRepository {
   AuthRepoImplementation();
 
-   UserCredential? user;
+  UserCredential? user;
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
@@ -31,6 +32,25 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
       log(e.toString());
       return Left(e.toString());
     }
+  }
+
+  @override
+  Future<UserCredential> registerWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   @override

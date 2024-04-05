@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class FirebaseAuthRepository {
   Future<Either<String, String>> login({
@@ -10,6 +11,7 @@ abstract class FirebaseAuthRepository {
     required String email,
     required String password,
   });
+  Future<UserCredential> registerWithGoogle();
 
   Future<Either<String, String>> forgetPassword({
     required String email,

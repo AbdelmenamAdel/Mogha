@@ -6,6 +6,7 @@ import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/widgets/custom_navigate.dart';
 import 'package:moga/core/widgets/custom_rich_text.dart';
 import 'package:moga/core/widgets/custom_toast.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomRow extends StatelessWidget {
   const CustomRow({super.key});
@@ -22,14 +23,14 @@ class CustomRow extends StatelessWidget {
             onTap: () {
               HapticFeedback.lightImpact();
               showToast(message: 'clicked');
-              context.navigate(AppRoutes.sendCode, context);
+              GoRouter.of(context).pushReplacement(AppRoutes.signUp);
             },
           ),
           const Spacer(),
           CustomRichText(
             text: Strings.cNA.tr(context),
             onTap: () {
-              context.navigate(AppRoutes.signUp,context);
+              context.navigate(AppRoutes.signUp, context);
               HapticFeedback.lightImpact();
               showToast(message: 'clicked');
             },

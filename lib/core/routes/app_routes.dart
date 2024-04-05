@@ -49,7 +49,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.signUp,
-        builder: (context, state) => const SignUpView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl.get<AuthCubit>(),
+          child: const SignUpView(),
+        ),
       ),
       GoRoute(
         path: AppRoutes.chageLang,
