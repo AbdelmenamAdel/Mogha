@@ -9,8 +9,10 @@ import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/core/utils/app_strings.dart';
+import 'package:moga/core/widgets/custom_loading_indecator.dart';
 import 'package:moga/core/widgets/custom_navigate.dart';
 import 'package:moga/core/widgets/custom_text_form_field.dart';
+import 'package:moga/core/widgets/delayed_widget.dart';
 import 'package:moga/features/auth/presentation/views/manager/auth/auth_cubit.dart';
 import 'package:rive/rive.dart';
 import 'custom_row.dart';
@@ -36,8 +38,9 @@ class LoginViewBody extends StatelessWidget {
                   isCircle: false,
                   color: AppColors.background)
               .show(context);
-        }
-        if (state is LoginSuccessState) {
+        } else if (state is LoginLoadingState) {
+          DelayedWidget(child: Scaffold(body: CustomLoadingIndicator()));
+        } else {
           context.navigate(AppRoutes.home, context);
         }
       },
