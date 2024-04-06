@@ -9,7 +9,19 @@ final class IsPasswordLoadingState extends AuthState {}
 
 final class IsPasswordSuccessState extends AuthState {}
 
+final class ForgetPasswordLoadingState extends AuthState {}
+
+final class ForgetPasswordsuccessState extends AuthState {}
+
+final class ForgetPasswordFailureState extends AuthState {}
+
 final class RegisterLoadingState extends AuthState {}
+
+final class CreateUserLoadingState extends AuthState {}
+
+final class CreateUserSuccessState extends AuthState {}
+
+final class CreateUserFailureState extends AuthState {}
 
 final class RegisterSuccessState extends AuthState {}
 

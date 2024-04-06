@@ -1,14 +1,17 @@
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:moga/features/auth/data/firebase/firebase_auth_repo_services.dart';
 
+import '../models/create_user.dart';
+
 class AuthRepoImplementation implements FirebaseAuthRepository {
   AuthRepoImplementation();
 
-  UserCredential? user;
+  UserCredential? currentUser;
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
@@ -17,7 +20,7 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
     required String password,
   }) async {
     try {
-      user = await _auth.signInWithEmailAndPassword(
+      currentUser = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       return const Right('Login Sussefully');
     } on FirebaseAuthException catch (e) {
@@ -57,9 +60,10 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
   Future<Either<String, String>> register({
     required String email,
     required String password,
+    required String userName,
   }) async {
     try {
-      user = await _auth.createUserWithEmailAndPassword(
+      currentUser = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       return const Right('registered Sussefully');
     } on FirebaseAuthException catch (e) {
@@ -88,6 +92,31 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
         return Left(e.code.toString());
       }
     } catch (e) {
+      return Left(e.toString());
+    }
+  }
+
+  @override
+  Future<Either<String, String>> createUser({
+    required String email,
+    required String password,
+    required String userName,
+    required String uId,
+  }) async {
+    try {
+      UserModel model = UserModel(
+        email: email,
+        userName: userName,
+        password: password,
+        uId: uId,
+      );
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uId)
+          .set(model.toMap());
+      return const Right('Created Sussefully');
+    } catch (e) {
+      log(e.toString());
       return Left(e.toString());
     }
   }

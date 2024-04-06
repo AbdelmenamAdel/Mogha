@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moga/features/auth/data/firebase/firebase_auth_repo_services_implementation.dart';
+
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -32,17 +33,59 @@ class AuthCubit extends Cubit<AuthState> {
     res = await authRepo.register(
       email: email,
       password: password,
+      userName: userName,
     );
 
     res.fold((failure) {
       emit(RegisterErrorState());
     }, (success) {
       emit(RegisterSuccessState());
+      createUser(
+        email: email,
+        password: password,
+        userName: userName,
+        uId: FirebaseAuth.instance.currentUser!.uid,
+      );
     });
   }
 
   Future<UserCredential> registerWithGoogle() async {
     return await authRepo.registerWithGoogle();
+  }
+
+  void createUser({
+    required String email,
+    required String password,
+    required String userName,
+    required String uId,
+  }) async {
+    emit(CreateUserLoadingState());
+    try {
+      res = await authRepo.createUser(
+        email: email,
+        password: password,
+        userName: userName,
+        uId: uId,
+      );
+      emit(CreateUserSuccessState());
+    } catch (e) {
+      emit(CreateUserFailureState());
+    }
+  }
+
+  Future<void> forgetPassword({
+    required String email,
+  }) async {
+    emit(ForgetPasswordLoadingState());
+
+    try {
+      res = await authRepo.forgetPassword(
+        email: email,
+      );
+      emit(ForgetPasswordsuccessState());
+    } catch (e) {
+      emit(ForgetPasswordFailureState());
+    }
   }
 
   Future<void> login({

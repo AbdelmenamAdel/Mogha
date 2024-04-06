@@ -58,6 +58,7 @@ dependencies:
   flutter_swiper_null_safety: ^1.0.2
   lottie: ^3.1.0
   google_sign_in: ^6.2.1
+  cloud_firestore: ^4.16.0
   # persistent_bottom_nav_bar: ^5.0.2
 
 dev_dependencies:

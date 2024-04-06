@@ -6,10 +6,17 @@ abstract class FirebaseAuthRepository {
     required String email,
     required String password,
   });
+  Future<Either<String, String>> createUser({
+    required String email,
+    required String password,
+    required String userName,
+    required String uId,
+  });
 
   Future<Either<String, String>> register({
     required String email,
     required String password,
+    required String userName,
   });
   Future<UserCredential> registerWithGoogle();
 
