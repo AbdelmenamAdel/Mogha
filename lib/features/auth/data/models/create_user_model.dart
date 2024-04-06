@@ -3,11 +3,13 @@ class UserModel {
   String userName;
   String password;
   String uId;
+  bool isEmailVerified;
   UserModel({
     required this.email,
     required this.userName,
     required this.password,
     required this.uId,
+    required this.isEmailVerified,
   });
 
   Map<String, dynamic> toMap() {
@@ -16,6 +18,7 @@ class UserModel {
       'userName': userName,
       'password': password,
       'uId': uId,
+      'isEmailVerified': isEmailVerified,
     };
   }
 
@@ -25,6 +28,7 @@ class UserModel {
       userName: json['userName'],
       password: json['password'],
       uId: json['uId'],
+      isEmailVerified: json['isEmailVerified'],
     );
   }
 }

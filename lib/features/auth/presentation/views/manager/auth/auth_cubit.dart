@@ -45,6 +45,7 @@ class AuthCubit extends Cubit<AuthState> {
         password: password,
         userName: userName,
         uId: FirebaseAuth.instance.currentUser!.uid,
+        isEmailVerified: FirebaseAuth.instance.currentUser!.emailVerified,
       );
     });
   }
@@ -58,6 +59,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String password,
     required String userName,
     required String uId,
+    required bool isEmailVerified,
   }) async {
     emit(CreateUserLoadingState());
     try {
@@ -66,6 +68,7 @@ class AuthCubit extends Cubit<AuthState> {
         password: password,
         userName: userName,
         uId: uId,
+        isEmailVerified: isEmailVerified,
       );
       emit(CreateUserSuccessState());
     } catch (e) {

@@ -11,6 +11,7 @@ abstract class FirebaseAuthRepository {
     required String password,
     required String userName,
     required String uId,
+    required bool isEmailVerified,
   });
 
   Future<Either<String, String>> register({

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:moga/features/auth/data/firebase/firebase_auth_repo_services.dart';
 
-import '../models/create_user.dart';
+import '../models/create_user_model.dart';
 
 class AuthRepoImplementation implements FirebaseAuthRepository {
   AuthRepoImplementation();
@@ -102,6 +102,7 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
     required String password,
     required String userName,
     required String uId,
+    required isEmailVerified,
   }) async {
     try {
       UserModel model = UserModel(
@@ -109,6 +110,7 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
         userName: userName,
         password: password,
         uId: uId,
+        isEmailVerified: isEmailVerified,
       );
       await FirebaseFirestore.instance
           .collection('users')
