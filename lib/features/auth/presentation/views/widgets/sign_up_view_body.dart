@@ -1,3 +1,4 @@
+import 'package:achievement_view/achievement_view.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flutter/services.dart';
@@ -30,136 +31,153 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     AuthCubit cubit = BlocProvider.of<AuthCubit>(context);
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: Stack(
-        children: [
-          const RiveAnimation.asset(
-            AppImages.rivBackground,
-            fit: BoxFit.cover,
-          ),
-          Positioned.fill(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 4, sigmaY: 2),
-              child: const SizedBox(),
-            ),
-          ),
-          ScrollConfiguration(
-            behavior: MyBehavior(),
-            child: SingleChildScrollView(
-              child: SizedBox(
-                height: height,
-                child: Form(
-                  key: cubit.signupformkey,
-                  child: Column(
-                    children: [
-                      const Expanded(child: SizedBox()),
-                      CustomImageProfile(),
-                      Expanded(
-                        flex: 4,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              '${Strings.signUp.tr(context)} ${Strings.mogha.tr(context)}',
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            const SizedBox(),
-                            CustomTextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            content: Text(
-                                                'please fill all fields')));
-                                    return '';
-                                  }
-                                  return null;
-                                },
-                                controller: cubit.userNameController,
-                                icon: Icons.account_circle_outlined,
-                                hintText: Strings.userName.tr(context)),
-                            CustomTextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            content: Text(
-                                                'please fill all fields')));
-                                    return '';
-                                  }
-                                  return null;
-                                },
-                                controller: cubit.emailController,
-                                icon: Icons.email_outlined,
-                                hintText: Strings.email.tr(context),
-                                type: TextInputType.emailAddress),
-                            CustomTextFormField(
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          content:
-                                              Text('please fill all fields')));
-                                  return '';
-                                }
-                                return null;
-                              },
-                              controller: cubit.passwordController,
-                              icon: Icons.lock_outline,
-                              hintText: Strings.password.tr(context),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is RegisterErrorState) {
+          AchievementView(
+                  title: "Please,",
+                  subTitle: "Enter a valid data!",
+                  isCircle: false,
+                  color: AppColors.background)
+              .show(context);
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: AppColors.background,
+          body: Stack(
+            children: [
+              const RiveAnimation.asset(
+                AppImages.rivBackground,
+                fit: BoxFit.cover,
+              ),
+              Positioned.fill(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 4, sigmaY: 2),
+                  child: const SizedBox(),
+                ),
+              ),
+              ScrollConfiguration(
+                behavior: MyBehavior(),
+                child: SingleChildScrollView(
+                  child: SizedBox(
+                    height: height,
+                    child: Form(
+                      key: cubit.signupformkey,
+                      child: Column(
+                        children: [
+                          const Expanded(child: SizedBox()),
+                          CustomImageProfile(),
+                          Expanded(
+                            flex: 4,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(
-                                  'Do you hava an account ?  ',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall!
-                                      .copyWith(fontSize: 14),
+                                  '${Strings.signUp.tr(context)} ${Strings.mogha.tr(context)}',
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    GoRouter.of(context)
-                                        .pushReplacement(AppRoutes.login);
+                                const SizedBox(),
+                                CustomTextFormField(
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    'please fill all fields')));
+                                        return '';
+                                      }
+                                      return null;
+                                    },
+                                    controller: cubit.userNameController,
+                                    icon: Icons.account_circle_outlined,
+                                    hintText: Strings.userName.tr(context)),
+                                CustomTextFormField(
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    'please fill all fields')));
+                                        return '';
+                                      }
+                                      return null;
+                                    },
+                                    controller: cubit.emailController,
+                                    icon: Icons.email_outlined,
+                                    hintText: Strings.email.tr(context),
+                                    type: TextInputType.emailAddress),
+                                CustomTextFormField(
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content: Text(
+                                                  'please fill all fields')));
+                                      return '';
+                                    }
+                                    return null;
                                   },
-                                  child: Text(
-                                    Strings.signIn.tr(context),
-                                    style:
-                                        Theme.of(context).textTheme.labelSmall,
-                                  ),
+                                  controller: cubit.passwordController,
+                                  icon: Icons.lock_outline,
+                                  hintText: Strings.password.tr(context),
                                 ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Do you hava an account ?  ',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displaySmall!
+                                          .copyWith(fontSize: 14),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        GoRouter.of(context)
+                                            .pushReplacement(AppRoutes.login);
+                                      },
+                                      child: Text(
+                                        Strings.signIn.tr(context),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelSmall,
+                                      ),
+                                    ),
+                                  ],
+                                )
                               ],
-                            )
-                          ],
-                        ),
+                            ),
+                          ),
+                          CustomSignButton(
+                            scale: widget.scale,
+                            text: Strings.signUp.tr(context),
+                            onTap: () {
+                              if (cubit.signupformkey.currentState!
+                                  .validate()) {
+                                cubit.register(
+                                  email: cubit.emailController.text,
+                                  password: cubit.passwordController.text,
+                                  userName: cubit.userNameController.text,
+                                );
+                                HapticFeedback.lightImpact();
+                                Fluttertoast.showToast(
+                                  msg: 'SIGN-IN button pressed',
+                                );
+                              }
+                            },
+                          ),
+                        ],
                       ),
-                      CustomSignButton(
-                        scale: widget.scale,
-                        text: Strings.signUp.tr(context),
-                        onTap: () {
-                          if (cubit.signupformkey.currentState!.validate()) {
-                            cubit.register(
-                              email: cubit.emailController.text,
-                              password: cubit.passwordController.text,
-                              userName: cubit.userNameController.text,
-                            );
-                            HapticFeedback.lightImpact();
-                            Fluttertoast.showToast(
-                              msg: 'SIGN-IN button pressed',
-                            );
-                          }
-                        },
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

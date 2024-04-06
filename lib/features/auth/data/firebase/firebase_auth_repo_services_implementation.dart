@@ -4,6 +4,8 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:moga/core/database/cache/cache_helper.dart';
+import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/features/auth/data/firebase/firebase_auth_repo_services.dart';
 
 import '../models/create_user_model.dart';
@@ -21,7 +23,13 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
   }) async {
     try {
       currentUser = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
+      sl<CacheHelper>().saveData(
+        key: 'uId',
+        value: currentUser!.user!.uid,
+      );
       return const Right('Login Sussefully');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

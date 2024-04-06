@@ -1,12 +1,15 @@
 import 'dart:ui';
+import 'package:achievement_view/achievement_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:moga/core/local/app_local.dart';
+import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/core/utils/app_strings.dart';
+import 'package:moga/core/widgets/custom_navigate.dart';
 import 'package:moga/core/widgets/custom_text_form_field.dart';
 import 'package:moga/features/auth/presentation/views/manager/auth/auth_cubit.dart';
 import 'package:rive/rive.dart';
@@ -26,7 +29,17 @@ class LoginViewBody extends StatelessWidget {
 
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is LoginErrorState) {}
+        if (state is LoginErrorState) {
+          AchievementView(
+                  title: "Please,",
+                  subTitle: "Enter a valid email and password",
+                  isCircle: false,
+                  color: AppColors.background)
+              .show(context);
+        }
+        if (state is LoginSuccessState) {
+          context.navigate(AppRoutes.home, context);
+        }
       },
       builder: (context, state) {
         return Scaffold(
@@ -111,8 +124,7 @@ class LoginViewBody extends StatelessWidget {
                             scale: scale,
                             text: Strings.signIn.tr(context),
                             onTap: () {
-                              if (cubit.loginformkey.currentState?.validate() ??
-                                  true) {
+                              if (cubit.loginformkey.currentState!.validate()) {
                                 HapticFeedback.lightImpact();
                                 Fluttertoast.showToast(
                                     msg: 'SIGN-IN button pressed');
