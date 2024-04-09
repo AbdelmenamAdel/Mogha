@@ -25,7 +25,11 @@ final class CreateUserFailureState extends AuthState {}
 
 final class RegisterSuccessState extends AuthState {}
 
-final class RegisterErrorState extends AuthState {}
+final class RegisterErrorState extends AuthState {
+  final String errMessage;
+
+  RegisterErrorState(this.errMessage);
+}
 
 final class LoginLoadingState extends AuthState {}
 

@@ -9,14 +9,15 @@ part 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this.authRepo) : super(AuthInitial());
   final AuthRepoImplementation authRepo;
-  GlobalKey<FormState> loginformkey = GlobalKey<FormState>();
-  GlobalKey<FormState> signupformkey = GlobalKey<FormState>();
+  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> signUpFormKey = GlobalKey<FormState>();
   TextEditingController userNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   late Either<String, String> res;
   bool isPassword = true;
   IconData? secure = Icons.visibility_off;
+
   void togglePassword() {
     emit(IsPasswordLoadingState());
     isPassword = !isPassword;
@@ -35,9 +36,8 @@ class AuthCubit extends Cubit<AuthState> {
       password: password,
       userName: userName,
     );
-
     res.fold((failure) {
-      emit(RegisterErrorState());
+      emit(RegisterErrorState(failure));
     }, (success) {
       emit(RegisterSuccessState());
       createUser(
@@ -108,18 +108,20 @@ class AuthCubit extends Cubit<AuthState> {
       emit(LoginSuccessState());
     });
   }
-  Future<void>sendEmailVerification({required String email})async{
-   await authRepo.sendEmailVerification(email: email);
-   debugPrint('email send');
+
+  Future<void> sendEmailVerification({required String email}) async {
+    await authRepo.sendEmailVerification(email: email);
+    debugPrint('email send');
   }
-  Future<bool>isEmailVerified()async{
-   try {
-   bool res= await authRepo.isEmailVerified();
-   emit(EmailVerifiedState());
-   return res;
-   } catch (e) {
-     emit(EmailIsNotVerifiedState());
-     return false;
-   }
+
+  Future<bool> isEmailVerified() async {
+    try {
+      bool res = await authRepo.isEmailVerified();
+      emit(EmailVerifiedState());
+      return res;
+    } catch (e) {
+      emit(EmailIsNotVerifiedState());
+      return false;
+    }
   }
 }

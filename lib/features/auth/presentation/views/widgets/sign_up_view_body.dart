@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_regex/flutter_regex.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/core/utils/app_strings.dart';
+import 'package:moga/core/widgets/custom_notifier.dart';
 import 'package:moga/core/widgets/custom_profile_image.dart';
 import 'package:moga/core/widgets/custom_text_form_field.dart';
 import 'package:moga/core/local/app_local.dart';
+import 'package:moga/core/widgets/custom_toast.dart';
 import 'package:moga/features/auth/presentation/views/manager/auth/auth_cubit.dart';
 import 'package:rive/rive.dart';
 import 'custom_sign_button.dart';
@@ -33,13 +36,18 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     AuthCubit cubit = BlocProvider.of<AuthCubit>(context);
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is RegisterErrorState) {
-          AchievementView(
-                  title: "Please,",
-                  subTitle: "Enter a valid data!",
-                  isCircle: false,
-                  color: AppColors.background)
-              .show(context);
+
+        if (state is RegisterSuccessState) {
+         GoRouter.of(context).pop();
+         cubit.userNameController.clear();
+         cubit.emailController.clear();
+         cubit.passwordController.clear();
+        }if(state is RegisterErrorState) {
+          showAchievementView(
+            context: context,
+            title: 'Firebase!',
+            subTitle: state.errMessage,
+          );
         }
       },
       builder: (context, state) {
@@ -63,7 +71,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   child: SizedBox(
                     height: height,
                     child: Form(
-                      key: cubit.signupformkey,
+                      key: cubit.signUpFormKey,
                       child: Column(
                         children: [
                           const Expanded(child: SizedBox()),
@@ -81,12 +89,13 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                                 const SizedBox(),
                                 CustomTextFormField(
                                     validator: (value) {
-                                      if (value!.isEmpty) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                content: Text(
-                                                    'please fill all fields')));
-                                        return '';
+                                      if (!value!.isUsername()) {
+                                        showAchievementView(
+                                          context: context,
+                                          title: "Please,",
+                                          subTitle: "Enter a valid name",
+                                        );
+                                      return null;
                                       }
                                       return null;
                                     },
@@ -95,12 +104,15 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                                     hintText: Strings.userName.tr(context)),
                                 CustomTextFormField(
                                     validator: (value) {
-                                      if (value!.isEmpty) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                content: Text(
-                                                    'please fill all fields')));
-                                        return '';
+                                      if (!value!.isEmail()&&(!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                          .hasMatch(value) ||
+                                          !value.contains('@gmail.com'))) {
+                                        showAchievementView(
+                                          context: context,
+                                          title: "Please,",
+                                          subTitle: "Enter a valid email",
+                                        );
+                                        return null;
                                       }
                                       return null;
                                     },
@@ -115,12 +127,18 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                                     cubit.togglePassword();
                                   },
                                   validator: (value) {
-                                    if (value!.isEmpty) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              content: Text(
-                                                  'please fill all fields')));
-                                      return '';
+                                    if (!value!.isPasswordHard()) {
+                                      showAchievementView(
+                                          context: context,
+                                          title: "Please,",
+                                          subTitle:
+                                          """Enter a strong password including
+                                          at least
+                                          1 capital char
+                                          1 special char
+                                          1 number """
+                                              );
+                                      return null;
                                     }
                                     return null;
                                   },
@@ -141,7 +159,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                                     GestureDetector(
                                       onTap: () {
                                         GoRouter.of(context)
-                                            .pushReplacement(AppRoutes.login);
+                                           .pop();
                                       },
                                       child: Text(
                                         Strings.signIn.tr(context),
@@ -159,7 +177,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                             scale: widget.scale,
                             text: Strings.signUp.tr(context),
                             onTap: () {
-                              if (cubit.signupformkey.currentState!
+                              if (cubit.signUpFormKey.currentState!
                                   .validate()) {
                                 cubit.register(
                                   email: cubit.emailController.text,

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moga/core/local/app_local.dart';
@@ -23,15 +24,13 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void navigate() async {
-    bool isVisted = await sl<CacheHelper>().getData(
-          key: Strings.onBoardingKey,
-        ) ??
-        false;
-    String? Logined = await sl<CacheHelper>().getData(key: 'uId') ?? null;
-
+    bool isVisted =
+        await sl<CacheHelper>().getData(key: Strings.onBoardingKey) ?? false;
+    bool emailVerified = await FirebaseAuth.instance.currentUser?.emailVerified??false;
+    print( FirebaseAuth.instance.currentUser);
     Future.delayed(
       const Duration(seconds: 2),
-      () => Logined==null
+      () => emailVerified
           ? context.navigate(AppRoutes.home, context)
           : isVisted
               ? context.navigate(AppRoutes.chageLang, context)

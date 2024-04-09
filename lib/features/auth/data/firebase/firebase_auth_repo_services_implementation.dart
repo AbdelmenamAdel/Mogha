@@ -13,7 +13,7 @@ import '../models/create_user_model.dart';
 class AuthRepoImplementation implements FirebaseAuthRepository {
 
  late UserCredential currentUser;
-  FirebaseAuth _auth = FirebaseAuth.instance;
+ late FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Future<Either<String, String>> login({

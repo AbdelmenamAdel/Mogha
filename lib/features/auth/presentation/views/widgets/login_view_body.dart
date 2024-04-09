@@ -1,15 +1,20 @@
 import 'dart:ui';
 import 'package:achievement_view/achievement_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-
+import 'package:flutter_regex/flutter_regex.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:moga/core/local/app_local.dart';
+import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/core/utils/app_strings.dart';
+import 'package:moga/core/widgets/custom_navigate.dart';
+import 'package:moga/core/widgets/custom_notifier.dart';
 import 'package:moga/core/widgets/custom_text_form_field.dart';
 import 'package:moga/features/auth/presentation/views/manager/auth/auth_cubit.dart';
 import 'package:rive/rive.dart';
@@ -30,21 +35,21 @@ class LoginViewBody extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is LoginErrorState) {
-          AchievementView(
-            title: "Please,",
-            subTitle: "Enter a valid email and password",
-            isCircle: false,
-            color: AppColors.blueGrey,
-          ).show(context);
+          // showAchievementView(
+          //  context:  context,
+          //  title:  "Please,",
+          //  subTitle:  "Enter a valid email and password"
+          // );
         }
         if (state is LoginLoadingState) {}
         if (state is LoginSuccessState) {
-          AchievementView(
-                  title: "check",
-                  subTitle: "your email verification link",
-                  isCircle: false,
-                  color: AppColors.blueGrey)
-              .show(context);
+          showAchievementView(
+              context: context,
+              title: "Check,",
+              subTitle: "Your email verification link");
+        }
+        if (state is EmailVerifiedState) {
+          context.navigate(AppRoutes.home, context);
         }
       },
       builder: (context, state) {
@@ -68,7 +73,7 @@ class LoginViewBody extends StatelessWidget {
                   child: SizedBox(
                     height: _height,
                     child: Form(
-                      key: cubit.loginformkey,
+                      key: cubit.loginFormKey,
                       child: Column(
                         children: [
                           Expanded(child: SizedBox()),
@@ -92,12 +97,15 @@ class LoginViewBody extends StatelessWidget {
                                   type: TextInputType.emailAddress,
                                   controller: cubit.emailController,
                                   validator: (value) {
-                                    if (value!.isEmpty) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              content: Text(
-                                                  'please fill all fields')));
-                                      return '';
+                                    if (!value!.isEmail()&&(!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                        .hasMatch(value) ||
+                                        !value.contains('@gmail.com'))) {
+                                      showAchievementView(
+                                        context: context,
+                                        title: "Please,",
+                                        subTitle: "Enter a valid email",
+                                      );
+                                      return null;
                                     }
                                     return null;
                                   },
@@ -107,22 +115,16 @@ class LoginViewBody extends StatelessWidget {
                                   isPassword: cubit.isPassword,
                                   s_icon: cubit.secure,
                                   onPressed: () {
-                                    CupertinoAlertDialog(
-                                      title: Text('verify your email address'),
-                                      content: TextButton(
-                                        onPressed: () {},
-                                        child: Text('resend verification link'),
-                                      ),
-                                    );
                                     cubit.togglePassword();
                                   },
                                   validator: (value) {
-                                    if (value!.isEmpty) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              content: Text(
-                                                  'please fill all fields')));
-                                      return '';
+                                    if (!value!.isPasswordNormal1()) {
+                                      showAchievementView(
+                                          context: context,
+                                          title: "Please,",
+                                          subTitle:
+                                              "Enter a valid password");
+                                      return null;
                                     }
                                     return null;
                                   },
@@ -137,7 +139,7 @@ class LoginViewBody extends StatelessWidget {
                             scale: scale,
                             text: Strings.signIn.tr(context),
                             onTap: () {
-                              if (cubit.loginformkey.currentState!.validate()) {
+                              if (cubit.loginFormKey.currentState!.validate()) {
                                 HapticFeedback.lightImpact();
                                 Fluttertoast.showToast(
                                     msg: 'SIGN-IN button pressed');

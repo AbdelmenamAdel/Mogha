@@ -1,10 +1,15 @@
+import 'package:image_picker/image_picker.dart';
+
 class UserModel {
   String email;
   String userName;
   String password;
   String uId;
   bool isEmailVerified;
+  XFile? profilePhoto;
+
   UserModel({
+    this.profilePhoto,
     required this.email,
     required this.userName,
     required this.password,
@@ -14,6 +19,7 @@ class UserModel {
 
   Map<String, dynamic> toMap() {
     return {
+      'profilePhoto':profilePhoto,
       'email': email,
       'userName': userName,
       'password': password,
@@ -27,6 +33,7 @@ class UserModel {
       email: json['email'],
       userName: json['userName'],
       password: json['password'],
+      profilePhoto:json['profilePhoto'],
       uId: json['uId'],
       isEmailVerified: json['isEmailVerified'],
     );
