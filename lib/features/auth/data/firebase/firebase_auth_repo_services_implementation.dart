@@ -11,9 +11,8 @@ import 'package:moga/features/auth/data/firebase/firebase_auth_repo_services.dar
 import '../models/create_user_model.dart';
 
 class AuthRepoImplementation implements FirebaseAuthRepository {
-  AuthRepoImplementation();
 
-  UserCredential? currentUser;
+ late UserCredential currentUser;
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
@@ -28,7 +27,7 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
       );
       sl<CacheHelper>().saveData(
         key: 'uId',
-        value: currentUser!.user!.uid,
+        value: currentUser.user!.uid,
       );
       return const Right('Login Sussefully');
     } on FirebaseAuthException catch (e) {
@@ -52,7 +51,7 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
 
     // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+    await googleUser?.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
@@ -91,7 +90,7 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
     required String email,
   }) async {
     try {
-      FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      _auth.sendPasswordResetEmail(email: email);
       return const Right('Code is sended sucessfully');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -128,6 +127,25 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
     } catch (e) {
       log(e.toString());
       return Left(e.toString());
+    }
+  }
+
+  @override
+  Future<void> sendEmailVerification({required String email}) async {
+ try {
+   _auth.currentUser!.sendEmailVerification();
+ }catch (e) {
+ log(e.toString());
+ }
+  }
+
+  @override
+  Future<bool> isEmailVerified() async{
+    try{
+   bool  emailVerified= await _auth.currentUser!.emailVerified;
+   return emailVerified==true;
+    }catch (e){
+      return false;
     }
   }
 }

@@ -1,18 +1,16 @@
 import 'dart:ui';
 import 'package:achievement_view/achievement_view.dart';
+import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:moga/core/local/app_local.dart';
-import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/core/utils/app_strings.dart';
-import 'package:moga/core/widgets/custom_loading_indecator.dart';
-import 'package:moga/core/widgets/custom_navigate.dart';
 import 'package:moga/core/widgets/custom_text_form_field.dart';
-import 'package:moga/core/widgets/delayed_widget.dart';
 import 'package:moga/features/auth/presentation/views/manager/auth/auth_cubit.dart';
 import 'package:rive/rive.dart';
 import 'custom_row.dart';
@@ -33,15 +31,20 @@ class LoginViewBody extends StatelessWidget {
       listener: (context, state) {
         if (state is LoginErrorState) {
           AchievementView(
-                  title: "Please,",
-                  subTitle: "Enter a valid email and password",
+            title: "Please,",
+            subTitle: "Enter a valid email and password",
+            isCircle: false,
+            color: AppColors.blueGrey,
+          ).show(context);
+        }
+        if (state is LoginLoadingState) {}
+        if (state is LoginSuccessState) {
+          AchievementView(
+                  title: "check",
+                  subTitle: "your email verification link",
                   isCircle: false,
-                  color: AppColors.background)
+                  color: AppColors.blueGrey)
               .show(context);
-        } else if (state is LoginLoadingState) {
-          DelayedWidget(child: Scaffold(body: CustomLoadingIndicator()));
-        } else {
-          context.navigate(AppRoutes.home, context);
         }
       },
       builder: (context, state) {
@@ -104,6 +107,13 @@ class LoginViewBody extends StatelessWidget {
                                   isPassword: cubit.isPassword,
                                   s_icon: cubit.secure,
                                   onPressed: () {
+                                    CupertinoAlertDialog(
+                                      title: Text('verify your email address'),
+                                      content: TextButton(
+                                        onPressed: () {},
+                                        child: Text('resend verification link'),
+                                      ),
+                                    );
                                     cubit.togglePassword();
                                   },
                                   validator: (value) {

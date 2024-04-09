@@ -27,11 +27,15 @@ class _SplashScreenState extends State<SplashScreen> {
           key: Strings.onBoardingKey,
         ) ??
         false;
+    String? Logined = await sl<CacheHelper>().getData(key: 'uId') ?? null;
+
     Future.delayed(
       const Duration(seconds: 2),
-      () => isVisted
-          ? context.navigate(AppRoutes.chageLang, context)
-          : context.navigate(AppRoutes.onBoarding, context),
+      () => Logined==null
+          ? context.navigate(AppRoutes.home, context)
+          : isVisted
+              ? context.navigate(AppRoutes.chageLang, context)
+              : context.navigate(AppRoutes.onBoarding, context),
     );
   }
 

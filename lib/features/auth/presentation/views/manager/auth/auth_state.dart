@@ -11,7 +11,7 @@ final class IsPasswordSuccessState extends AuthState {}
 
 final class ForgetPasswordLoadingState extends AuthState {}
 
-final class ForgetPasswordsuccessState extends AuthState {}
+final class ForgetPasswordSuccessState extends AuthState {}
 
 final class ForgetPasswordFailureState extends AuthState {}
 
@@ -32,3 +32,7 @@ final class LoginLoadingState extends AuthState {}
 final class LoginSuccessState extends AuthState {}
 
 final class LoginErrorState extends AuthState {}
+
+final class EmailVerifiedState extends AuthState {}
+
+final class EmailIsNotVerifiedState extends AuthState {}

@@ -71,6 +71,7 @@ class AuthCubit extends Cubit<AuthState> {
         isEmailVerified: isEmailVerified,
       );
       emit(CreateUserSuccessState());
+      sendEmailVerification(email: email);
     } catch (e) {
       emit(CreateUserFailureState());
     }
@@ -85,7 +86,7 @@ class AuthCubit extends Cubit<AuthState> {
       res = await authRepo.forgetPassword(
         email: email,
       );
-      emit(ForgetPasswordsuccessState());
+      emit(ForgetPasswordSuccessState());
     } catch (e) {
       emit(ForgetPasswordFailureState());
     }
@@ -106,5 +107,19 @@ class AuthCubit extends Cubit<AuthState> {
     }, (success) {
       emit(LoginSuccessState());
     });
+  }
+  Future<void>sendEmailVerification({required String email})async{
+   await authRepo.sendEmailVerification(email: email);
+   debugPrint('email send');
+  }
+  Future<bool>isEmailVerified()async{
+   try {
+   bool res= await authRepo.isEmailVerified();
+   emit(EmailVerifiedState());
+   return res;
+   } catch (e) {
+     emit(EmailIsNotVerifiedState());
+     return false;
+   }
   }
 }

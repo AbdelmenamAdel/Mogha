@@ -13,12 +13,13 @@ abstract class FirebaseAuthRepository {
     required String uId,
     required bool isEmailVerified,
   });
-
+  Future<void> sendEmailVerification({required String email});
   Future<Either<String, String>> register({
     required String email,
     required String password,
     required String userName,
   });
+Future<bool>isEmailVerified();
   Future<UserCredential> registerWithGoogle();
 
   Future<Either<String, String>> forgetPassword({

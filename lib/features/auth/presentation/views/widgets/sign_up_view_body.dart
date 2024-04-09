@@ -109,6 +109,11 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                                     hintText: Strings.email.tr(context),
                                     type: TextInputType.emailAddress),
                                 CustomTextFormField(
+                                  isPassword: cubit.isPassword,
+                                  s_icon: cubit.secure,
+                                  onPressed: () {
+                                    cubit.togglePassword();
+                                  },
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       ScaffoldMessenger.of(context)
