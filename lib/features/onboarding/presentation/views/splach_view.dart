@@ -6,17 +6,17 @@ import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/widgets/custom_navigate.dart';
-import '../../../../../core/database/cache/cache_helper.dart';
-import '../../../../../core/services/service_locator.dart';
+import '../../../../../../../core/database/cache/cache_helper.dart';
+import '../../../../../../../core/services/service_locator.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class SplashView extends StatefulWidget {
+  const SplashView({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<SplashView> createState() => _SplashViewState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();

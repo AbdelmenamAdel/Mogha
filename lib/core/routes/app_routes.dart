@@ -7,8 +7,8 @@ import 'package:moga/features/auth/presentation/views/manager/auth/auth_cubit.da
 import 'package:moga/features/auth/presentation/views/send_code_view.dart';
 import 'package:moga/features/auth/presentation/views/sign_up_view.dart';
 import 'package:moga/features/home/presentation/views/home_view.dart';
-import 'package:moga/onboarding.dart';
-import 'package:moga/onboarding/splach_view.dart';
+import 'package:moga/features/onboarding/presentation/views/onboarding_view.dart';
+import 'package:moga/features/onboarding/presentation/views/splach_view.dart';
 
 import '../services/service_locator.dart';
 
@@ -30,7 +30,7 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: AppRoutes.initialRoute,
-        builder: (context, state) => const SplashScreen(),
+        builder: (context, state) => const SplashView(),
       ),
       GoRoute(
         path: AppRoutes.onBoarding,
