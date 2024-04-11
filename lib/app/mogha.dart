@@ -8,6 +8,7 @@ import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/theme/app_theme.dart';
+import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 
 class Mogha extends StatelessWidget {
   const Mogha({super.key});
@@ -17,29 +18,33 @@ class Mogha extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (context, child) {
-        return BlocProvider(
-          create: (context) => sl<GlobalCubit>()..updateLangage(),
-          child: BlocBuilder<GlobalCubit, GlobalState>(
-            builder: (context, state) => MaterialApp.router(
-              localizationsDelegates: const [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: const [
-                Locale('en', "US"),
-                Locale('ar', "EG"),
-              ],
-              locale: Locale(
-                BlocProvider.of<GlobalCubit>(context).langCode,
-              ),
-              debugShowCheckedModeBanner: false,
-              routerConfig: AppRouter.route,
-              theme: getAppDarkTheme(),
-            ),
+        return MultiBlocProvider(providers: [
+          BlocProvider(create: (context) => sl<GlobalCubit>()..updateLangage(),
+          ), BlocProvider(create: (context) => sl<SocialCubit>()..getUserData(),
           ),
+        ], child:  BlocBuilder<GlobalCubit, GlobalState>(
+          builder: (context, state) => MaterialApp.router(
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en', "US"),
+              Locale('ar', "EG"),
+            ],
+            locale: Locale(
+              BlocProvider.of<GlobalCubit>(context).langCode,
+            ),
+            debugShowCheckedModeBanner: false,
+            routerConfig: AppRouter.route,
+            theme: getAppDarkTheme(),
+          ),
+        ),
         );
+
+
       },
     );
   }

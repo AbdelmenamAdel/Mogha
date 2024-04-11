@@ -21,12 +21,7 @@ class HomeView extends StatelessWidget {
         body: HomeViewBody(
           scrollController: scrollController,
         ),
-        bottomNavigationBar: CustomGNavBar(currentIndex: 0, tabs: [
-          GButton(icon: Icons.home, text: 'home'),
-          GButton(icon: Icons.search, text: 'search'),
-          GButton(icon: Icons.add, text: 'add'),
-          GButton(icon: Icons.settings, text: 'settings'),
-        ]),
+
       ),
     );
   }

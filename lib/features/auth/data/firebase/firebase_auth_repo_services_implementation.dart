@@ -131,7 +131,7 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
   }
 
   @override
-  Future<void> sendEmailVerification({required String email}) async {
+  Future<void> sendEmailVerification() async {
  try {
    _auth.currentUser!.sendEmailVerification();
  }catch (e) {

@@ -15,7 +15,7 @@ import 'package:moga/core/widgets/custom_profile_image.dart';
 import 'package:moga/core/widgets/custom_text_form_field.dart';
 import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/widgets/custom_toast.dart';
-import 'package:moga/features/auth/presentation/views/manager/auth/auth_cubit.dart';
+import 'package:moga/features/auth/presentation/manager/auth/auth_cubit.dart';
 import 'package:rive/rive.dart';
 import 'custom_sign_button.dart';
 import 'my_behavior.dart';

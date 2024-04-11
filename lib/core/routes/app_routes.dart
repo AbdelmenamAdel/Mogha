@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:moga/features/auth/presentation/views/change_language_view.dart';
 import 'package:moga/features/auth/presentation/views/create_new_password.dart';
 import 'package:moga/features/auth/presentation/views/login_view.dart';
-import 'package:moga/features/auth/presentation/views/manager/auth/auth_cubit.dart';
+import 'package:moga/features/auth/presentation/manager/auth/auth_cubit.dart';
 import 'package:moga/features/auth/presentation/views/send_code_view.dart';
 import 'package:moga/features/auth/presentation/views/sign_up_view.dart';
 import 'package:moga/features/home/presentation/views/home_view.dart';

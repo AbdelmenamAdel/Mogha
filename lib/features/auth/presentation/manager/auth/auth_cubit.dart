@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,8 +9,8 @@ import 'package:moga/features/auth/data/firebase/firebase_auth_repo_services_imp
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit(this.authRepo) : super(AuthInitial());
-  final AuthRepoImplementation authRepo;
+  AuthCubit() : super(AuthInitial());
+  late AuthRepoImplementation authRepo;
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> signUpFormKey = GlobalKey<FormState>();
   TextEditingController userNameController = TextEditingController();
@@ -70,8 +72,8 @@ class AuthCubit extends Cubit<AuthState> {
         uId: uId,
         isEmailVerified: isEmailVerified,
       );
+      sendEmailVerification();
       emit(CreateUserSuccessState());
-      sendEmailVerification(email: email);
     } catch (e) {
       emit(CreateUserFailureState());
     }
@@ -96,21 +98,27 @@ class AuthCubit extends Cubit<AuthState> {
     required String email,
     required String password,
   }) async {
-    emit(LoginLoadingState());
-    res = await authRepo.login(
-      email: email,
-      password: password,
-    );
+
+    try {
+      emit(LoginLoadingState());
+      res = await authRepo.login(
+        email: email,
+        password: password,
+      );
+    }  catch (e) {
+      log(e.toString());
+    }
 
     res.fold((failure) {
       emit(LoginErrorState());
     }, (success) {
+      sendEmailVerification();
       emit(LoginSuccessState());
     });
   }
 
-  Future<void> sendEmailVerification({required String email}) async {
-    await authRepo.sendEmailVerification(email: email);
+  Future<void> sendEmailVerification() async {
+    await authRepo.sendEmailVerification();
     debugPrint('email send');
   }
 
