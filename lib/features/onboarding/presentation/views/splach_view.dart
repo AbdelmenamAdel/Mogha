@@ -31,7 +31,7 @@ class _SplashViewState extends State<SplashView> {
     Future.delayed(
       const Duration(seconds: 2),
       () => emailVerified!=true
-          ? context.navigate(AppRoutes.home, context)
+          ? context.navigate(AppRoutes.socialLayout, context)
           : isVisted
               ? context.navigate(AppRoutes.chageLang, context)
               : context.navigate(AppRoutes.onBoarding, context),

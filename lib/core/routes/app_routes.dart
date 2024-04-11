@@ -9,6 +9,7 @@ import 'package:moga/features/auth/presentation/views/sign_up_view.dart';
 import 'package:moga/features/home/presentation/views/home_view.dart';
 import 'package:moga/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:moga/features/onboarding/presentation/views/splach_view.dart';
+import 'package:moga/features/social/presentation/views/social_layout.dart';
 
 import '../services/service_locator.dart';
 
@@ -23,6 +24,7 @@ class AppRoutes {
   static const String newPassword = '/newPassword';
   static const String signUp = '/signUp';
   static const String home = '/home';
+  static const String socialLayout = '/socialLayout';
 }
 
 abstract class AppRouter {
@@ -31,6 +33,9 @@ abstract class AppRouter {
       GoRoute(
         path: AppRoutes.initialRoute,
         builder: (context, state) => const SplashView(),
+      ), GoRoute(
+        path: AppRoutes.socialLayout,
+        builder: (context, state) => const SocialLayoutView(),
       ),
       GoRoute(
         path: AppRoutes.onBoarding,

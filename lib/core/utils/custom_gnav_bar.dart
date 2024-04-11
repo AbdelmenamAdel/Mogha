@@ -6,11 +6,11 @@ class CustomGNavBar extends StatelessWidget {
   const CustomGNavBar({
     super.key,
     required this.currentIndex,
-    this.onChanged,
+    this.onTabChange,
     required this.tabs,
   });
   final int currentIndex;
-  final void Function(int)? onChanged;
+  final void Function(int)? onTabChange;
   final List<GButton> tabs;
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class CustomGNavBar extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           tabBorderRadius: 16,
           gap: 8,
-          onTabChange: onChanged,
+          onTabChange: onTabChange,
           tabs: tabs,
         ),
       ),

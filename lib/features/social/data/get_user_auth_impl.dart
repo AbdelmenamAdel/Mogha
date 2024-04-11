@@ -1,6 +1,4 @@
 import 'dart:developer';
-import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:moga/core/database/cache/cache_helper.dart';
 import 'package:moga/core/services/service_locator.dart';
@@ -21,6 +19,7 @@ class GetUserImplementation implements GetUserAuth {
     } catch (e) {
       log('error while get user data');
       log(e.toString());
+      return null;
     }
   }
 }
