@@ -4,6 +4,7 @@ import 'story_list_view.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key, required this.scrollController});
+
   final ScrollController scrollController;
 
   @override
