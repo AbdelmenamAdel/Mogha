@@ -49,10 +49,10 @@ class SocialLayoutView extends StatelessWidget {
                 },
                 currentIndex: cubit.currentIndex,
                 tabs: [
-                  GButton(icon: IconBroken.Home, text: 'home'),
-                  GButton(icon: IconBroken.Notification, text: 'search'),
-                  GButton(icon: IconBroken.Location, text: 'add'),
-                  GButton(icon: IconBroken.Setting, text: 'settings'),
+                  GButton(icon: IconBroken.Home, text: 'Home'),
+                  GButton(icon: IconBroken.Chat, text: 'Chats'),
+                  GButton(icon: IconBroken.Location, text: 'Users'),
+                  GButton(icon: IconBroken.Setting, text: 'Settings'),
                 ]),
           ),
         );
