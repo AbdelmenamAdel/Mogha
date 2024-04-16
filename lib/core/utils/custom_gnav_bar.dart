@@ -24,7 +24,7 @@ class CustomGNavBar extends StatelessWidget {
               Theme.of(context).bottomNavigationBarTheme.backgroundColor!,
           activeColor:
               Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
-          selectedIndex: currentIndex,
+          selectedIndex:currentIndex,
           tabBackgroundColor: AppColors.grey.withOpacity(0.3),
           padding: const EdgeInsets.all(16),
           tabBorderRadius: 16,

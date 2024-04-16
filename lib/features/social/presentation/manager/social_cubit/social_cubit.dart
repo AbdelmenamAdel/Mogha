@@ -16,7 +16,6 @@ class SocialCubit extends Cubit<SocialStates> {
   late UserModel? model;
   GetUserImplementation user = GetUserImplementation();
 
-
   List<String> titles = [
     'Home',
     'Chats',

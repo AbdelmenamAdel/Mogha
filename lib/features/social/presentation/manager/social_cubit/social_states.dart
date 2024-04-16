@@ -11,4 +11,5 @@ class SocialGetUserFailureState extends SocialStates {
 
   SocialGetUserFailureState(this.errMessage);
 }
-class SocialChangeBottomNavState extends SocialStates{}
+
+class SocialChangeBottomNavState extends SocialStates {}

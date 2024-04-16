@@ -9,7 +9,8 @@ import 'package:moga/features/auth/presentation/views/sign_up_view.dart';
 import 'package:moga/features/home/presentation/views/home_view.dart';
 import 'package:moga/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:moga/features/onboarding/presentation/views/splach_view.dart';
-import 'package:moga/features/social/presentation/views/social_layout.dart';
+import 'package:moga/features/post/add_post.dart';
+import 'package:moga/features/social/presentation/views/social_layout_view.dart';
 
 import '../services/service_locator.dart';
 
@@ -19,11 +20,11 @@ class AppRoutes {
   static const String login = '/login';
   static const String onBoarding = '/onBoarding';
   static const String sendCode = '/sendCode';
-  static const String profileHome = '/profileHome';
   static const String settings = '/settings';
   static const String newPassword = '/newPassword';
   static const String signUp = '/signUp';
   static const String home = '/home';
+  static const String newPost = '/newPost';
   static const String socialLayout = '/socialLayout';
 }
 
@@ -62,6 +63,9 @@ abstract class AppRouter {
       GoRoute(
         path: AppRoutes.chageLang,
         builder: (context, state) => const ChangeLangView(),
+      ), GoRoute(
+        path: AppRoutes.newPost,
+        builder: (context, state) => const AddPostView(),
       ),
       GoRoute(
         path: AppRoutes.newPassword,

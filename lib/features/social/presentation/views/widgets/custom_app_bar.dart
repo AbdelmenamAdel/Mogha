@@ -1,8 +1,9 @@
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/local/app_local.dart';
 import 'package:flutter/material.dart';
+import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
-import 'package:moga/core/utils/app_strings.dart';
+import 'package:moga/core/widgets/custom_navigate.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
@@ -18,9 +19,11 @@ class CustomAppBar extends StatelessWidget {
       elevation: 1,
       shadowColor: AppColors.grey,
       leading: IconButton(
-        onPressed: () {},
+        onPressed: () {
+          context.navigate(AppRoutes.newPost, context);
+        },
         icon: Icon(
-          IconBroken.Camera,
+          IconBroken.Paper_Upload,
           size: 28,
           weight: 24,
         ),

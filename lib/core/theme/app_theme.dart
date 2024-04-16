@@ -10,8 +10,8 @@ ThemeData getAppDarkTheme() {
     //scaffoldBackgroundColor
     scaffoldBackgroundColor: AppColors.background,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: AppColors.white,
-      selectedItemColor: AppColors.black,
+      backgroundColor:AppColors.blueGrey.withOpacity(.3),
+      selectedItemColor: AppColors.kPrimary,
       unselectedItemColor: AppColors.grey,
     ),
     cardColor: AppColors.black,
@@ -105,8 +105,8 @@ ThemeData getAppLightTheme() {
       ),
     )),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: AppColors.black,
-      selectedItemColor: AppColors.white,
+      backgroundColor: AppColors.blueGrey.withOpacity(.2),
+      selectedItemColor: Colors.blue,
       unselectedItemColor: AppColors.grey,
     ),
   );

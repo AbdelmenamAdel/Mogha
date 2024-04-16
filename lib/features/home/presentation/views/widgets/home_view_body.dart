@@ -20,7 +20,6 @@ class HomeViewBody extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 6.5),
         child: Column(
           children: [
-            StoryListView(),
             SizedBox(
               height: 200,
               child: Stack(
