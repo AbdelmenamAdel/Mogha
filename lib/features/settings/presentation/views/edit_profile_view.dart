@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:moga/core/widgets/custom_text_f_field.dart';
 import 'package:moga/features/post/views/widgets/default_app_bar.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
@@ -88,8 +89,15 @@ class EditProfileView extends StatelessWidget {
                           )
                         ],
                       ),
+                    ),SizedBox(height: 20),
+                    CustomTextField(
+                      prefixIcon: IconBroken.User,
+                      labelText: 'name',
+                    ),SizedBox(height: 10),
+                    CustomTextField(
+                      prefixIcon: IconBroken.Paper,
+                      labelText: 'bio',
                     ),
-                    CustomTextField(),
                   ],
                 ),
               ),
@@ -97,28 +105,6 @@ class EditProfileView extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class CustomTextField extends StatelessWidget {
-  const CustomTextField({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      cursorColor: Colors.blue,
-      decoration: InputDecoration(
-        border: outlineInputBorder(),
-        focusedBorder: outlineInputBorder(),
-      ),
-    );
-  }
-
-  OutlineInputBorder outlineInputBorder() {
-    return OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.blue, width: 2),
-      borderRadius: BorderRadius.circular(5),
     );
   }
 }
