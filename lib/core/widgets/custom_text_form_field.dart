@@ -15,6 +15,7 @@ class CustomTextFormField extends StatelessWidget {
     this.onFieldSubmitted,
     this.controller,
     this.s_icon,
+    this.color = AppColors.textField,
   });
 
   final bool isPassword;
@@ -28,6 +29,8 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final IconData? s_icon;
   final void Function()? onPressed;
+  final Color? color;
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -37,16 +40,16 @@ class CustomTextFormField extends StatelessWidget {
       alignment: Alignment.center,
       padding: EdgeInsets.only(right: width / 30),
       decoration: BoxDecoration(
-        color: AppColors.textField,
+        color: color,
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextFormField(
         onSaved: onSaved,
         onChanged: onChanged,
         onFieldSubmitted: onFieldSubmitted,
-        style: TextStyle(color: AppColors.white.withOpacity(.9)),
+        // style: TextStyle(color: AppColors.white.withOpacity(.9)),
         obscureText: isPassword,
-        keyboardType: type,
+        keyboardType: type,cursorColor: Colors.blue,
         controller: controller,
         decoration: InputDecoration(
           prefixIcon: Icon(

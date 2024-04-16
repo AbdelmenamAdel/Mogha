@@ -10,7 +10,7 @@ ThemeData getAppDarkTheme() {
     //scaffoldBackgroundColor
     scaffoldBackgroundColor: AppColors.background,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor:AppColors.blueGrey.withOpacity(.3),
+      backgroundColor: AppColors.blueGrey.withOpacity(.3),
       selectedItemColor: AppColors.kPrimary,
       unselectedItemColor: AppColors.grey,
     ),
@@ -45,15 +45,15 @@ ThemeData getAppDarkTheme() {
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: Colors.lightBlueAccent,
-          // Text color
-          side: BorderSide(color: Colors.black12),
-          // Border color and width
-          shape: RoundedRectangleBorder(
-            borderRadius:
+      foregroundColor: Colors.lightBlueAccent,
+      // Text color
+      side: BorderSide(color: Colors.black12),
+      // Border color and width
+      shape: RoundedRectangleBorder(
+        borderRadius:
             BorderRadius.circular(5), // No border radius for sharp corners
-          ),
-        )),
+      ),
+    )),
   );
 }
 

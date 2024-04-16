@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/core/widgets/custom_navigate.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
 
@@ -150,7 +152,9 @@ class SettingsView extends StatelessWidget {
                           IconBroken.Edit,
                           size: 20,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          context.navigate(AppRoutes.editProfile, context);
+                        },
                       )
                     ],
                   )

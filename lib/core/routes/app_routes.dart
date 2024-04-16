@@ -7,11 +7,13 @@ import 'package:moga/features/auth/presentation/manager/auth/auth_cubit.dart';
 import 'package:moga/features/auth/presentation/views/send_code_view.dart';
 import 'package:moga/features/auth/presentation/views/sign_up_view.dart';
 import 'package:moga/features/home/presentation/views/home_view.dart';
+import 'package:moga/features/notifications/notifications_view.dart';
 import 'package:moga/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:moga/features/onboarding/presentation/views/splach_view.dart';
 import 'package:moga/features/post/views/add_post.dart';
+import 'package:moga/features/search/search_view.dart';
+import 'package:moga/features/settings/presentation/views/edit_profile_view.dart';
 import 'package:moga/features/social/presentation/views/social_layout_view.dart';
-
 import '../services/service_locator.dart';
 
 class AppRoutes {
@@ -24,6 +26,9 @@ class AppRoutes {
   static const String newPassword = '/newPassword';
   static const String signUp = '/signUp';
   static const String home = '/home';
+  static const String notification = '/notification';
+  static const String search = '/search';
+  static const String editProfile = '/editProfile';
   static const String newPost = '/newPost';
   static const String socialLayout = '/socialLayout';
 }
@@ -37,6 +42,9 @@ abstract class AppRouter {
       ), GoRoute(
         path: AppRoutes.socialLayout,
         builder: (context, state) => const SocialLayoutView(),
+      ),GoRoute(
+        path: AppRoutes.editProfile,
+        builder: (context, state) => const EditProfileView(),
       ),
       GoRoute(
         path: AppRoutes.onBoarding,
@@ -74,6 +82,12 @@ abstract class AppRouter {
       GoRoute(
         path: AppRoutes.sendCode,
         builder: (context, state) => const SendCodeView(),
+      ), GoRoute(
+        path: AppRoutes.notification,
+        builder: (context, state) => const NotificationsView(),
+      ), GoRoute(
+        path: AppRoutes.search,
+        builder: (context, state) => const SearchViw(),
       ),
     ],
   );
