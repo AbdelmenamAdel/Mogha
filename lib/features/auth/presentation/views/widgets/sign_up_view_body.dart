@@ -1,4 +1,3 @@
-import 'package:achievement_view/achievement_view.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flutter/services.dart';
@@ -6,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_regex/flutter_regex.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/core/utils/app_strings.dart';
@@ -14,7 +12,6 @@ import 'package:moga/core/widgets/custom_notifier.dart';
 import 'package:moga/core/widgets/custom_profile_image.dart';
 import 'package:moga/core/widgets/custom_text_form_field.dart';
 import 'package:moga/core/local/app_local.dart';
-import 'package:moga/core/widgets/custom_toast.dart';
 import 'package:moga/features/auth/presentation/manager/auth/auth_cubit.dart';
 import 'package:rive/rive.dart';
 import 'custom_sign_button.dart';
@@ -36,13 +33,13 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     AuthCubit cubit = BlocProvider.of<AuthCubit>(context);
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-
         if (state is RegisterSuccessState) {
-         GoRouter.of(context).pop();
-         cubit.userNameController.clear();
-         cubit.emailController.clear();
-         cubit.passwordController.clear();
-        }if(state is RegisterErrorState) {
+          GoRouter.of(context).pop();
+          cubit.userNameController.clear();
+          cubit.emailController.clear();
+          cubit.passwordController.clear();
+        }
+        if (state is RegisterErrorState) {
           showAchievementView(
             context: context,
             title: 'Firebase!',
@@ -95,7 +92,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                                           title: "Please,",
                                           subTitle: "Enter a valid name",
                                         );
-                                      return null;
+                                        return null;
                                       }
                                       return null;
                                     },
@@ -104,9 +101,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                                     hintText: Strings.userName.tr(context)),
                                 CustomTextFormField(
                                     validator: (value) {
-                                      if (!value!.isEmail()&&(!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                          .hasMatch(value) ||
-                                          !value.contains('@gmail.com'))) {
+                                      if (!value!.isEmail() &&
+                                          (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                                  .hasMatch(value) ||
+                                              !value.contains('@gmail.com'))) {
                                         showAchievementView(
                                           context: context,
                                           title: "Please,",
@@ -132,12 +130,11 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                                           context: context,
                                           title: "Please,",
                                           subTitle:
-                                          """Enter a strong password including
+                                              """Enter a strong password including
                                           at least
                                           1 capital char
                                           1 special char
-                                          1 number """
-                                              );
+                                          1 number """);
                                       return null;
                                     }
                                     return null;
@@ -158,8 +155,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        GoRouter.of(context)
-                                           .pop();
+                                        GoRouter.of(context).pop();
                                       },
                                       child: Text(
                                         Strings.signIn.tr(context),

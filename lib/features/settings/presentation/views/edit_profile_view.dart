@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_broken/icon_broken.dart';
-import 'package:moga/core/utils/app_colors.dart';
-import 'package:moga/core/widgets/custom_text_form_field.dart';
 import 'package:moga/features/post/views/widgets/default_app_bar.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
@@ -116,11 +113,12 @@ class CustomTextField extends StatelessWidget {
         focusedBorder: outlineInputBorder(),
       ),
     );
-
   }
+
   OutlineInputBorder outlineInputBorder() {
     return OutlineInputBorder(
       borderSide: BorderSide(color: Colors.blue, width: 2),
       borderRadius: BorderRadius.circular(5),
-    );}
+    );
+  }
 }

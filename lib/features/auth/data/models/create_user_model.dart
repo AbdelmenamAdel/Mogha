@@ -1,5 +1,3 @@
-import 'package:image_picker/image_picker.dart';
-
 class UserModel {
   String email;
   String userName;
@@ -23,8 +21,8 @@ class UserModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'coverPhoto':coverPhoto,
-      'bio':bio,
+      'coverPhoto': coverPhoto,
+      'bio': bio,
       'profilePhoto': profilePhoto,
       'email': email,
       'userName': userName,

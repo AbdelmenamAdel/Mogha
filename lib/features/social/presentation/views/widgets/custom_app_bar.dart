@@ -1,5 +1,4 @@
 import 'package:icon_broken/icon_broken.dart';
-import 'package:moga/core/local/app_local.dart';
 import 'package:flutter/material.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
@@ -42,7 +41,8 @@ class CustomAppBar extends StatelessWidget {
             size: 28,
             weight: 24,
           ),
-        ), IconButton(
+        ),
+        IconButton(
           onPressed: () {},
           icon: Icon(
             IconBroken.Search,

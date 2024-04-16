@@ -10,7 +10,6 @@ import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/features/settings/presentation/views/settings_view.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
-import 'package:moga/features/post/views/add_post.dart';
 import 'package:moga/features/users/users_view.dart';
 
 class SocialLayoutView extends StatelessWidget {
@@ -20,8 +19,7 @@ class SocialLayoutView extends StatelessWidget {
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
     return BlocConsumer<SocialCubit, SocialStates>(
-      listener: (BuildContext context, state) {
-      },
+      listener: (BuildContext context, state) {},
       builder: (BuildContext context, state) {
         SocialCubit cubit = SocialCubit.get(context);
         List<Widget> screens = [
