@@ -9,7 +9,7 @@ import 'package:moga/features/auth/presentation/views/sign_up_view.dart';
 import 'package:moga/features/home/presentation/views/home_view.dart';
 import 'package:moga/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:moga/features/onboarding/presentation/views/splach_view.dart';
-import 'package:moga/features/post/add_post.dart';
+import 'package:moga/features/post/views/add_post.dart';
 import 'package:moga/features/social/presentation/views/social_layout_view.dart';
 
 import '../services/service_locator.dart';

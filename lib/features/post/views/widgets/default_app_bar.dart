@@ -1,21 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
-
-class AddPostView extends StatelessWidget {
-  const AddPostView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          DefaultAppBar(title: 'Add Post'),
-        ],
-      ),
-    );
-  }
-}
 
 class DefaultAppBar extends StatelessWidget {
   const DefaultAppBar({
