@@ -11,9 +11,8 @@ import 'package:moga/features/auth/data/firebase/firebase_auth_repo_services.dar
 import '../models/create_user_model.dart';
 
 class AuthRepoImplementation implements FirebaseAuthRepository {
-
- late UserCredential currentUser;
- late FirebaseAuth _auth = FirebaseAuth.instance;
+  late UserCredential currentUser;
+  late FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Future<Either<String, String>> login({
@@ -51,7 +50,7 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
 
     // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth =
-    await googleUser?.authentication;
+        await googleUser?.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
@@ -118,6 +117,11 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
         password: password,
         uId: uId,
         isEmailVerified: isEmailVerified,
+        bio: 'write your bio...',
+        coverPhoto:
+            'https://img.freepik.com/free-photo/attractive-young-man-wearing-glasses-casual-clothes-showing-ok-good-sign-approval-like-someth_1258-161826.jpg?t=st=1713099288~exp=1713102888~hmac=7bf694e645d046054b47fbcd7ff529690f0e42aece2172f6281b33e9d75fb53e&w=1060',
+        profilePhoto:
+            'https://img.freepik.com/free-photo/handsome-caucasian-man-casual-outfit-pointing-fingers-left-smiling-showing-promo-offer-standing-blue-background_1258-65029.jpg?t=st=1713088183~exp=1713091783~hmac=0ca3b0954b67f077341ede4a034e60c42abf06fa92f80965b2517d776fb3f94c&w=996',
       );
       await FirebaseFirestore.instance
           .collection('users')
@@ -132,19 +136,19 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
 
   @override
   Future<void> sendEmailVerification() async {
- try {
-   _auth.currentUser!.sendEmailVerification();
- }catch (e) {
- log(e.toString());
- }
+    try {
+      _auth.currentUser!.sendEmailVerification();
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   @override
-  Future<bool> isEmailVerified() async{
-    try{
-   bool  emailVerified= await _auth.currentUser!.emailVerified;
-   return emailVerified==true;
-    }catch (e){
+  Future<bool> isEmailVerified() async {
+    try {
+      bool emailVerified = await _auth.currentUser!.emailVerified;
+      return emailVerified == true;
+    } catch (e) {
       return false;
     }
   }

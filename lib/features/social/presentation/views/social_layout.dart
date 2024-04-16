@@ -34,26 +34,28 @@ class SocialLayoutView extends StatelessWidget {
           UsersView(),
           SettingsView(),
         ];
-        return SafeArea(
-          child: Scaffold(
-            appBar: Hidable(
-              controller: scrollController,
-              child: CustomAppBar(
-                title: cubit.titles[cubit.currentIndex],
+        return Container(color: Theme.of(context).scaffoldBackgroundColor,
+          child: SafeArea(
+            child: Scaffold(
+              appBar: Hidable(
+                controller: scrollController,
+                child: CustomAppBar(
+                  title: cubit.titles[cubit.currentIndex],
+                ),
               ),
+              body: screens[cubit.currentIndex],
+              bottomNavigationBar: CustomGNavBar(
+                  onTabChange: (index) {
+                    cubit.changeBottomNav(index);
+                  },
+                  currentIndex: cubit.currentIndex,
+                  tabs: [
+                    GButton(icon: IconBroken.Home, text: 'Home'),
+                    GButton(icon: IconBroken.Chat, text: 'Chats'),
+                    GButton(icon: IconBroken.Location, text: 'Users'),
+                    GButton(icon: IconBroken.Setting, text: 'Settings'),
+                  ]),
             ),
-            body: screens[cubit.currentIndex],
-            bottomNavigationBar: CustomGNavBar(
-                onTabChange: (index) {
-                  cubit.changeBottomNav(index);
-                },
-                currentIndex: cubit.currentIndex,
-                tabs: [
-                  GButton(icon: IconBroken.Home, text: 'Home'),
-                  GButton(icon: IconBroken.Chat, text: 'Chats'),
-                  GButton(icon: IconBroken.Location, text: 'Users'),
-                  GButton(icon: IconBroken.Setting, text: 'Settings'),
-                ]),
           ),
         );
       },
