@@ -16,14 +16,16 @@ class EditProfileView extends StatelessWidget {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var userModel = SocialCubit.get(context).model;
+        var userModel = SocialCubit
+            .get(context)
+            .model;
         var cubit = SocialCubit.get(context);
         nameController.text = userModel!.userName;
         bioController.text = userModel.bio;
         return Scaffold(
           body: Column(
             children: [
-              DefaultAppBar(title: 'Edit Profile'),
+              DefaultAppBar(title: 'Edit Profile', actions: [],),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -47,21 +49,23 @@ class EditProfileView extends StatelessWidget {
                                 ),
                                 child: cubit.coverImage == null
                                     ? Image.network(
-                                        fit: BoxFit.cover,
-                                        userModel!.coverPhoto,
-                                      )
+                                  fit: BoxFit.cover,
+                                  userModel!.coverPhoto,
+                                )
                                     : Image.file(
-                                        cubit.coverImage!,
-                                        fit: BoxFit.cover,
-                                      ),
+                                  cubit.coverImage!,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                               IconButton(
                                 onPressed: () async {
-                                  await cubit.pickeCoverImage(context);
+                                  await cubit.getCoverImage(context);
                                 },
                                 icon: CircleAvatar(
                                   backgroundColor:
-                                      Theme.of(context).scaffoldBackgroundColor,
+                                  Theme
+                                      .of(context)
+                                      .scaffoldBackgroundColor,
                                   child: Icon(
                                     IconBroken.Camera,
                                   ),
@@ -76,7 +80,9 @@ class EditProfileView extends StatelessWidget {
                               children: [
                                 CircleAvatar(
                                   backgroundColor:
-                                      Theme.of(context).scaffoldBackgroundColor,
+                                  Theme
+                                      .of(context)
+                                      .scaffoldBackgroundColor,
                                   radius: 65,
                                   child: CircleAvatar(
                                       radius: 60,
@@ -88,7 +94,8 @@ class EditProfileView extends StatelessWidget {
                                   onPressed: () {},
                                   icon: CircleAvatar(
                                     radius: 18,
-                                    backgroundColor: Theme.of(context)
+                                    backgroundColor: Theme
+                                        .of(context)
                                         .scaffoldBackgroundColor,
                                     child: Icon(
                                       IconBroken.Camera,

@@ -1,6 +1,6 @@
+import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -10,6 +10,7 @@ import 'package:moga/core/widgets/custom_pick_image.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
 import 'package:moga/features/social/data/get_user_auth_impl.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class SocialCubit extends Cubit<SocialStates> {
   SocialCubit() : super(SocialInitState());
@@ -42,9 +43,8 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   File? coverImage;
-  File? profileImage;
 
-  Future<void> pickeCoverImage(BuildContext context) async {
+  Future<void> getCoverImage(BuildContext context) async {
     try {
       showDialog(
           context: context,
@@ -74,7 +74,10 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(SocialCoverImagePickedFailureState());
     }
   }
-  Future<void> pickeProfileImage(BuildContext context) async {
+
+  File? profileImage;
+
+  Future<void> getProfileImage(BuildContext context) async {
     try {
       showDialog(
           context: context,
@@ -103,5 +106,44 @@ class SocialCubit extends Cubit<SocialStates> {
     } catch (e) {
       emit(SocialProfileImagePickedFailureState());
     }
+  }
+
+  String profileImageUrl = '';
+  var storage = firebase_storage.FirebaseStorage.instance;
+
+  Future<void> uploadProfileImage() async {
+    storage
+        .ref()
+        .child('photos/${Uri.file(profileImage!.path).pathSegments.last}')
+        .putFile(profileImage!)
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        profileImageUrl = value;
+        log(profileImageUrl);
+      }).catchError((error) {
+        log(error.toString());
+      });
+    }).catchError((error) {
+      log(error.toString());
+    });
+  }
+
+  String coverImageUrl = '';
+
+  Future<void> uploadCoverImage() async {
+    storage
+        .ref()
+        .child('photos/${Uri.file(coverImage!.path).pathSegments.last}')
+        .putFile(coverImage!)
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        coverImageUrl = value;
+        log(coverImageUrl);
+      }).catchError((error) {
+        log(error.toString());
+      });
+    }).catchError((error) {
+      log(error.toString());
+    });
   }
 }
