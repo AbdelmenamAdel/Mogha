@@ -11,10 +11,15 @@ class EditProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var nameController = TextEditingController();
+    var bioController = TextEditingController();
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
       builder: (context, state) {
         var userModel = SocialCubit.get(context).model;
+        var cubit = SocialCubit.get(context);
+        nameController.text = userModel!.userName;
+        bioController.text = userModel.bio;
         return Scaffold(
           body: Column(
             children: [
@@ -40,13 +45,20 @@ class EditProfileView extends StatelessWidget {
                                     topRight: Radius.circular(8),
                                   ),
                                 ),
-                                child: Image.network(
-                                  fit: BoxFit.cover,
-                                  userModel!.coverPhoto,
-                                ),
+                                child: cubit.coverImage == null
+                                    ? Image.network(
+                                        fit: BoxFit.cover,
+                                        userModel!.coverPhoto,
+                                      )
+                                    : Image.file(
+                                        cubit.coverImage!,
+                                        fit: BoxFit.cover,
+                                      ),
                               ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  await cubit.pickeCoverImage(context);
+                                },
                                 icon: CircleAvatar(
                                   backgroundColor:
                                       Theme.of(context).scaffoldBackgroundColor,
@@ -69,7 +81,7 @@ class EditProfileView extends StatelessWidget {
                                   child: CircleAvatar(
                                       radius: 60,
                                       backgroundImage: NetworkImage(
-                                        '${userModel.profilePhoto}',
+                                        '${userModel!.profilePhoto}',
                                       )),
                                 ),
                                 IconButton(
@@ -89,14 +101,18 @@ class EditProfileView extends StatelessWidget {
                           )
                         ],
                       ),
-                    ),SizedBox(height: 20),
+                    ),
+                    SizedBox(height: 20),
                     CustomTextField(
+                      controller: nameController,
                       prefixIcon: IconBroken.User,
-                      labelText: 'name',
-                    ),SizedBox(height: 10),
+                      labelText: 'Name',
+                    ),
+                    SizedBox(height: 10),
                     CustomTextField(
-                      prefixIcon: IconBroken.Paper,
-                      labelText: 'bio',
+                      controller: bioController,
+                      prefixIcon: IconBroken.Info_Circle,
+                      labelText: 'Bio',
                     ),
                   ],
                 ),
