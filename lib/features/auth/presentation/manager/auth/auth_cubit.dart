@@ -1,16 +1,17 @@
 import 'dart:developer';
-
+import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moga/features/auth/data/firebase/firebase_auth_repo_services_implementation.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitial());
-  late AuthRepoImplementation authRepo;
+  AuthCubit(this.authRepo) : super(AuthInitial());
+  final AuthRepoImplementation authRepo;
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> signUpFormKey = GlobalKey<FormState>();
   TextEditingController userNameController = TextEditingController();
@@ -26,6 +27,9 @@ class AuthCubit extends Cubit<AuthState> {
     secure = isPassword ? Icons.visibility_off : Icons.visibility;
     emit(IsPasswordSuccessState());
   }
+
+  File? profileImage;
+  String? profileImageUrl;
 
   Future<void> register({
     required String email,
@@ -46,6 +50,7 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
         password: password,
         userName: userName,
+        profileImage: profileImage == null ? null: profileImageUrl,
         uId: FirebaseAuth.instance.currentUser!.uid,
         isEmailVerified: FirebaseAuth.instance.currentUser!.emailVerified,
       );
@@ -56,11 +61,34 @@ class AuthCubit extends Cubit<AuthState> {
     return await authRepo.registerWithGoogle();
   }
 
+  var storage = firebase_storage.FirebaseStorage.instance;
+
+  Future<void> uploadProfileImage() async {
+    storage
+        .ref()
+        .child('photos/${Uri.file(profileImage!.path).pathSegments.last}')
+        .putFile(profileImage!)
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        profileImageUrl = value;
+        log(profileImageUrl ?? '');
+        emit(UploadProfileImageSuccessState());
+      }).catchError((error) {
+        log(error.toString());
+        emit(UploadProfileImageFailureState());
+      });
+    }).catchError((error) {
+      log(error.toString());
+      emit(UploadProfileImageFailureState());
+    });
+  }
+
   void createUser({
     required String email,
     required String password,
     required String userName,
     required String uId,
+    String? profileImage,
     required bool isEmailVerified,
   }) async {
     emit(CreateUserLoadingState());
@@ -70,6 +98,7 @@ class AuthCubit extends Cubit<AuthState> {
         password: password,
         userName: userName,
         uId: uId,
+        profilePhoto: profileImage,
         isEmailVerified: isEmailVerified,
       );
       sendEmailVerification();
@@ -98,21 +127,21 @@ class AuthCubit extends Cubit<AuthState> {
     required String email,
     required String password,
   }) async {
-
     try {
       emit(LoginLoadingState());
       res = await authRepo.login(
         email: email,
         password: password,
       );
-    }  catch (e) {
+    } catch (e) {
       log(e.toString());
     }
 
     res.fold((failure) {
       emit(LoginErrorState());
     }, (success) {
-      sendEmailVerification();
+
+      log(success);
       emit(LoginSuccessState());
     });
   }

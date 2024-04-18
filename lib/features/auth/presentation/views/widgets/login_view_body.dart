@@ -43,6 +43,7 @@ class LoginViewBody extends StatelessWidget {
               context: context,
               title: "Check,",
               subTitle: "Your email verification link");
+          context.navigate(AppRoutes.socialLayout, context);
         }
         if (state is EmailVerifiedState) {
           context.navigate(AppRoutes.home, context);

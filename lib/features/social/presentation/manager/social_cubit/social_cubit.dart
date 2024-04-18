@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -108,7 +109,7 @@ class SocialCubit extends Cubit<SocialStates> {
     }
   }
 
-  String profileImageUrl = '';
+  String? profileImageUrl;
   var storage = firebase_storage.FirebaseStorage.instance;
 
   Future<void> uploadProfileImage() async {
@@ -119,31 +120,75 @@ class SocialCubit extends Cubit<SocialStates> {
         .then((value) {
       value.ref.getDownloadURL().then((value) {
         profileImageUrl = value;
-        log(profileImageUrl);
+        log(profileImageUrl ?? '');
+        emit(SocialUploadProfileImageSuccessState());
       }).catchError((error) {
         log(error.toString());
+        emit(SocialUploadProfileImageFailureState());
       });
     }).catchError((error) {
       log(error.toString());
+      emit(SocialUploadProfileImageFailureState());
     });
   }
 
-  String coverImageUrl = '';
+  String? coverImageUrl;
 
   Future<void> uploadCoverImage() async {
     storage
         .ref()
-        .child('photos/${Uri.file(coverImage!.path).pathSegments.last}')
+        .child('users/${Uri.file(coverImage!.path).pathSegments.last}')
         .putFile(coverImage!)
         .then((value) {
       value.ref.getDownloadURL().then((value) {
         coverImageUrl = value;
-        log(coverImageUrl);
+        log(coverImageUrl ?? '');
+        emit(SocialUploadCoverImageSuccessState());
       }).catchError((error) {
         log(error.toString());
+        emit(SocialUploadCoverImageFailureState());
       });
     }).catchError((error) {
       log(error.toString());
+      emit(SocialUploadCoverImageFailureState());
     });
+  }
+
+  Future<void> updateUser({
+    required String userName,
+    required String bio,
+    required String phone,
+  }) async {
+    try {
+      if (profileImage != null) {
+        uploadProfileImage();
+      }
+      if (coverImage != null) {
+        uploadCoverImage();
+      }
+    } finally {
+      UserModel updatedModel = UserModel(
+        email: model!.email,
+        userName: userName,
+        password: model!.password,
+        uId: model!.uId,
+        bio: bio,
+        coverPhoto: coverImageUrl == null ? model!.coverPhoto : coverImageUrl!,
+        profilePhoto:
+            profileImageUrl == null ? model!.profilePhoto : profileImageUrl!,
+        isEmailVerified: model!.isEmailVerified,
+        phone: phone,
+      );
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(model!.uId)
+          .update(updatedModel.toMap())
+          .then((value) {
+        getUserData();
+      }).catchError((error) {
+        log(error.toString());
+        emit(SocialUserUpdateFailureState());
+      });
+    }
   }
 }

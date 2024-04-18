@@ -47,7 +47,7 @@ class SettingsView extends StatelessWidget {
                             child: CircleAvatar(
                                 radius: 60,
                                 backgroundImage: NetworkImage(
-                                  '${userModel.profilePhoto}',
+                                  userModel.profilePhoto,
                                 )),
                           ),
                         )
@@ -58,12 +58,19 @@ class SettingsView extends StatelessWidget {
                     userModel.userName,
                     style: Theme.of(context).textTheme.displayMedium,
                   ),
-                  SizedBox(height: 15),
+
+                  SizedBox(height: 3),
+                  Text(
+                    userModel.phone,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  SizedBox(height: 10),
                   Text(
                     userModel.bio,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
-                  SizedBox(height: 30),
+
+                  SizedBox(height: 20),
                   Row(
                     children: [
                       Expanded(
@@ -138,7 +145,6 @@ class SettingsView extends StatelessWidget {
                                   color: Colors.blue,
                                 ),
                           ),
-
                           onPressed: () {},
                         ),
                       ),

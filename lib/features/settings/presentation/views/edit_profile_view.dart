@@ -13,19 +13,47 @@ class EditProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     var nameController = TextEditingController();
     var bioController = TextEditingController();
+    var phoneController = TextEditingController();
     return BlocConsumer<SocialCubit, SocialStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if(state is SocialGetUserSuccessState){
+
+        }
+      },
       builder: (context, state) {
-        var userModel = SocialCubit
-            .get(context)
-            .model;
+        var userModel = SocialCubit.get(context).model;
         var cubit = SocialCubit.get(context);
         nameController.text = userModel!.userName;
         bioController.text = userModel.bio;
+        phoneController.text = userModel.phone;
         return Scaffold(
           body: Column(
             children: [
-              DefaultAppBar(title: 'Edit Profile', actions: [],),
+              DefaultAppBar(
+                title: 'Edit Profile',
+                actions: [
+                  InkWell(
+                    highlightColor: Colors.lightBlueAccent,
+                    onTap: () async {
+                      await cubit.updateUser(
+                        userName: nameController.text,
+                        bio: bioController.text,
+                        phone: phoneController.text,
+                      );
+                    },
+                    child: Text(
+                      'Update',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium!
+                          .copyWith(fontSize: 20, color: Colors.blue),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  )
+                ],
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -49,13 +77,13 @@ class EditProfileView extends StatelessWidget {
                                 ),
                                 child: cubit.coverImage == null
                                     ? Image.network(
-                                  fit: BoxFit.cover,
-                                  userModel!.coverPhoto,
-                                )
+                                        fit: BoxFit.cover,
+                                        userModel.coverPhoto,
+                                      )
                                     : Image.file(
-                                  cubit.coverImage!,
-                                  fit: BoxFit.cover,
-                                ),
+                                        cubit.coverImage!,
+                                        fit: BoxFit.cover,
+                                      ),
                               ),
                               IconButton(
                                 onPressed: () async {
@@ -63,9 +91,7 @@ class EditProfileView extends StatelessWidget {
                                 },
                                 icon: CircleAvatar(
                                   backgroundColor:
-                                  Theme
-                                      .of(context)
-                                      .scaffoldBackgroundColor,
+                                      Theme.of(context).scaffoldBackgroundColor,
                                   child: Icon(
                                     IconBroken.Camera,
                                   ),
@@ -80,22 +106,20 @@ class EditProfileView extends StatelessWidget {
                               children: [
                                 CircleAvatar(
                                   backgroundColor:
-                                  Theme
-                                      .of(context)
-                                      .scaffoldBackgroundColor,
+                                      Theme.of(context).scaffoldBackgroundColor,
                                   radius: 65,
                                   child: CircleAvatar(
                                       radius: 60,
                                       backgroundImage: NetworkImage(
-                                        '${userModel!.profilePhoto}',
+                                        cubit.profileImage==null?
+                                        userModel.profilePhoto:cubit.profileImageUrl!,
                                       )),
                                 ),
                                 IconButton(
                                   onPressed: () {},
                                   icon: CircleAvatar(
                                     radius: 18,
-                                    backgroundColor: Theme
-                                        .of(context)
+                                    backgroundColor: Theme.of(context)
                                         .scaffoldBackgroundColor,
                                     child: Icon(
                                       IconBroken.Camera,
@@ -114,12 +138,33 @@ class EditProfileView extends StatelessWidget {
                       controller: nameController,
                       prefixIcon: IconBroken.User,
                       labelText: 'Name',
+                      onFieldSubmitted: (value) {
+                        nameController.text = value ?? '';
+                      },
+                      keyboardType: TextInputType.name,
                     ),
                     SizedBox(height: 10),
                     CustomTextField(
                       controller: bioController,
                       prefixIcon: IconBroken.Info_Circle,
                       labelText: 'Bio',
+                      keyboardType: TextInputType.text,
+                      onFieldSubmitted: (value) {
+                        bioController.text = value ?? '';
+                      },
+                    ),
+                    SizedBox(height: 10),
+                    CustomTextField(
+                      controller: phoneController,
+                      prefixIcon: IconBroken.Call,
+                      labelText: 'phone',
+                      onFieldSubmitted: (value) {
+                        phoneController.text = value!;
+                      },
+                      onSaved: (value) {
+                        phoneController.text = value!;
+                      },
+                      keyboardType: TextInputType.number,
                     ),
                   ],
                 ),

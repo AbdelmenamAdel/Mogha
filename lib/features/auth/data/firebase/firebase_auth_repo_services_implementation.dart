@@ -109,6 +109,7 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
     required String userName,
     required String uId,
     required isEmailVerified,
+    String? profilePhoto,
   }) async {
     try {
       UserModel model = UserModel(
@@ -116,18 +117,19 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
         userName: userName,
         password: password,
         uId: uId,
+        phone: '01',
         isEmailVerified: isEmailVerified,
         bio: 'write your bio...',
         coverPhoto:
             'https://img.freepik.com/free-photo/attractive-young-man-wearing-glasses-casual-clothes-showing-ok-good-sign-approval-like-someth_1258-161826.jpg?t=st=1713099288~exp=1713102888~hmac=7bf694e645d046054b47fbcd7ff529690f0e42aece2172f6281b33e9d75fb53e&w=1060',
-        profilePhoto:
-            'https://img.freepik.com/free-photo/handsome-caucasian-man-casual-outfit-pointing-fingers-left-smiling-showing-promo-offer-standing-blue-background_1258-65029.jpg?t=st=1713088183~exp=1713091783~hmac=0ca3b0954b67f077341ede4a034e60c42abf06fa92f80965b2517d776fb3f94c&w=996',
+        profilePhoto:profilePhoto??'https://img.freepik.com/free-photo/handsome-caucasian-man-casual-outfit-pointing-fingers-left-smiling-showing-promo-offer-standing-blue-background_1258-65029.jpg?t=st=1713088183~exp=1713091783~hmac=0ca3b0954b67f077341ede4a034e60c42abf06fa92f80965b2517d776fb3f94c&w=996',
+
       );
       await FirebaseFirestore.instance
           .collection('users')
           .doc(uId)
           .set(model.toMap());
-      return const Right('Created Sussefully');
+      return const Right('Created Successfully');
     } catch (e) {
       log(e.toString());
       return Left(e.toString());

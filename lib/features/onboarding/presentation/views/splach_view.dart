@@ -26,11 +26,12 @@ class _SplashViewState extends State<SplashView> {
   void navigate() async {
     bool isVisted =
         await sl<CacheHelper>().getData(key: Strings.onBoardingKey) ?? false;
-    bool? emailVerified = await FirebaseAuth.instance.currentUser?.emailVerified;
+    bool emailVerified = await FirebaseAuth.instance.currentUser?.emailVerified??false;
+   String? uid=await FirebaseAuth.instance.currentUser?.uid??null;
     print( FirebaseAuth.instance.currentUser);
     Future.delayed(
       const Duration(seconds: 2),
-      () => emailVerified!=true
+      () => emailVerified
           ? context.navigate(AppRoutes.socialLayout, context)
           : isVisted
               ? context.navigate(AppRoutes.chageLang, context)

@@ -17,15 +17,12 @@ class SocialLayoutView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ScrollController scrollController = ScrollController();
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (BuildContext context, state) {},
       builder: (BuildContext context, state) {
         SocialCubit cubit = SocialCubit.get(context);
         List<Widget> screens = [
-          HomeView(
-            scrollController: scrollController,
-          ),
+          HomeView(),
           ChatsView(),
           UsersView(),
           SettingsView(),
@@ -34,12 +31,6 @@ class SocialLayoutView extends StatelessWidget {
           color: Theme.of(context).scaffoldBackgroundColor,
           child: SafeArea(
             child: Scaffold(
-              appBar: Hidable(
-                controller: scrollController,
-                child: CustomAppBar(
-                  title: cubit.titles[cubit.currentIndex],
-                ),
-              ),
               body: screens[cubit.currentIndex],
               bottomNavigationBar: CustomGNavBar(
                   onTabChange: (index) {

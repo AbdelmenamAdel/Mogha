@@ -39,7 +39,7 @@ class Mogha extends StatelessWidget {
             ),
             debugShowCheckedModeBanner: false,
             routerConfig: AppRouter.route,
-            theme: getAppLightTheme(),
+            theme: getAppDarkTheme(),
           ),
         ),
         );

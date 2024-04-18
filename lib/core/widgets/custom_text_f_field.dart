@@ -7,16 +7,23 @@ class CustomTextField extends StatelessWidget {
     this.labelText,
     this.prefixIcon,
     this.autofocus,
+    this.keyboardType,
+    this.onSaved,
+    this.onFieldSubmitted,
   });
 
   final TextEditingController? controller;
   final String? labelText;
   final IconData? prefixIcon;
   final bool? autofocus;
+  final void Function(String?)? onFieldSubmitted;
+  final void Function(String?)? onSaved;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: keyboardType,
       controller: controller,
       cursorColor: Colors.blue,
       autofocus: autofocus ?? false,
@@ -28,6 +35,8 @@ class CustomTextField extends StatelessWidget {
         border: outlineInputBorder(),
         focusedBorder: outlineInputBorder(),
       ),
+      onFieldSubmitted: onFieldSubmitted,
+      onSaved: onSaved,
     );
   }
 

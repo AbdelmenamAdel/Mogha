@@ -40,3 +40,5 @@ final class LoginErrorState extends AuthState {}
 final class EmailVerifiedState extends AuthState {}
 
 final class EmailIsNotVerifiedState extends AuthState {}
+final class UploadProfileImageSuccessState extends AuthState {}
+final class UploadProfileImageFailureState extends AuthState {}

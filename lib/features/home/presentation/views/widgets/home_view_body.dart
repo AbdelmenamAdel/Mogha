@@ -9,12 +9,13 @@ class HomeViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      controller: scrollController,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6.5),
         child: Column(
           children: [
             SizedBox(
-              height: 200,
+              height: 170,
               child: Stack(
                 children: [
                   Padding(
@@ -22,7 +23,7 @@ class HomeViewBody extends StatelessWidget {
                     child: Card(
                       child: Image.network(
                         'https://img.freepik.com/free-photo/attractive-young-man-wearing-glasses-casual-clothes-showing-ok-good-sign-approval-like-someth_1258-161826.jpg?t=st=1713099288~exp=1713102888~hmac=7bf694e645d046054b47fbcd7ff529690f0e42aece2172f6281b33e9d75fb53e&w=1060',
-                        height: 200,
+                        height: 170,
                         fit: BoxFit.cover,
                         width: double.infinity,
                       ),
@@ -37,7 +38,7 @@ class HomeViewBody extends StatelessWidget {
                       'Communicate with friends',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 14,
+                        fontSize: 12,
                       ),
                     ),
                   ),

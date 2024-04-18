@@ -42,6 +42,9 @@ ThemeData getAppDarkTheme() {
           color: AppColors.kPrimary.withOpacity(.87), fontSize: 16.sp),
       labelSmall: GoogleFonts.lato(
           color: AppColors.kPrimary.withOpacity(.87), fontSize: 13.sp),
+      bodySmall: GoogleFonts.lato(
+          color: AppColors.white.withOpacity(.35),height: 1.1,fontSize: 13),
+
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
@@ -81,7 +84,8 @@ ThemeData getAppLightTheme() {
       displayLarge: GoogleFonts.lato(
         color: AppColors.black.withOpacity(.87),
         fontSize: 32.sp,
-      ),
+      ),bodySmall: GoogleFonts.lato(
+        color: AppColors.blueGrey,height: 1.1,fontSize: 13),
       displayMedium: GoogleFonts.lato(
           color: AppColors.black.withOpacity(.87), fontSize: 24.sp),
       displaySmall: GoogleFonts.lato(
@@ -92,7 +96,8 @@ ThemeData getAppLightTheme() {
           color: AppColors.black.withOpacity(.87), fontSize: 16.sp),
       labelSmall: GoogleFonts.lato(
           color: AppColors.black.withOpacity(.87), fontSize: 13.sp),
-    ),
+
+     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
       foregroundColor: Colors.lightBlueAccent,
