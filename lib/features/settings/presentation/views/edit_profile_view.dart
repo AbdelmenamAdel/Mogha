@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/core/widgets/custom_navigate.dart';
 import 'package:moga/core/widgets/custom_text_f_field.dart';
-import 'package:moga/features/open_cover_photo_view.dart';
-import 'package:moga/features/open_profile_photo_view.dart';
 import 'package:moga/features/post/views/widgets/default_app_bar.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
@@ -77,18 +77,17 @@ class EditProfileView extends StatelessWidget {
                                         topRight: Radius.circular(8),
                                       ),
                                     ),
-                                    child: Image.network(
-                                      fit: BoxFit.cover,
-                                      userModel.coverPhoto,
+                                    child: Hero(
+                                      tag: 'coverPhoto',
+                                      child: Image.network(
+                                        fit: BoxFit.cover,
+                                        userModel.coverPhoto,
+                                      ),
                                     )),
                                 IconButton(
                                   onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              OpenCoverPhotoView(),
-                                        ));
+                                    context.navigate(
+                                        AppRoutes.coverPhoto, context);
                                   },
                                   icon: CircleAvatar(
                                     backgroundColor: Theme.of(context)
@@ -110,20 +109,19 @@ class EditProfileView extends StatelessWidget {
                                       backgroundColor: Theme.of(context)
                                           .scaffoldBackgroundColor,
                                       radius: 70,
-                                      child: CircleAvatar(
-                                        radius: 65,
-                                        backgroundImage: NetworkImage(
-                                          userModel.profilePhoto,
+                                      child: Hero(
+                                        tag: 'profilePhoto',
+                                        child: CircleAvatar(
+                                          radius: 65,
+                                          backgroundImage: NetworkImage(
+                                            userModel.profilePhoto,
+                                          ),
                                         ),
                                       )),
                                   IconButton(
                                     onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                OpenProfilePhotoView(),
-                                          ));
+                                      context.navigate(
+                                          AppRoutes.profilePhoto, context);
                                     },
                                     icon: CircleAvatar(
                                       radius: 18,

@@ -10,6 +10,8 @@ import 'package:moga/features/home/presentation/views/home_view.dart';
 import 'package:moga/features/notifications/notifications_view.dart';
 import 'package:moga/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:moga/features/onboarding/presentation/views/splach_view.dart';
+import 'package:moga/features/open_cover_photo_view.dart';
+import 'package:moga/features/open_profile_photo_view.dart';
 import 'package:moga/features/post/views/add_post.dart';
 import 'package:moga/features/search/search_view.dart';
 import 'package:moga/features/settings/presentation/views/edit_profile_view.dart';
@@ -26,6 +28,8 @@ class AppRoutes {
   static const String newPassword = '/newPassword';
   static const String signUp = '/signUp';
   static const String home = '/home';
+  static const String profilePhoto = '/profilePhoto';
+  static const String coverPhoto = '/coverPhoto';
   static const String notification = '/notification';
   static const String search = '/search';
   static const String editProfile = '/editProfile';
@@ -74,6 +78,12 @@ abstract class AppRouter {
       ), GoRoute(
         path: AppRoutes.newPost,
         builder: (context, state) => const AddPostView(),
+      ), GoRoute(
+        path: AppRoutes.profilePhoto,
+        builder: (context, state) => const OpenProfilePhotoView(),
+      ), GoRoute(
+        path: AppRoutes.coverPhoto,
+        builder: (context, state) => const OpenCoverPhotoView(),
       ),
       GoRoute(
         path: AppRoutes.newPassword,

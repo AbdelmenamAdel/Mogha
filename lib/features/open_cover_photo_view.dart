@@ -23,13 +23,16 @@ class OpenCoverPhotoView extends StatelessWidget {
       return Scaffold(
         backgroundColor: AppColors.black,
         appBar: AppBar(
-          backgroundColor:AppColors.black,
+          backgroundColor: AppColors.black,
           leading: IconButton(
             onPressed: () {
               GoRouter.of(context).pop();
               cubit.coverImage = null;
             },
-            icon: Icon(IconBroken.Close_Square,color: AppColors.grey,),
+            icon: Icon(
+              IconBroken.Close_Square,
+              color: AppColors.grey,
+            ),
           ),
           actions: [
             cubit.coverImage == null
@@ -37,21 +40,33 @@ class OpenCoverPhotoView extends StatelessWidget {
                     onPressed: () async {
                       await cubit.getCoverImage(context);
                     },
-                    icon: Icon(IconBroken.Edit,color: AppColors.blue,),
+                    icon: Icon(
+                      IconBroken.Edit,
+                      color: AppColors.blue,
+                    ),
                   )
                 : Row(children: [
-                    Text('Update',style: TextStyle(color: AppColors.bGL),),
+                    Text(
+                      'Update',
+                      style: TextStyle(color: AppColors.bGL),
+                    ),
                     IconButton(
                       onPressed: () async {
                         await cubit.uploadCoverImage();
                       },
-                      icon: Icon(IconBroken.Upload,color: AppColors.blue,),
+                      icon: Icon(
+                        IconBroken.Upload,
+                        color: AppColors.blue,
+                      ),
                     ),
                     IconButton(
                       onPressed: () async {
                         await cubit.getCoverImage(context);
                       },
-                      icon: Icon(IconBroken.Edit,color: AppColors.blue,),
+                      icon: Icon(
+                        IconBroken.Edit,
+                        color: AppColors.blue,
+                      ),
                     ),
                   ])
           ],
@@ -59,19 +74,17 @@ class OpenCoverPhotoView extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            cubit.coverImage == null
-                ? Container(
-                    child: Image.network(
+            Container(
+              child: cubit.coverImage == null
+                  ? Image.network(
                       fit: BoxFit.cover,
                       cubit.model!.coverPhoto,
-                    ),
-                  )
-                : Container(
-                    child: Image.file(
+                    )
+                  : Image.file(
                       cubit.coverImage!,
                       fit: BoxFit.cover,
                     ),
-                  ),
+            )
           ],
         ),
       );

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -29,7 +30,10 @@ class OpenProfilePhotoView extends StatelessWidget {
               GoRouter.of(context).pop();
               cubit.profileImage = null;
             },
-            icon: Icon(IconBroken.Close_Square,color: AppColors.grey,),
+            icon: Icon(
+              IconBroken.Close_Square,
+              color: AppColors.grey,
+            ),
           ),
           actions: [
             cubit.profileImage == null
@@ -37,21 +41,27 @@ class OpenProfilePhotoView extends StatelessWidget {
                     onPressed: () async {
                       await cubit.getProfileImage(context);
                     },
-                    icon: Icon(IconBroken.Edit,color: AppColors.blue,),
+                    icon: Icon(
+                      IconBroken.Edit,
+                      color: AppColors.blue,
+                    ),
                   )
                 : Row(children: [
-                    Text('Update',style: TextStyle(color: AppColors.bGL)),
+                    Text('Update', style: TextStyle(color: AppColors.bGL)),
                     IconButton(
                       onPressed: () {
                         cubit.uploadProfileImage();
                       },
-                      icon: Icon(IconBroken.Upload,color: AppColors.blue),
+                      icon: Icon(IconBroken.Upload, color: AppColors.blue),
                     ),
                     IconButton(
                       onPressed: () async {
                         await cubit.getProfileImage(context);
                       },
-                      icon: Icon(IconBroken.Edit,color: AppColors.blue,),
+                      icon: Icon(
+                        IconBroken.Edit,
+                        color: AppColors.blue,
+                      ),
                     ),
                   ])
           ],
@@ -59,19 +69,20 @@ class OpenProfilePhotoView extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            cubit.profileImage == null
-                ? Container(
-                    child: Image.network(
-                      fit: BoxFit.cover,
-                      cubit.model!.profilePhoto,
-                    ),
-                  )
-                : Container(
-                    child: Image.file(
-                      cubit.profileImage!,
-                      fit: BoxFit.cover,
-                    ),
-                  )
+            Hero(
+              tag: 'profilePhoto',
+              child: Container(
+                child: cubit.profileImage == null
+                    ? Image.network(
+                        fit: BoxFit.cover,
+                        cubit.model!.profilePhoto,
+                      )
+                    : Image.file(
+                        cubit.profileImage!,
+                        fit: BoxFit.cover,
+                      ),
+              ),
+            )
           ],
         ),
       );
