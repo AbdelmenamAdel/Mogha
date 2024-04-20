@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
@@ -14,16 +15,20 @@ class EditProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = SocialCubit.get(context);
     var nameController = TextEditingController();
     var bioController = TextEditingController();
     var phoneController = TextEditingController();
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {
-        if (state is SocialGetUserSuccessState) {}
+        if (state is SocialGetUserSuccessState) {
+          GoRouter.of(context).pop();
+          cubit.coverImage = null;
+          cubit.profileImage = null;
+        }
       },
       builder: (context, state) {
         var userModel = SocialCubit.get(context).model;
-        var cubit = SocialCubit.get(context);
         nameController.text = userModel!.userName;
         bioController.text = userModel.bio;
         phoneController.text = userModel.phone;
