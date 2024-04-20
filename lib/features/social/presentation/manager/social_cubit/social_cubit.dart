@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:moga/core/widgets/custom_image_picker.dart';
 import 'package:moga/core/widgets/custom_pick_image.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
-import 'package:moga/features/opened_photo_view.dart';
+import 'package:moga/features/open_cover_photo_view.dart';
 import 'package:moga/features/social/data/get_user_auth_impl.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -56,13 +56,6 @@ class SocialCubit extends Cubit<SocialStates> {
                 pickImage(ImageSource.camera).then(
                   (value) {
                     coverImage = File(value!.path);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              OpenedPhotoView(photo: coverImage!),
-                        ));
-
                     emit(SocialCoverImagePickedSuccessState());
                   },
                 );
@@ -72,12 +65,6 @@ class SocialCubit extends Cubit<SocialStates> {
                 pickImage(ImageSource.gallery).then(
                   (value) {
                     coverImage = File(value!.path);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              OpenedPhotoView(photo: coverImage!),
-                        ));
                     emit(SocialCoverImagePickedSuccessState());
                   },
                 );
@@ -102,12 +89,6 @@ class SocialCubit extends Cubit<SocialStates> {
                 pickImage(ImageSource.camera).then(
                   (value) {
                     profileImage = File(value!.path);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              OpenedPhotoView(photo: profileImage!),
-                        ));
                     emit(SocialProfileImagePickedSuccessState());
                   },
                 );
@@ -120,12 +101,7 @@ class SocialCubit extends Cubit<SocialStates> {
                     emit(SocialProfileImagePickedSuccessState());
                   },
                 );
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          OpenedPhotoView(photo: profileImage!),
-                    ));
+                GoRouter.of(context).pop();
               },
             );
           });

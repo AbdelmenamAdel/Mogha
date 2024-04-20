@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/widgets/custom_text_f_field.dart';
+import 'package:moga/features/open_cover_photo_view.dart';
 import 'package:moga/features/post/views/widgets/default_app_bar.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
@@ -62,7 +63,7 @@ class EditProfileView extends StatelessWidget {
                         child: Stack(
                           children: [
                             Stack(
-                              alignment: Alignment.bottomRight,
+                              alignment: Alignment.topRight,
                               children: [
                                 Container(
                                   height: 160,
@@ -85,8 +86,13 @@ class EditProfileView extends StatelessWidget {
                                         ),
                                 ),
                                 IconButton(
-                                  onPressed: () async {
-                                    await cubit.getCoverImage(context);
+                                  onPressed: ()  {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              OpenCoverPhotoView(),
+                                        ));
                                   },
                                   icon: CircleAvatar(
                                     backgroundColor:
