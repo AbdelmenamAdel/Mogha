@@ -45,10 +45,10 @@ class EditProfileView extends StatelessWidget {
                       },
                       child: Text(
                         'Update',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleSmall!
-                            .copyWith(fontSize: 20,fontWeight: FontWeight.w600, color: Colors.blue),
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.blue),
                       ),
                     ),
                     SizedBox(
@@ -79,7 +79,7 @@ class EditProfileView extends StatelessWidget {
                                     ),
                                     child: Image.network(
                                       fit: BoxFit.cover,
-                                      userModel!.coverPhoto,
+                                      userModel.coverPhoto,
                                     )),
                                 IconButton(
                                   onPressed: () {
@@ -91,8 +91,8 @@ class EditProfileView extends StatelessWidget {
                                         ));
                                   },
                                   icon: CircleAvatar(
-                                    backgroundColor:
-                                    Theme.of(context).scaffoldBackgroundColor,
+                                    backgroundColor: Theme.of(context)
+                                        .scaffoldBackgroundColor,
                                     child: Icon(
                                       IconBroken.Camera,
                                       color: AppColors.blue,
@@ -107,8 +107,8 @@ class EditProfileView extends StatelessWidget {
                                 alignment: Alignment.bottomRight,
                                 children: [
                                   CircleAvatar(
-                                      backgroundColor:
-                                      Theme.of(context).scaffoldBackgroundColor,
+                                      backgroundColor: Theme.of(context)
+                                          .scaffoldBackgroundColor,
                                       radius: 70,
                                       child: CircleAvatar(
                                         radius: 65,
@@ -127,13 +127,12 @@ class EditProfileView extends StatelessWidget {
                                     },
                                     icon: CircleAvatar(
                                       radius: 18,
-                                      backgroundColor:
-                                      Theme.of(context).scaffoldBackgroundColor,
+                                      backgroundColor: Theme.of(context)
+                                          .scaffoldBackgroundColor,
                                       child: Icon(
                                         IconBroken.Camera,
                                         size: 20,
                                         color: AppColors.blue,
-
                                       ),
                                     ),
                                   )

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:hidable/hidable.dart';
 import 'package:moga/core/utils/custom_gnav_bar.dart';
 import 'package:moga/features/chats/chat_view.dart';
 import 'package:moga/features/home/presentation/views/home_view.dart';
-import 'package:moga/features/social/presentation/views/widgets/custom_app_bar.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/features/settings/presentation/views/settings_view.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
