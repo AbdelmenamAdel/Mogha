@@ -119,9 +119,15 @@ class SocialCubit extends Cubit<SocialStates> {
         .child('photos/${Uri.file(profileImage!.path).pathSegments.last}')
         .putFile(profileImage!)
         .then((value) {
-      value.ref.getDownloadURL().then((value) {
+      value.ref.getDownloadURL().then((value) async {
         profileImageUrl = value;
         log(profileImageUrl ?? '');
+        await updateUser(
+          userName: model!.userName,
+          bio: model!.bio,
+          phone: model!.phone,
+          profile: profileImageUrl,
+        );
         emit(SocialUploadProfileImageSuccessState());
       }).catchError((error) {
         log(error.toString());
@@ -141,9 +147,15 @@ class SocialCubit extends Cubit<SocialStates> {
         .child('users/${Uri.file(coverImage!.path).pathSegments.last}')
         .putFile(coverImage!)
         .then((value) {
-      value.ref.getDownloadURL().then((value) {
+      value.ref.getDownloadURL().then((value) async {
         coverImageUrl = value;
         log(coverImageUrl ?? '');
+        await updateUser(
+          userName: model!.userName,
+          bio: model!.bio,
+          phone: model!.phone,
+          cover: coverImageUrl,
+        );
         emit(SocialUploadCoverImageSuccessState());
       }).catchError((error) {
         log(error.toString());
@@ -156,42 +168,32 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   Future<void> updateUser({
+    String? cover,
+    String? profile,
     required String userName,
     required String bio,
     required String phone,
   }) async {
-    try {
-      if (profileImage != null) {
-        uploadProfileImage();
-        profileImage = null;
-      }
-      if (coverImage != null) {
-        uploadCoverImage();
-        coverImage = null;
-      }
-    } finally {
-      UserModel updatedModel = UserModel(
-        email: model!.email,
-        userName: userName,
-        password: model!.password,
-        uId: model!.uId,
-        bio: bio,
-        coverPhoto: coverImageUrl == null ? model!.coverPhoto : coverImageUrl!,
-        profilePhoto:
-            profileImageUrl == null ? model!.profilePhoto : profileImageUrl!,
-        isEmailVerified: model!.isEmailVerified,
-        phone: phone,
-      );
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(model!.uId)
-          .update(updatedModel.toMap())
-          .then((value) {
-        getUserData();
-      }).catchError((error) {
-        log(error.toString());
-        emit(SocialUserUpdateFailureState());
-      });
-    }
+    UserModel updatedModel = UserModel(
+      email: model!.email,
+      userName: userName,
+      password: model!.password,
+      uId: model!.uId,
+      bio: bio,
+      coverPhoto: cover ?? model!.coverPhoto,
+      profilePhoto: profile ?? model!.profilePhoto,
+      isEmailVerified: model!.isEmailVerified,
+      phone: phone,
+    );
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(model!.uId)
+        .update(updatedModel.toMap())
+        .then((value) async {
+      await getUserData();
+    }).catchError((error) {
+      log(error.toString());
+      emit(SocialUserUpdateFailureState());
+    });
   }
 }

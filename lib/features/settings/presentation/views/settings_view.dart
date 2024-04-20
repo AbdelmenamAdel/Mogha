@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/routes/app_routes.dart';
+import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/widgets/custom_navigate.dart';
+import 'package:moga/features/open_cover_photo_view.dart';
+import 'package:moga/features/open_profile_photo_view.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
 
@@ -21,34 +24,83 @@ class SettingsView extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 200,
+                    height: 250,
                     child: Stack(
                       children: [
-                        Container(
-                            height: 160,
-                            width: double.infinity,
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(8),
-                                topRight: Radius.circular(8),
+                        Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            Container(
+                                height: 210,
+                                width: double.infinity,
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(8),
+                                    topRight: Radius.circular(8),
+                                  ),
+                                ),
+                                child: Image.network(
+                                  fit: BoxFit.cover,
+                                  userModel!.coverPhoto,
+                                )),
+                            IconButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          OpenCoverPhotoView(),
+                                    ));
+                              },
+                              icon: CircleAvatar(
+                                backgroundColor:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                                child: Icon(
+                                  IconBroken.Camera,
+                                  color: AppColors.blue,
+                                ),
                               ),
                             ),
-                            child: Image.network(
-                              fit: BoxFit.cover,
-                              userModel!.coverPhoto,
-                            )),
+                          ],
+                        ),
                         Align(
                           alignment: Alignment.bottomCenter,
-                          child: CircleAvatar(
-                            backgroundColor:
-                                Theme.of(context).scaffoldBackgroundColor,
-                            radius: 65,
-                            child: CircleAvatar(
-                                radius: 60,
-                                backgroundImage: NetworkImage(
-                                  userModel.profilePhoto,
-                                )),
+                          child: Stack(
+                            alignment: Alignment.bottomRight,
+                            children: [
+                              CircleAvatar(
+                                  backgroundColor:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  radius: 70,
+                                  child: CircleAvatar(
+                                    radius: 65,
+                                    backgroundImage: NetworkImage(
+                                      userModel.profilePhoto,
+                                    ),
+                                  )),
+                              IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            OpenProfilePhotoView(),
+                                      ));
+                                },
+                                icon: CircleAvatar(
+                                  radius: 18,
+                                  backgroundColor:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  child: Icon(
+                                    IconBroken.Camera,
+                                    size: 20,
+                                    color: AppColors.blue,
+
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         )
                       ],
@@ -58,7 +110,6 @@ class SettingsView extends StatelessWidget {
                     userModel.userName,
                     style: Theme.of(context).textTheme.displayMedium,
                   ),
-
                   SizedBox(height: 3),
                   Text(
                     userModel.phone,
@@ -69,7 +120,6 @@ class SettingsView extends StatelessWidget {
                     userModel.bio,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
-
                   SizedBox(height: 20),
                   Row(
                     children: [

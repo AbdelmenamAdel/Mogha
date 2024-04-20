@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
@@ -13,49 +14,67 @@ class OpenCoverPhotoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = SocialCubit.get(context);
-    return Scaffold(
-      backgroundColor: AppColors.black,
-      appBar: AppBar(
-        actions: [
-          cubit.coverImage == null
-              ? Icon(IconBroken.Edit)
-              : Row(children: [
-                  Text('Update'),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(IconBroken.Upload),
-                  ),
-                  IconButton(
+    return BlocConsumer<SocialCubit, SocialStates>(listener: (context, state) {
+      if (state is SocialGetUserSuccessState) {
+        GoRouter.of(context).pop();
+        cubit.coverImage = null;
+      }
+    }, builder: (context, state) {
+      return Scaffold(
+        backgroundColor: AppColors.black,
+        appBar: AppBar(
+          backgroundColor:AppColors.black,
+          leading: IconButton(
+            onPressed: () {
+              GoRouter.of(context).pop();
+              cubit.coverImage = null;
+            },
+            icon: Icon(IconBroken.Close_Square,color: AppColors.grey,),
+          ),
+          actions: [
+            cubit.coverImage == null
+                ? IconButton(
                     onPressed: () async {
                       await cubit.getCoverImage(context);
                     },
-                    icon: Icon(IconBroken.Edit),
+                    icon: Icon(IconBroken.Edit,color: AppColors.blue,),
+                  )
+                : Row(children: [
+                    Text('Update',style: TextStyle(color: AppColors.bGL),),
+                    IconButton(
+                      onPressed: () async {
+                        await cubit.uploadCoverImage();
+                      },
+                      icon: Icon(IconBroken.Upload,color: AppColors.blue,),
+                    ),
+                    IconButton(
+                      onPressed: () async {
+                        await cubit.getCoverImage(context);
+                      },
+                      icon: Icon(IconBroken.Edit,color: AppColors.blue,),
+                    ),
+                  ])
+          ],
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            cubit.coverImage == null
+                ? Container(
+                    child: Image.network(
+                      fit: BoxFit.cover,
+                      cubit.model!.coverPhoto,
+                    ),
+                  )
+                : Container(
+                    child: Image.file(
+                      cubit.coverImage!,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ])
-        ],
-      ),
-      body: BlocConsumer<SocialCubit, SocialStates>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                cubit.coverImage == null
-                    ? Container(
-                        child: Image.network(
-                          fit: BoxFit.cover,
-                          cubit.model!.coverPhoto,
-                        ),
-                      )
-                    : Container(
-                        child: Image.file(
-                          cubit.coverImage!,
-                          fit: BoxFit.cover,
-                        ),
-                      )
-              ],
-            );
-          }),
-    );
+          ],
+        ),
+      );
+    });
   }
 }

@@ -18,14 +18,12 @@ class DefaultAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title??'',style: Theme.of(context).textTheme.titleMedium,),
+      title: Text(title??'',style: Theme.of(context).textTheme.displayMedium,),
       titleSpacing: 0.0,
       leading: IconButton(
         onPressed: () {
           GoRouter.of(context).pop();
-          BlocProvider.of<SocialCubit>(context).profileImage==null;
-          BlocProvider.of<SocialCubit>(context).coverImage==null;
-        },
+          },
         icon: Icon(IconBroken.Arrow___Left_2),
       ),
       actions: actions,
