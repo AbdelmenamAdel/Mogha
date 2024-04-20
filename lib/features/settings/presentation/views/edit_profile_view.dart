@@ -16,9 +16,7 @@ class EditProfileView extends StatelessWidget {
     var phoneController = TextEditingController();
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {
-        if(state is SocialGetUserSuccessState){
-
-        }
+        if (state is SocialGetUserSuccessState) {}
       },
       builder: (context, state) {
         var userModel = SocialCubit.get(context).model;
@@ -27,149 +25,157 @@ class EditProfileView extends StatelessWidget {
         bioController.text = userModel.bio;
         phoneController.text = userModel.phone;
         return Scaffold(
-          body: Column(
-            children: [
-              DefaultAppBar(
-                title: 'Edit Profile',
-                actions: [
-                  InkWell(
-                    highlightColor: Colors.lightBlueAccent,
-                    onTap: () async {
-                      await cubit.updateUser(
-                        userName: nameController.text,
-                        bio: bioController.text,
-                        phone: phoneController.text,
-                      );
-                    },
-                    child: Text(
-                      'Update',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(fontSize: 20, color: Colors.blue),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  )
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 200,
-                      child: Stack(
-                        children: [
-                          Stack(
-                            alignment: Alignment.bottomRight,
-                            children: [
-                              Container(
-                                height: 160,
-                                width: double.infinity,
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(8),
-                                    topRight: Radius.circular(8),
-                                  ),
-                                ),
-                                child: cubit.coverImage == null
-                                    ? Image.network(
-                                        fit: BoxFit.cover,
-                                        userModel.coverPhoto,
-                                      )
-                                    : Image.file(
-                                        cubit.coverImage!,
-                                        fit: BoxFit.cover,
-                                      ),
-                              ),
-                              IconButton(
-                                onPressed: () async {
-                                  await cubit.getCoverImage(context);
-                                },
-                                icon: CircleAvatar(
-                                  backgroundColor:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                  child: Icon(
-                                    IconBroken.Camera,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Stack(
-                              alignment: Alignment.bottomRight,
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                  radius: 65,
-                                  child: CircleAvatar(
-                                      radius: 60,
-                                      backgroundImage: NetworkImage(
-                                        cubit.profileImage==null?
-                                        userModel.profilePhoto:cubit.profileImageUrl!,
-                                      )),
-                                ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: CircleAvatar(
-                                    radius: 18,
-                                    backgroundColor: Theme.of(context)
-                                        .scaffoldBackgroundColor,
-                                    child: Icon(
-                                      IconBroken.Camera,
-                                      size: 20,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                DefaultAppBar(
+                  title: 'Edit Profile',
+                  actions: [
+                    InkWell(
+                      highlightColor: Colors.lightBlueAccent,
+                      onTap: () async {
+                        await cubit.updateUser(
+                          userName: nameController.text,
+                          bio: bioController.text,
+                          phone: phoneController.text,
+                        );
+                      },
+                      child: Text(
+                        'Update',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(fontSize: 20, color: Colors.blue),
                       ),
                     ),
-                    SizedBox(height: 20),
-                    CustomTextField(
-                      controller: nameController,
-                      prefixIcon: IconBroken.User,
-                      labelText: 'Name',
-                      onFieldSubmitted: (value) {
-                        nameController.text = value ?? '';
-                      },
-                      keyboardType: TextInputType.name,
-                    ),
-                    SizedBox(height: 10),
-                    CustomTextField(
-                      controller: bioController,
-                      prefixIcon: IconBroken.Info_Circle,
-                      labelText: 'Bio',
-                      keyboardType: TextInputType.text,
-                      onFieldSubmitted: (value) {
-                        bioController.text = value ?? '';
-                      },
-                    ),
-                    SizedBox(height: 10),
-                    CustomTextField(
-                      controller: phoneController,
-                      prefixIcon: IconBroken.Call,
-                      labelText: 'phone',
-                      onFieldSubmitted: (value) {
-                        phoneController.text = value!;
-                      },
-                      onSaved: (value) {
-                        phoneController.text = value!;
-                      },
-                      keyboardType: TextInputType.number,
-                    ),
+                    SizedBox(
+                      width: 10,
+                    )
                   ],
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 200,
+                        child: Stack(
+                          children: [
+                            Stack(
+                              alignment: Alignment.bottomRight,
+                              children: [
+                                Container(
+                                  height: 160,
+                                  width: double.infinity,
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(8),
+                                      topRight: Radius.circular(8),
+                                    ),
+                                  ),
+                                  child: cubit.coverImage == null
+                                      ? Image.network(
+                                          fit: BoxFit.cover,
+                                          userModel.coverPhoto,
+                                        )
+                                      : Image.file(
+                                          cubit.coverImage!,
+                                          fit: BoxFit.cover,
+                                        ),
+                                ),
+                                IconButton(
+                                  onPressed: () async {
+                                    await cubit.getCoverImage(context);
+                                  },
+                                  icon: CircleAvatar(
+                                    backgroundColor:
+                                        Theme.of(context).scaffoldBackgroundColor,
+                                    child: Icon(
+                                      IconBroken.Camera,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Stack(
+                                alignment: Alignment.bottomRight,
+                                children: [
+                                  CircleAvatar(
+                                    backgroundColor:
+                                        Theme.of(context).scaffoldBackgroundColor,
+                                    radius: 65,
+                                    child:cubit.profileImage == null
+                                        ? CircleAvatar(
+                                      radius: 60,
+                                      backgroundImage: NetworkImage(
+                                         userModel.profilePhoto,
+                                      ),
+                                    ):CircleAvatar(
+                                      radius: 60,
+                                      backgroundImage: FileImage(cubit.profileImage!)
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      cubit.getProfileImage(context);
+                                    },
+                                    icon: CircleAvatar(
+                                      radius: 18,
+                                      backgroundColor: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                      child: Icon(
+                                        IconBroken.Camera,
+                                        size: 20,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      CustomTextField(
+                        controller: nameController,
+                        prefixIcon: IconBroken.User,
+                        labelText: 'Name',
+                        onFieldSubmitted: (value) {
+                          nameController.text = value ?? '';
+                        },
+                        keyboardType: TextInputType.name,
+                      ),
+                      SizedBox(height: 10),
+                      CustomTextField(
+                        controller: bioController,
+                        prefixIcon: IconBroken.Info_Circle,
+                        labelText: 'Bio',
+                        keyboardType: TextInputType.text,
+                        onFieldSubmitted: (value) {
+                          bioController.text = value ?? '';
+                        },
+                      ),
+                      SizedBox(height: 10),
+                      CustomTextField(
+                        controller: phoneController,
+                        prefixIcon: IconBroken.Call,
+                        labelText: 'phone',
+                        onFieldSubmitted: (value) {
+                          phoneController.text = value!;
+                        },
+                        onSaved: (value) {
+                          phoneController.text = value!;
+                        },
+                        keyboardType: TextInputType.number,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
