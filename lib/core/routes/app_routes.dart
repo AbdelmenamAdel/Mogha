@@ -12,7 +12,7 @@ import 'package:moga/features/onboarding/presentation/views/onboarding_view.dart
 import 'package:moga/features/onboarding/presentation/views/splach_view.dart';
 import 'package:moga/features/open_cover_photo_view.dart';
 import 'package:moga/features/open_profile_photo_view.dart';
-import 'package:moga/features/post/views/add_post.dart';
+import 'package:moga/features/post/presentation/views/add_post.dart';
 import 'package:moga/features/search/search_view.dart';
 import 'package:moga/features/settings/presentation/views/edit_profile_view.dart';
 import 'package:moga/features/social/presentation/views/social_layout_view.dart';

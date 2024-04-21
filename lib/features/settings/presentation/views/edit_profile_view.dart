@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/widgets/custom_navigate.dart';
 import 'package:moga/core/widgets/custom_text_f_field.dart';
-import 'package:moga/features/post/views/widgets/default_app_bar.dart';
+import 'package:moga/features/post/presentation/views/widgets/default_app_bar.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
 
