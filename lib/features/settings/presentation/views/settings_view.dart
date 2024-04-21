@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/widgets/custom_navigate.dart';

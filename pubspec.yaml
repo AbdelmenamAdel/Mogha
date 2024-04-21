@@ -63,6 +63,7 @@ dependencies:
   flutter_regex: ^0.0.3
   icon_broken: ^1.1.0
   firebase_storage: ^11.7.2
+  modal_progress_hud_nsn: ^0.5.1
   # persistent_bottom_nav_bar: ^5.0.2
 
 dev_dependencies:
