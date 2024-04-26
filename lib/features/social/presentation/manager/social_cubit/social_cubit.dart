@@ -21,7 +21,7 @@ class SocialCubit extends Cubit<SocialStates> {
   static SocialCubit get(context) => BlocProvider.of(context);
   late UserModel? model;
   GetUserImplementation user = GetUserImplementation();
-
+  bool inAsyncCall = false;
   List<String> titles = [
     'Home',
     'Chats',
@@ -199,6 +199,7 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   File? postPhoto;
+
   Future<void> getPostImage(BuildContext context) async {
     try {
       showDialog(
@@ -207,18 +208,18 @@ class SocialCubit extends Cubit<SocialStates> {
             return ImagePickerComponent(
               cameraOnTap: () async {
                 pickImage(ImageSource.camera).then(
-                      (value) {
-                        postPhoto = File(value!.path);
-                    emit(SocialProfileImagePickedSuccessState());
+                  (value) {
+                    postPhoto = File(value!.path);
+                    emit(SocialPostImagePickedSuccessState());
                   },
                 );
                 GoRouter.of(context).pop();
               },
               galleryOnTap: () {
                 pickImage(ImageSource.gallery).then(
-                      (value) {
-                        postPhoto = File(value!.path);
-                    emit(SocialProfileImagePickedSuccessState());
+                  (value) {
+                    postPhoto = File(value!.path);
+                    emit(SocialPostImagePickedSuccessState());
                   },
                 );
                 GoRouter.of(context).pop();
@@ -226,20 +227,14 @@ class SocialCubit extends Cubit<SocialStates> {
             );
           });
     } catch (e) {
-      emit(SocialProfileImagePickedFailureState());
+      emit(SocialPostImagePickedFailureState());
     }
   }
 
   String? postImageUrl;
 
-  Future<void> uploadPostPhoto({
-    required String name,
-    required String uId,
-    String? postImage,
-    required String image,
-    required String text,
-    required DateTime date,
-  }) async {
+  Future<void> uploadPostPhoto() async {
+    emit(SocialUploadPostImageLoadingState());
     await storage
         .ref()
         .child("posts/${Uri.file(postPhoto!.path).pathSegments.last}")
@@ -248,14 +243,6 @@ class SocialCubit extends Cubit<SocialStates> {
       value.ref.getDownloadURL().then((value) async {
         postImageUrl = value;
         log(postImageUrl ?? '');
-        await createPost(
-          name: name,
-          uId: uId,
-          image: image,
-          text: text,
-          date: date,
-          postImage: postImageUrl,
-        );
         emit(SocialUploadPostImageSuccessState());
       }).catchError((error) {
         emit(SocialUploadPostImageFailureState());
@@ -270,24 +257,21 @@ class SocialCubit extends Cubit<SocialStates> {
 
   Future<void> createPost({
     String? postImage,
-    required String name,
-    required String uId,
-    required String image,
     required String text,
-    required DateTime date,
   }) async {
     PostModel postModel = PostModel(
-      image: image,
-      date: date,
-      name: name,
+      image: model!.profilePhoto,
+      date: DateTime.now().toString(),
+      name: model!.userName,
       text: text,
-      uId: uId,
+      uId: model!.uId,
       postImage: postImage,
     );
     try {
+      emit(SocialCreatePostLoadingState());
       await postsStore.add(postModel.toMap());
-      await getPosts();
       emit(SocialCreatePostSuccessState());
+      await getPosts();
     } catch (e) {
       emit(SocialCreatePostFailureState());
     }

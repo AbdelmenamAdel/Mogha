@@ -4,7 +4,7 @@ class PostModel {
   String? postImage;
   String image;
   String text;
-  DateTime date;
+  String date;
 
   PostModel({
     this.postImage,
