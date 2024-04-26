@@ -30,4 +30,16 @@ class SocialUploadProfileImageSuccessState extends SocialStates {}
 
 class SocialUploadProfileImageFailureState extends SocialStates {}
 
+class SocialUploadPostImageSuccessState extends SocialStates {}
+
+class SocialUploadPostImageFailureState extends SocialStates {}
+
+class SocialCreatePostSuccessState extends SocialStates {}
+
+class SocialCreatePostFailureState extends SocialStates {}
+
+class SocialGetPostsSuccessState extends SocialStates {}
+
+class SocialGetPostsFailureState extends SocialStates {}
+
 class SocialUserUpdateFailureState extends SocialStates {}

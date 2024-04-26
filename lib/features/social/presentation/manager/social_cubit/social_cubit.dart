@@ -8,12 +8,15 @@ import 'package:image_picker/image_picker.dart';
 import 'package:moga/core/widgets/custom_image_picker.dart';
 import 'package:moga/core/widgets/custom_pick_image.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
+import 'package:moga/features/post/data/model/post_model.dart';
 import 'package:moga/features/social/data/get_user_auth_impl.dart';
+import 'package:moga/features/social/data/get_user_authorization.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class SocialCubit extends Cubit<SocialStates> {
-  SocialCubit() : super(SocialInitState());
+  SocialCubit(this.userRepo) : super(SocialInitState());
+  GetUserAuth userRepo;
 
   static SocialCubit get(context) => BlocProvider.of(context);
   late UserModel? model;
@@ -193,5 +196,117 @@ class SocialCubit extends Cubit<SocialStates> {
       log(error.toString());
       emit(SocialUserUpdateFailureState());
     });
+  }
+
+  File? postPhoto;
+  Future<void> getPostImage(BuildContext context) async {
+    try {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return ImagePickerComponent(
+              cameraOnTap: () async {
+                pickImage(ImageSource.camera).then(
+                      (value) {
+                        postPhoto = File(value!.path);
+                    emit(SocialProfileImagePickedSuccessState());
+                  },
+                );
+                GoRouter.of(context).pop();
+              },
+              galleryOnTap: () {
+                pickImage(ImageSource.gallery).then(
+                      (value) {
+                        postPhoto = File(value!.path);
+                    emit(SocialProfileImagePickedSuccessState());
+                  },
+                );
+                GoRouter.of(context).pop();
+              },
+            );
+          });
+    } catch (e) {
+      emit(SocialProfileImagePickedFailureState());
+    }
+  }
+
+  String? postImageUrl;
+
+  Future<void> uploadPostPhoto({
+    required String name,
+    required String uId,
+    String? postImage,
+    required String image,
+    required String text,
+    required DateTime date,
+  }) async {
+    await storage
+        .ref()
+        .child("posts/${Uri.file(postPhoto!.path).pathSegments.last}")
+        .putFile(postPhoto!)
+        .then((value) {
+      value.ref.getDownloadURL().then((value) async {
+        postImageUrl = value;
+        log(postImageUrl ?? '');
+        await createPost(
+          name: name,
+          uId: uId,
+          image: image,
+          text: text,
+          date: date,
+          postImage: postImageUrl,
+        );
+        emit(SocialUploadPostImageSuccessState());
+      }).catchError((error) {
+        emit(SocialUploadPostImageFailureState());
+      }).catchError((error) {
+        emit(SocialUploadPostImageFailureState());
+      });
+    });
+  }
+
+  CollectionReference<Map<String, dynamic>> postsStore =
+      FirebaseFirestore.instance.collection('posts');
+
+  Future<void> createPost({
+    String? postImage,
+    required String name,
+    required String uId,
+    required String image,
+    required String text,
+    required DateTime date,
+  }) async {
+    PostModel postModel = PostModel(
+      image: image,
+      date: date,
+      name: name,
+      text: text,
+      uId: uId,
+      postImage: postImage,
+    );
+    try {
+      await postsStore.add(postModel.toMap());
+      await getPosts();
+      emit(SocialCreatePostSuccessState());
+    } catch (e) {
+      emit(SocialCreatePostFailureState());
+    }
+  }
+
+  List<PostModel> posts = [];
+
+  Future<List<PostModel>> getPosts() async {
+    try {
+      await await userRepo.getPosts().then((value) {
+        value.docs.forEach((element) {
+          posts.add(PostModel.fromJson(element.data()));
+        });
+      });
+      emit(SocialGetPostsSuccessState());
+    } catch (e) {
+      log(e.toString());
+      emit(SocialGetPostsFailureState());
+    }
+    return posts;
   }
 }

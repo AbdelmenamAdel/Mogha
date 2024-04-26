@@ -1,11 +1,13 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moga/features/auth/data/firebase/firebase_auth_repo_services_implementation.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:moga/features/post/data/model/post_model.dart';
 
 part 'auth_state.dart';
 
@@ -50,7 +52,7 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
         password: password,
         userName: userName,
-        profileImage: profileImage == null ? null: profileImageUrl,
+        profileImage: profileImage == null ? null : profileImageUrl,
         uId: FirebaseAuth.instance.currentUser!.uid,
         isEmailVerified: FirebaseAuth.instance.currentUser!.emailVerified,
       );
@@ -140,7 +142,6 @@ class AuthCubit extends Cubit<AuthState> {
     res.fold((failure) {
       emit(LoginErrorState());
     }, (success) {
-
       log(success);
       emit(LoginSuccessState());
     });
@@ -161,4 +162,5 @@ class AuthCubit extends Cubit<AuthState> {
       return false;
     }
   }
-}
+
+ }

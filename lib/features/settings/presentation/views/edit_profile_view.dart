@@ -48,7 +48,7 @@ class EditProfileView extends StatelessWidget {
                     title: 'Edit Profile',
                     actions: [
                       InkWell(
-                        highlightColor: Colors.lightBlueAccent,
+                        highlightColor: AppColors.blue,
                         onTap: () async {
                           await cubit.updateUser(
                             userName: nameController.text,
@@ -56,15 +56,18 @@ class EditProfileView extends StatelessWidget {
                             phone: phoneController.text,
                           );
                         },
-                        child: Text(
-                          'Update',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall!
-                              .copyWith(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.blue),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Update',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.blue),
+                          ),
                         ),
                       ),
                       SizedBox(

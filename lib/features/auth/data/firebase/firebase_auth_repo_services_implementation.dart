@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,13 +8,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:moga/core/database/cache/cache_helper.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/features/auth/data/firebase/firebase_auth_repo_services.dart';
-
 import '../models/create_user_model.dart';
 
 class AuthRepoImplementation implements FirebaseAuthRepository {
   late UserCredential currentUser;
   late FirebaseAuth _auth = FirebaseAuth.instance;
-
+  
   @override
   Future<Either<String, String>> login({
     required String email,
@@ -122,8 +122,8 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
         bio: 'write your bio...',
         coverPhoto:
             'https://img.freepik.com/free-photo/attractive-young-man-wearing-glasses-casual-clothes-showing-ok-good-sign-approval-like-someth_1258-161826.jpg?t=st=1713099288~exp=1713102888~hmac=7bf694e645d046054b47fbcd7ff529690f0e42aece2172f6281b33e9d75fb53e&w=1060',
-        profilePhoto:profilePhoto??'https://img.freepik.com/free-photo/handsome-caucasian-man-casual-outfit-pointing-fingers-left-smiling-showing-promo-offer-standing-blue-background_1258-65029.jpg?t=st=1713088183~exp=1713091783~hmac=0ca3b0954b67f077341ede4a034e60c42abf06fa92f80965b2517d776fb3f94c&w=996',
-
+        profilePhoto: profilePhoto ??
+            'https://img.freepik.com/free-photo/handsome-caucasian-man-casual-outfit-pointing-fingers-left-smiling-showing-promo-offer-standing-blue-background_1258-65029.jpg?t=st=1713088183~exp=1713091783~hmac=0ca3b0954b67f077341ede4a034e60c42abf06fa92f80965b2517d776fb3f94c&w=996',
       );
       await FirebaseFirestore.instance
           .collection('users')
@@ -139,7 +139,7 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
   @override
   Future<void> sendEmailVerification() async {
     try {
-      _auth.currentUser!.sendEmailVerification();
+      await _auth.currentUser!.sendEmailVerification();
     } catch (e) {
       log(e.toString());
     }
@@ -154,4 +154,5 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
       return false;
     }
   }
+
 }
