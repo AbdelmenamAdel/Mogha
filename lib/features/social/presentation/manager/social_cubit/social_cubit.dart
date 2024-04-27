@@ -252,8 +252,7 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  CollectionReference<Map<String, dynamic>> postsStore =
-      FirebaseFirestore.instance.collection('posts');
+  FirebaseFirestore instance = FirebaseFirestore.instance;
 
   Future<void> createPost({
     String? postImage,
@@ -269,21 +268,31 @@ class SocialCubit extends Cubit<SocialStates> {
     );
     try {
       emit(SocialCreatePostLoadingState());
-      await postsStore.add(postModel.toMap());
+      await instance.collection('posts').add(postModel.toMap());
       emit(SocialCreatePostSuccessState());
-      await getPosts();
+      // await getPosts();
     } catch (e) {
       emit(SocialCreatePostFailureState());
     }
   }
 
   List<PostModel> posts = [];
+  List<String> postsId = [];
+  List<int> likes = [];
+  List<int> comments = [];
 
   Future<List<PostModel>> getPosts() async {
     try {
       await await userRepo.getPosts().then((value) {
-        value.docs.forEach((element) {
-          posts.add(PostModel.fromJson(element.data()));
+        value.docs.forEach((element) async {
+          await element.reference.collection('likes').get().then((value) {
+            likes.add(value.docs.length);
+          });
+          await element.reference.collection('comments').get().then((value) {
+            comments.add(value.docs.length);
+            postsId.add(element.id);
+            posts.add(PostModel.fromJson(element.data()));
+          });
         });
       });
       emit(SocialGetPostsSuccessState());
@@ -292,5 +301,35 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(SocialGetPostsFailureState());
     }
     return posts;
+  }
+
+  Future<void> likePost(String postId) async {
+    try {
+      instance
+          .collection('posts')
+          .doc(postId)
+          .collection('likes')
+          .doc(model!.uId)
+          .set({'like': true});
+      emit(SocialLikePostSuccessState());
+    } catch (e) {
+      emit(SocialLikePostFailureState());
+      // TODO
+    }
+  }
+
+  Future<void> commentPost(String postId, String comment) async {
+    try {
+      instance
+          .collection('posts')
+          .doc(postId)
+          .collection('comments')
+          .doc(model!.uId)
+          .set({'comment': comment});
+      emit(SocialCommentPostSuccessState());
+    } catch (e) {
+      emit(SocialCommentPostFailureState());
+      // TODO
+    }
   }
 }

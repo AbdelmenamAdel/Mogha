@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/features/post/data/model/post_model.dart';
+import 'package:moga/features/post/presentation/views/comments.dart';
+import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 
 class CustomPostWidget extends StatelessWidget {
-  const CustomPostWidget({super.key});
+  const CustomPostWidget({
+    super.key,
+    required this.postModel,
+    required this.index,
+  });
+
+  final PostModel postModel;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
+    var cubit = SocialCubit.get(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 5.0),
       child: Card(
@@ -27,13 +38,14 @@ class CustomPostWidget extends StatelessWidget {
                 contentPadding: EdgeInsets.zero,
                 title: Row(
                   children: [
-                    Text('Abdelmoneim Adel ',
+                    Text(postModel.name,
                         style: Theme.of(context).textTheme.displaySmall),
+                    SizedBox(width: 2),
                     Icon(Icons.verified, color: Colors.blue, size: 18)
                   ],
                 ),
                 subtitle: Text(
-                  'January 29,2024 at 11:00 pm',
+                  postModel.date,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 trailing: IconButton(
@@ -50,7 +62,7 @@ class CustomPostWidget extends StatelessWidget {
               ),
               SizedBox(height: 5),
               Text(
-                'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+                postModel.text,
                 style: Theme.of(context)
                     .textTheme
                     .displaySmall!
@@ -128,18 +140,19 @@ class CustomPostWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 8),
-              Container(
-                height: 175,
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(8)),
-                child: Image.network(
-                  'https://img.freepik.com/free-photo/attractive-young-man-wearing-glasses-casual-clothes-showing-ok-good-sign-approval-like-someth_1258-161826.jpg?t=st=1713099288~exp=1713102888~hmac=7bf694e645d046054b47fbcd7ff529690f0e42aece2172f6281b33e9d75fb53e&w=1060',
-                  fit: BoxFit.cover,
-                  width: double.infinity,
+              if (postModel.postImage != null) SizedBox(height: 8),
+              if (postModel.postImage != null)
+                Container(
+                  height: 175,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                  child: Image.network(
+                    postModel.postImage!,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                  ),
                 ),
-              ),
               Row(
                 children: [
                   InkWell(
@@ -153,7 +166,7 @@ class CustomPostWidget extends StatelessWidget {
                             color: AppColors.red,
                           ),
                           SizedBox(width: 5),
-                          Text('143')
+                          Text('${cubit.likes[index]}')
                         ],
                       ),
                     ),
@@ -187,10 +200,16 @@ class CustomPostWidget extends StatelessWidget {
                 leading: CircleAvatar(
                   radius: 15,
                   backgroundImage: NetworkImage(
-                      'https://img.freepik.com/free-photo/handsome-caucasian-man-casual-outfit-pointing-fingers-left-smiling-showing-promo-offer-standing-blue-background_1258-65029.jpg?t=st=1713088183~exp=1713091783~hmac=0ca3b0954b67f077341ede4a034e60c42abf06fa92f80965b2517d776fb3f94c&w=996'),
+                    cubit.model!.profilePhoto,
+                  ),
                 ),
                 title: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    showAdaptiveDialog(
+                      context: context,
+                      builder: (context) => CommentsView(),
+                    );
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
@@ -201,7 +220,9 @@ class CustomPostWidget extends StatelessWidget {
                 ),
                 contentPadding: EdgeInsets.zero,
                 trailing: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    cubit.likePost(cubit.postsId[index]);
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Row(
