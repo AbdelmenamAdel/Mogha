@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/utils/app_colors.dart';
@@ -205,7 +206,9 @@ class CustomPostWidget extends StatelessWidget {
                 ),
                 title: InkWell(
                   onTap: () {
-                    showAdaptiveDialog(
+                    showBottomSheet(
+                      elevation: 0,
+                      backgroundColor: Colors.transparent,
                       context: context,
                       builder: (context) => CommentsView(),
                     );

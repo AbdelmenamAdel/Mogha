@@ -8,27 +8,33 @@ class DefaultAppBar extends StatelessWidget {
     this.actions,
     this.title,
     this.onPressed,
+    this.leading,
+    this.backgroundColor,
   });
 
   final String? title;
   final List<Widget>? actions;
   final void Function()? onPressed;
+  final Color? backgroundColor;
+  final Widget? leading;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: backgroundColor,
       title: Text(
         title ?? '',
         style: Theme.of(context).textTheme.displayMedium,
       ),
       titleSpacing: 0.0,
-      leading: IconButton(
-        onPressed: onPressed ??
-            () {
-              GoRouter.of(context).pop();
-            },
-        icon: Icon(IconBroken.Arrow___Left_2),
-      ),
+      leading: leading ??
+          IconButton(
+            onPressed: onPressed ??
+                () {
+                  GoRouter.of(context).pop();
+                },
+            icon: Icon(IconBroken.Arrow___Left_2),
+          ),
       actions: actions,
     );
   }

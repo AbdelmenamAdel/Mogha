@@ -27,6 +27,12 @@ class EditProfileView extends StatelessWidget {
           GoRouter.of(context).pop();
           cubit.coverImage = null;
           cubit.profileImage = null;
+          cubit.inAsyncCall=false;
+        }
+        if(state is SocialGetUsersLoadingState){
+          cubit.inAsyncCall=true;
+        }  if(state is SocialLikePostFailureState){
+          cubit.inAsyncCall=false;
         }
       },
       builder: (context, state) {
@@ -35,7 +41,7 @@ class EditProfileView extends StatelessWidget {
         bioController.text = userModel.bio;
         phoneController.text = userModel.phone;
         return ModalProgressHUD(
-          inAsyncCall: true,
+          inAsyncCall: cubit.inAsyncCall,
           progressIndicator: CupertinoActivityIndicator(
             radius:25 ,
             // color: AppColors.grey,

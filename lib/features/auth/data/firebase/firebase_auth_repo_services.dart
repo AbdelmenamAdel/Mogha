@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:moga/features/post/data/model/post_model.dart';
 
 abstract class FirebaseAuthRepository {
   Future<Either<String, String>> login({
@@ -32,5 +30,4 @@ abstract class FirebaseAuthRepository {
   Future<Either<String, String>> forgetPassword({
     required String email,
   });
-
 }

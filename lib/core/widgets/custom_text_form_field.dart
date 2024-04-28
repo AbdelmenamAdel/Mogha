@@ -15,6 +15,9 @@ class CustomTextFormField extends StatelessWidget {
     this.onFieldSubmitted,
     this.controller,
     this.s_icon,
+    this.s_color,
+    this.textColor,
+    this.showCursor,
     this.color = AppColors.textField,
   });
 
@@ -30,6 +33,9 @@ class CustomTextFormField extends StatelessWidget {
   final IconData? s_icon;
   final void Function()? onPressed;
   final Color? color;
+  final Color? s_color;
+  final bool? showCursor;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -38,24 +44,30 @@ class CustomTextFormField extends StatelessWidget {
       height: width / 8,
       width: width / 1.22,
       alignment: Alignment.center,
-      padding: EdgeInsets.only(right: width / 30),
+      padding: icon != null
+          ? EdgeInsets.only(right: width / 50)
+          : EdgeInsets.only(left: width / 50),
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextFormField(
         onSaved: onSaved,
+        showCursor: showCursor,
         onChanged: onChanged,
         onFieldSubmitted: onFieldSubmitted,
-        // style: TextStyle(color: AppColors.white.withOpacity(.9)),
+        style: TextStyle(color: textColor),
         obscureText: isPassword,
-        keyboardType: type,cursorColor: Colors.blue,
+        keyboardType: type,
+        cursorColor: Colors.blue,
         controller: controller,
         decoration: InputDecoration(
-          prefixIcon: Icon(
-            icon,
-            color: Colors.white.withOpacity(.7),
-          ),
+          prefixIcon: (icon != null)
+              ? Icon(
+                  icon,
+                  color: Colors.white.withOpacity(.7),
+                )
+              : null,
           border: InputBorder.none,
           hintMaxLines: 1,
           hintText: hintText,
@@ -63,7 +75,7 @@ class CustomTextFormField extends StatelessWidget {
             onPressed: onPressed,
             icon: Icon(
               s_icon,
-              color: AppColors.kPrimary,
+              color: s_color ?? AppColors.kPrimary,
             ),
           ),
           hintStyle: TextStyle(

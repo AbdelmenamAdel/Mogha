@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,7 +12,7 @@ import '../models/create_user_model.dart';
 class AuthRepoImplementation implements FirebaseAuthRepository {
   late UserCredential currentUser;
   late FirebaseAuth _auth = FirebaseAuth.instance;
-  
+
   @override
   Future<Either<String, String>> login({
     required String email,
@@ -154,5 +153,4 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
       return false;
     }
   }
-
 }
