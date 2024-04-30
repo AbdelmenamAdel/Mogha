@@ -69,14 +69,16 @@ class CommentsView extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        CustomCommentWidget(
-                          name: 'Men3em Ibn 3del',
-                          comment:
-                              'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
-                        ),
-                      ],
+                    child: SelectionArea(
+                      child: Column(
+                        children: [
+                          CustomCommentWidget(
+                            name: 'Men3em Ibn 3del',
+                            comment:
+                                'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

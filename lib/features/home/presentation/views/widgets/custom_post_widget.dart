@@ -61,12 +61,14 @@ class CustomPostWidget extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 5),
-              Text(
-                postModel.text,
-                style: Theme.of(context)
-                    .textTheme
-                    .displaySmall!
-                    .copyWith(fontSize: 14, height: 1.2),
+              SelectionArea(
+                child: Text(
+                  postModel.text,
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall!
+                      .copyWith(fontSize: 14, height: 1.2),
+                ),
               ),
               SizedBox(height: 10),
               Wrap(

@@ -270,8 +270,8 @@ class SocialCubit extends Cubit<SocialStates> {
     try {
       emit(SocialCreatePostLoadingState());
       await instance.collection('posts').add(postModel.toMap());
+      posts.add(postModel);
       emit(SocialCreatePostSuccessState());
-      // await getPosts();
     } catch (e) {
       emit(SocialCreatePostFailureState());
     }
@@ -290,12 +290,12 @@ class SocialCubit extends Cubit<SocialStates> {
             likes.add(value.docs.length);
             emit(SocialGetLikedPostsSuccessState());
           });
-         await element.reference.collection('comments').get().then((value) {
+          await element.reference.collection('comments').get().then((value) {
             comments.add(value.docs.length);
             emit(SocialGetCommentsSuccessState());
             postsId.add(element.id);
             posts.add(PostModel.fromJson(element.data()));
-         });
+          });
         });
       });
       emit(SocialGetPostsSuccessState());

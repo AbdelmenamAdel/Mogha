@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:moga/core/utils/app_colors.dart';
 
@@ -16,9 +17,12 @@ class CustomCommentWidget extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CircleAvatar(
-          radius: 25,
-          backgroundImage: NetworkImage(''),
+        InkWell(
+          onTap: () {},
+          child: CircleAvatar(
+            radius: 25,
+            backgroundImage: NetworkImage(''),
+          ),
         ),
         SizedBox(width: 5),
         Container(
@@ -38,10 +42,15 @@ class CustomCommentWidget extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(
-                      name,
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: AppColors.black, fontWeight: FontWeight.w600),
+                    InkWell(
+                      onTap: () {},
+                      child: Text(
+                        name,
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              color: AppColors.black,
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
                     ),
                     SizedBox(width: 2),
                     Icon(
@@ -58,6 +67,18 @@ class CustomCommentWidget extends StatelessWidget {
                     style: TextStyle(color: AppColors.black),
                   ),
                 ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: Text(
+                      '02:34',
+                      style: TextStyle(
+                        color: AppColors.black.withOpacity(.6),
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           ),
