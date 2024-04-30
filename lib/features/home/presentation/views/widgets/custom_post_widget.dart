@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/utils/app_colors.dart';
@@ -185,7 +184,7 @@ class CustomPostWidget extends StatelessWidget {
                             color: Colors.amber,
                           ),
                           SizedBox(width: 5),
-                          Text('112 Comments')
+                          Text('0 Comments')
                         ],
                       ),
                     ),
@@ -224,7 +223,8 @@ class CustomPostWidget extends StatelessWidget {
                 contentPadding: EdgeInsets.zero,
                 trailing: InkWell(
                   onTap: () {
-                    cubit.likePost(cubit.postsId[index]);
+                    cubit.toggleLike();
+                    cubit.likePost(cubit.postsId[index], cubit.clicked);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),

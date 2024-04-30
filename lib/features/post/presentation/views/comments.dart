@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/core/widgets/comment_widget.dart';
 import 'package:moga/core/widgets/custom_text_form_field.dart';
 
 class CommentsView extends StatelessWidget {
@@ -9,7 +10,7 @@ class CommentsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 10, left: 24, right: 24, bottom: 10),
+      margin: EdgeInsets.only(top: 0, left: 24, right: 24, bottom: 24),
       decoration: BoxDecoration(
         color: AppColors.black,
         borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -66,8 +67,17 @@ class CommentsView extends StatelessWidget {
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: [],
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        CustomCommentWidget(
+                          name: 'Men3em Ibn 3del',
+                          comment:
+                              'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -77,9 +87,9 @@ class CommentsView extends StatelessWidget {
                 color: AppColors.grey,
                 textColor: AppColors.black,
                 s_icon: IconBroken.Send,
-                s_color: AppColors.blue,
+                s_color: AppColors.white,
                 onPressed: () {},
-              )
+              ),
             ],
           ),
         ),

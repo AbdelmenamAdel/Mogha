@@ -14,8 +14,8 @@ class CustomGNavBar extends StatelessWidget {
   final List<GButton> tabs;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16),
         child: GNav(

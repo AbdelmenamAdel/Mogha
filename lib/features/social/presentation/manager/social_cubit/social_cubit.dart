@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/widgets/custom_image_picker.dart';
 import 'package:moga/core/widgets/custom_pick_image.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
@@ -283,16 +284,18 @@ class SocialCubit extends Cubit<SocialStates> {
 
   Future<List<PostModel>> getPosts() async {
     try {
-      await await userRepo.getPosts().then((value) {
+      await userRepo.getPosts().then((value) {
         value.docs.forEach((element) async {
-          await element.reference.collection('likes').get().then((value) {
+          element.reference.collection('likes').get().then((value) {
             likes.add(value.docs.length);
+            emit(SocialGetLikedPostsSuccessState());
           });
-          await element.reference.collection('comments').get().then((value) {
+         await element.reference.collection('comments').get().then((value) {
             comments.add(value.docs.length);
+            emit(SocialGetCommentsSuccessState());
             postsId.add(element.id);
             posts.add(PostModel.fromJson(element.data()));
-          });
+         });
         });
       });
       emit(SocialGetPostsSuccessState());
@@ -303,19 +306,36 @@ class SocialCubit extends Cubit<SocialStates> {
     return posts;
   }
 
-  Future<void> likePost(String postId) async {
+  Future<void> likePost(String postId, isLiked) async {
     try {
-      instance
-          .collection('posts')
-          .doc(postId)
-          .collection('likes')
-          .doc(model!.uId)
-          .set({'like': true});
+      clicked
+          ? instance
+              .collection('posts')
+              .doc(postId)
+              .collection('likes')
+              .doc(model!.uId)
+              .set({
+              'like': true,
+            })
+          : instance
+              .collection('posts')
+              .doc(postId)
+              .collection('likes')
+              .doc(model!.uId)
+              .delete();
       emit(SocialLikePostSuccessState());
     } catch (e) {
       emit(SocialLikePostFailureState());
       // TODO
     }
+  }
+
+  Color? color = null;
+  bool clicked = false;
+
+  void toggleLike() {
+    clicked = !clicked;
+    color = clicked ? AppColors.red : null;
   }
 
   Future<void> commentPost(String postId, String comment) async {

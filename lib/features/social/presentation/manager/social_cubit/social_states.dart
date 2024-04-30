@@ -45,6 +45,8 @@ class SocialPostImagePickedFailureState extends SocialStates {}
 class SocialLikePostFailureState extends SocialStates {}
 
 class SocialLikePostSuccessState extends SocialStates {}
+class SocialGetLikedPostsSuccessState extends SocialStates {}
+class SocialGetCommentsSuccessState extends SocialStates {}
 
 class SocialCommentPostFailureState extends SocialStates {}
 
