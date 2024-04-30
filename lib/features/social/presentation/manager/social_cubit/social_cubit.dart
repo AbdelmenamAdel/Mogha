@@ -20,7 +20,7 @@ class SocialCubit extends Cubit<SocialStates> {
   GetUserAuth userRepo;
 
   static SocialCubit get(context) => BlocProvider.of(context);
-  late UserModel? model;
+  UserModel? model;
   GetUserImplementation user = GetUserImplementation();
   bool inAsyncCall = false;
   List<String> titles = [
@@ -37,7 +37,7 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   Future<void> getUserData() async {
-    emit(SocialGetUsersLoadingState());
+    emit(SocialGetUserLoadingState());
     try {
       model = await user.getUserData();
       emit(SocialGetUserSuccessState());
@@ -351,5 +351,19 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(SocialCommentPostFailureState());
       // TODO
     }
+  }
+
+  List<UserModel> users = [];
+
+  Future<void> getUsers() async {
+    emit(SocialGetAllUsersLoadingState());
+    instance.collection('users').get().then((value) {
+      value.docs.forEach((element) {
+        users.add(UserModel.fromJson(element.data()));
+      });
+      emit(SocialGetAllUsersSuccessState());
+    }).catchError((error) {
+      emit(SocialGetAllUsersFailureState(error.toString()));
+    });
   }
 }

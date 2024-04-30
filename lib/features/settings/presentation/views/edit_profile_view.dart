@@ -29,7 +29,7 @@ class EditProfileView extends StatelessWidget {
           cubit.profileImage = null;
           cubit.inAsyncCall=false;
         }
-        if(state is SocialGetUsersLoadingState){
+        if(state is SocialGetUserLoadingState){
           cubit.inAsyncCall=true;
         }  if(state is SocialLikePostFailureState){
           cubit.inAsyncCall=false;
