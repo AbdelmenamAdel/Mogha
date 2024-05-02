@@ -32,6 +32,7 @@ class SocialCubit extends Cubit<SocialStates> {
   int currentIndex = 0;
 
   void changeBottomNav(int index) {
+    if (index == 1) getAllUsers();
     currentIndex = index;
     emit(SocialChangeBottomNavState());
   }
@@ -355,15 +356,22 @@ class SocialCubit extends Cubit<SocialStates> {
 
   List<UserModel> users = [];
 
-  Future<void> getUsers() async {
-    emit(SocialGetAllUsersLoadingState());
-    instance.collection('users').get().then((value) {
-      value.docs.forEach((element) {
-        users.add(UserModel.fromJson(element.data()));
+  Future<void> getAllUsers() async {
+    if (users.length == 0) {
+      emit(SocialGetAllUsersLoadingState());
+      instance.collection('users').get().then((value) {
+        value.docs.forEach((element) {
+          if (element.data()['uId'] != model!.uId)
+            users.add(UserModel.fromJson(element.data()));
+        });
+        emit(SocialGetAllUsersSuccessState());
+      }).catchError((error) {
+        emit(SocialGetAllUsersFailureState(error.toString()));
       });
-      emit(SocialGetAllUsersSuccessState());
-    }).catchError((error) {
-      emit(SocialGetAllUsersFailureState(error.toString()));
-    });
+    }
+  }
+
+  void createComment(String postId) {
+    // instance.collection('posts').doc(postId).collection('comments').add(data)
   }
 }

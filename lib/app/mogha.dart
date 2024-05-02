@@ -20,7 +20,7 @@ class Mogha extends StatelessWidget {
       builder: (context, child) {
         return MultiBlocProvider(providers: [
           BlocProvider(create: (context) => sl<GlobalCubit>()..updateLangage(),
-          ), BlocProvider(create: (context) => sl<SocialCubit>()..getUserData()..getPosts(),
+          ), BlocProvider(create: (context) => sl<SocialCubit>()..getUserData()..getPosts()..getAllUsers(),
           ),
         ], child:  BlocBuilder<GlobalCubit, GlobalState>(
           builder: (context, state) => MaterialApp.router(
