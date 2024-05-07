@@ -9,34 +9,42 @@ class CustomTextField extends StatelessWidget {
     this.autofocus,
     this.keyboardType,
     this.onSaved,
+    this.hintText,
+    this.height,
     this.onFieldSubmitted,
   });
 
   final TextEditingController? controller;
   final String? labelText;
+  final String? hintText;
   final IconData? prefixIcon;
   final bool? autofocus;
   final void Function(String?)? onFieldSubmitted;
   final void Function(String?)? onSaved;
   final TextInputType? keyboardType;
-
+  final double? height;
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: keyboardType,
-      controller: controller,
-      cursorColor: Colors.blue,
-      autofocus: autofocus ?? false,
-      decoration: InputDecoration(
-        prefixIcon: Icon(prefixIcon),
-        labelText: labelText,
-        labelStyle: TextStyle(color: Colors.blue),
-        prefixIconColor: Colors.blue,
-        border: outlineInputBorder(),
-        focusedBorder: outlineInputBorder(),
+    return SizedBox(
+      height: height,
+      child: TextFormField(
+        keyboardType: keyboardType,
+        controller: controller,
+        cursorColor: Colors.blue,
+        autofocus: autofocus ?? false,
+        decoration: InputDecoration(
+          prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
+          labelText: labelText,
+          hintText: hintText,
+          hintStyle: Theme.of(context).textTheme.displaySmall,
+          labelStyle: TextStyle(color: Colors.blue),
+          prefixIconColor: Colors.blue,
+          border: outlineInputBorder(),
+          focusedBorder: outlineInputBorder(),
+        ),
+        onFieldSubmitted: onFieldSubmitted,
+        onSaved: onSaved,
       ),
-      onFieldSubmitted: onFieldSubmitted,
-      onSaved: onSaved,
     );
   }
 

@@ -15,6 +15,7 @@ class GetUserImplementation implements GetUserAuth {
       String uId = sl<CacheHelper>().getData(key: 'uId');
       var document = await _auth.collection('users').doc(uId).get();
       model = UserModel.fromJson(document.data()!);
+      log('user data is ${model.toString()}');
       return model;
     } catch (e) {
       log('error while get user data');
