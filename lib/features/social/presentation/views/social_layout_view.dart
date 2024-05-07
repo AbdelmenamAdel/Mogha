@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/custom_gnav_bar.dart';
 import 'package:moga/features/chats/chats_view.dart';
+import 'package:moga/features/chats/presentation/manager/chats/chats_cubit.dart';
 import 'package:moga/features/home/presentation/views/home_view.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/features/settings/presentation/views/settings_view.dart';

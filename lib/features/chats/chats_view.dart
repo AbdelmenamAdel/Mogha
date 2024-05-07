@@ -11,23 +11,20 @@ class ChatsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<ChatsCubit>()..getAllUsers(),
-      child: SafeArea(
-        child: Scaffold(
-          body: BlocConsumer<ChatsCubit, ChatsStates>(
-            listener: (context, state) {},
-            builder: (context, state) {
-              return Column(
-                children: [
-                  CustomAppBar(title: 'Users'),
-                  ChatsViewBody(),
-                ],
-              );
-            },
+    return BlocConsumer<ChatsCubit, ChatsStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return SafeArea(
+          child: Scaffold(
+            body: Column(
+              children: [
+                CustomAppBar(title: 'Users'),
+                ChatsViewBody(),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
