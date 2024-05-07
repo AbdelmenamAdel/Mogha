@@ -10,7 +10,7 @@ class CommentsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 0, left: 24, right: 24, bottom: 24),
+      margin: EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 24),
       decoration: BoxDecoration(
         color: AppColors.black,
         borderRadius: BorderRadius.all(Radius.circular(5)),

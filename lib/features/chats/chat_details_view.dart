@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/utils/app_colors.dart';
@@ -59,25 +61,50 @@ class ChatDetailsView extends StatelessWidget {
             ),
           ],
         ),
-        body: Stack(
-          children: [
-            Image.asset(
-              AppImages.bg,
-              fit: BoxFit.cover,
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(
+                AppImages.on1,
+              ), // Replace with your image path
+              fit: BoxFit.fill,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Expanded(child: SingleChildScrollView()),
-                  CustomTextField(
-                    height: 50,
-                    hintText: 'Write a message....',
-                  )
-                ],
-              ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Expanded(child: SingleChildScrollView()),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomTextField(
+                        height: 50,
+                        hintText: 'Write a message....',
+                        bsc: Theme.of(context).scaffoldBackgroundColor,
+                        radius: 25,
+                        bgc: Theme.of(context).scaffoldBackgroundColor,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 8),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          IconBroken.Send,
+                          color: Theme.of(context).textTheme.bodyLarge!.color,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ],
+          ),
         ));
   }
 }

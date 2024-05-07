@@ -31,10 +31,10 @@ class CustomPostWidget extends StatelessWidget {
               ListTile(
                 minVerticalPadding: 0,
                 leading: CircleAvatar(
-                  radius: 20,
-                  backgroundImage: NetworkImage(
-                      'https://img.freepik.com/free-photo/handsome-caucasian-man-casual-outfit-pointing-fingers-left-smiling-showing-promo-offer-standing-blue-background_1258-65029.jpg?t=st=1713088183~exp=1713091783~hmac=0ca3b0954b67f077341ede4a034e60c42abf06fa92f80965b2517d776fb3f94c&w=996'),
-                ),
+                    radius: 20,
+                    backgroundImage: NetworkImage(
+                      postModel.image,
+                    )),
                 contentPadding: EdgeInsets.zero,
                 title: Row(
                   children: [

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/core/widgets/show_hero_image.dart';
 import 'package:moga/features/chats/chat_details_view.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 
@@ -28,25 +29,17 @@ class ChatsViewBody extends StatelessWidget {
               leading: InkWell(
                 borderRadius: BorderRadius.circular(30),
                 onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => Center(
-                      child: Container(
-                        height: 200,
-                        width: 200,
-                        child: Image.network(
-                          cubit.users[index].profilePhoto,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                  );
+                  showHeroImage(context, cubit.users[index].profilePhoto);
                 },
-                child: CircleAvatar(
-                  backgroundImage:
-                      NetworkImage(cubit.users[index].profilePhoto),
-                  radius: 30,
-                  backgroundColor: AppColors.blue,
+                child: Hero(
+                  tag: 'image',
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                      cubit.users[index].profilePhoto,
+                    ),
+                    radius: 30,
+                    backgroundColor: AppColors.blue,
+                  ),
                 ),
               ),
               title: Text(cubit.users[index].userName),
