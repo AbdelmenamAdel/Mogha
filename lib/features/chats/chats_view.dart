@@ -17,7 +17,7 @@ class ChatsView extends StatelessWidget {
           builder: (context, state) {
             return Column(
               children: [
-                CustomAppBar(title: 'Mogha Users'),
+                CustomAppBar(title: 'Users'),
                 ChatsViewBody(),
               ],
             );
