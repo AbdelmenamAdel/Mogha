@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/core/widgets/custom_text_f_field.dart';
-import 'package:moga/core/widgets/custom_text_form_field.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
-import 'package:moga/features/post/presentation/views/widgets/default_app_bar.dart';
 
 class ChatDetailsView extends StatelessWidget {
   const ChatDetailsView({
@@ -17,7 +15,6 @@ class ChatDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.blueGrey,
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {
@@ -62,17 +59,25 @@ class ChatDetailsView extends StatelessWidget {
             ),
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Expanded(child: SingleChildScrollView()),
-              CustomTextField(
-                height: 50,
-                hintText: 'Write a message....',
-              )
-            ],
-          ),
+        body: Stack(
+          children: [
+            Image.asset(
+              AppImages.bg,
+              fit: BoxFit.cover,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Expanded(child: SingleChildScrollView()),
+                  CustomTextField(
+                    height: 50,
+                    hintText: 'Write a message....',
+                  )
+                ],
+              ),
+            ),
+          ],
         ));
   }
 }
