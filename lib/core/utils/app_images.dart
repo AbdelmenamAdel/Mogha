@@ -7,5 +7,6 @@ class AppImages {
   static const String on5 = 'assets/images/on5.jpeg';
   static const String bg = 'assets/images/bg.jpg';
   static const String on4 = 'assets/images/on4.jpeg';
+  static const String noNetwork = 'assets/images/no_network.jpg';
   static const String rivBackground = 'assets/riveAssets/circle_fui.riv';
 }
