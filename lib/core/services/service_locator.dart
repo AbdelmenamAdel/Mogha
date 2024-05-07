@@ -15,7 +15,6 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton<GlobalCubit>(() => GlobalCubit());
   sl.registerLazySingleton<AuthCubit>(
       () => AuthCubit(sl.get<AuthRepoImplementation>()));
-  sl.registerLazySingleton<GlobalCubit>(() => GlobalCubit());
   sl.registerLazySingleton<ChatsCubit>(
       () => ChatsCubit(sl.get<ChatRepoImplementation>()));
   sl.registerLazySingleton<SocialCubit>(

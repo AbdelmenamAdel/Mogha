@@ -8,6 +8,7 @@ import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/theme/app_theme.dart';
+import 'package:moga/features/chats/presentation/manager/chats/chats_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 
 class Mogha extends StatelessWidget {
@@ -22,6 +23,9 @@ class Mogha extends StatelessWidget {
           providers: [
             BlocProvider(
               create: (context) => sl<GlobalCubit>()..updateLangage(),
+            ),
+            BlocProvider(
+              create: (context) => sl<ChatsCubit>()..getAllUsers(),
             ),
             BlocProvider(
               create: (context) => sl<SocialCubit>()

@@ -15,6 +15,7 @@ class ChatsCubit extends Cubit<ChatsStates> {
   void getAllUsers() {
     try {
       chatRepo.getAllUsers().then((value) {
+        emit(ChatGetAllUsersLoadingState());
         if (value.docs.length != users.length) {
           users = [];
           value.docs.forEach((element) {
@@ -23,8 +24,9 @@ class ChatsCubit extends Cubit<ChatsStates> {
           });
         }
       });
+      emit(ChatGetAllUsersSuccessState());
     } catch (e) {
-      // TODO
+      emit(ChatGetAllUsersFailureState());
     }
   }
 
