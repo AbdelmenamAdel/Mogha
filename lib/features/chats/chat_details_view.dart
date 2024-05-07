@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/utils/app_colors.dart';
@@ -65,7 +63,7 @@ class ChatDetailsView extends StatelessWidget {
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage(
-                AppImages.on1,
+                AppImages.bg,
               ), // Replace with your image path
               fit: BoxFit.fill,
             ),
@@ -82,7 +80,7 @@ class ChatDetailsView extends StatelessWidget {
                         height: 50,
                         hintText: 'Write a message....',
                         bsc: Theme.of(context).scaffoldBackgroundColor,
-                        radius: 25,
+                        radius: 18,
                         bgc: Theme.of(context).scaffoldBackgroundColor,
                       ),
                     ),

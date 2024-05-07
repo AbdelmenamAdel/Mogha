@@ -31,15 +31,12 @@ class ChatsViewBody extends StatelessWidget {
                 onTap: () {
                   showHeroImage(context, cubit.users[index].profilePhoto);
                 },
-                child: Hero(
-                  tag: 'image',
-                  child: CircleAvatar(
-                    backgroundImage: NetworkImage(
-                      cubit.users[index].profilePhoto,
-                    ),
-                    radius: 30,
-                    backgroundColor: AppColors.blue,
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                    cubit.users[index].profilePhoto,
                   ),
+                  radius: 30,
+                  backgroundColor: AppColors.blue,
                 ),
               ),
               title: Text(cubit.users[index].userName),
