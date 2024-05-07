@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
-import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
+import 'package:moga/core/services/service_locator.dart';
+import 'package:moga/features/chats/presentation/manager/chats/chats_cubit.dart';
+import 'package:moga/features/chats/presentation/manager/chats/chats_states.dart';
 import 'package:moga/features/social/presentation/views/widgets/custom_app_bar.dart';
 import 'chats_view_body.dart';
 
@@ -10,18 +11,21 @@ class ChatsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: BlocConsumer<SocialCubit, SocialStates>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            return Column(
-              children: [
-                CustomAppBar(title: 'Users'),
-                ChatsViewBody(),
-              ],
-            );
-          },
+    return BlocProvider(
+      create: (context) => sl<ChatsCubit>()..getAllUsers(),
+      child: SafeArea(
+        child: Scaffold(
+          body: BlocConsumer<ChatsCubit, ChatsStates>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              return Column(
+                children: [
+                  CustomAppBar(title: 'Users'),
+                  ChatsViewBody(),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

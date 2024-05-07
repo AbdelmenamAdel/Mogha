@@ -26,8 +26,7 @@ class Mogha extends StatelessWidget {
             BlocProvider(
               create: (context) => sl<SocialCubit>()
                 ..getUserData()
-                ..getPosts()
-                ..getAllUsers(),
+                ..getPosts(),
             ),
           ],
           child: BlocBuilder<GlobalCubit, GlobalState>(

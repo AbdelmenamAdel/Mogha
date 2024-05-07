@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/widgets/show_hero_image.dart';
 import 'package:moga/features/chats/chat_details_view.dart';
-import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
+import 'package:moga/features/chats/presentation/manager/chats/chats_cubit.dart';
 
 class ChatsViewBody extends StatelessWidget {
   const ChatsViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var cubit = SocialCubit.get(context);
+    var cubit = ChatsCubit.get(context);
     return Expanded(
       child: ListView.separated(
         physics: BouncingScrollPhysics(),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:moga/core/utils/app_colors.dart';
-import 'package:moga/features/chats/message_model.dart';
+import 'package:moga/features/chats/data/models/message_model.dart';
 
 // ignore: must_be_immutable
 class CustomChatBubble extends StatelessWidget {
@@ -14,7 +14,7 @@ class CustomChatBubble extends StatelessWidget {
   }
 
   Widget CustmChatBubble(
-      BuildContext context, BubbleType type, MessageModel model) =>
+          BuildContext context, BubbleType type, MessageModel model) =>
       ChatBubble(
         clipper: ChatBubbleClipper1(type: type),
         alignment: type == BubbleType.sendBubble ? Alignment.topRight : null,
@@ -26,10 +26,12 @@ class CustomChatBubble extends StatelessWidget {
           constraints: BoxConstraints(
             maxWidth: MediaQuery.of(context).size.width * 0.7,
           ),
-          child: Text(
-            model.message,
-            style: TextStyle(color: AppColors.black),
-          ),
+          child: (model.message != null)
+              ? Text(
+                  model.message!,
+                  style: TextStyle(color: AppColors.black),
+                )
+              : null,
         ),
       );
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/widgets/custom_image_picker.dart';
 import 'package:moga/core/widgets/custom_pick_image.dart';
@@ -32,7 +33,6 @@ class SocialCubit extends Cubit<SocialStates> {
   int currentIndex = 0;
 
   void changeBottomNav(int index) {
-    if (index == 1) getAllUsers();
     currentIndex = index;
     emit(SocialChangeBottomNavState());
   }
@@ -351,23 +351,6 @@ class SocialCubit extends Cubit<SocialStates> {
     } catch (e) {
       emit(SocialCommentPostFailureState());
       // TODO
-    }
-  }
-
-  List<UserModel> users = [];
-
-  Future<void> getAllUsers() async {
-    if (users.length == 0) {
-      emit(SocialGetAllUsersLoadingState());
-      instance.collection('users').get().then((value) {
-        value.docs.forEach((element) {
-          if (element.data()['uId'] != model!.uId)
-            users.add(UserModel.fromJson(element.data()));
-        });
-        emit(SocialGetAllUsersSuccessState());
-      }).catchError((error) {
-        emit(SocialGetAllUsersFailureState(error.toString()));
-      });
     }
   }
 
