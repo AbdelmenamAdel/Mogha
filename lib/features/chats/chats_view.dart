@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/features/chats/presentation/manager/chats/chats_cubit.dart';
 import 'package:moga/features/chats/presentation/manager/chats/chats_states.dart';
 import 'package:moga/features/social/presentation/views/widgets/custom_app_bar.dart';
