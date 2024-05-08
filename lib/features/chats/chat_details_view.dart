@@ -1,11 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/utils/app_images.dart';
+import 'package:moga/core/widgets/chat_buble.dart';
 import 'package:moga/core/widgets/custom_text_f_field.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
+import 'package:moga/features/chats/data/models/message_model.dart';
 import 'package:moga/features/chats/presentation/manager/chats/chats_cubit.dart';
+import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 
 class ChatDetailsView extends StatelessWidget {
   const ChatDetailsView({
@@ -15,103 +21,156 @@ class ChatDetailsView extends StatelessWidget {
   final UserModel user;
   @override
   Widget build(BuildContext context) {
+    var messages = FirebaseFirestore.instance
+        .collection('users')
+        .doc(sl<SocialCubit>().model!.uId)
+        .collection('chats')
+        .doc(user.uId)
+        .collection('messages');
+
     var cubit = ChatsCubit.get(context);
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                GoRouter.of(context).pop();
-              },
-              icon: Icon(IconBroken.Arrow___Left_2)),
-          titleSpacing: -10.0,
-          title: Row(
-            children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage('${user.profilePhoto}'),
-              ),
-              SizedBox(width: 10),
-              Text(
-                '${user.userName}',
-                style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                    color: Theme.of(context).textTheme.displayLarge!.color),
-              ),
-            ],
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                IconBroken.Call,
-                color: AppColors.blue,
-              ),
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              GoRouter.of(context).pop();
+            },
+            icon: Icon(IconBroken.Arrow___Left_2)),
+        titleSpacing: -10.0,
+        title: Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: NetworkImage('${user.profilePhoto}'),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                IconBroken.Video,
-                color: AppColors.blue,
-              ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.more_vert_rounded,
-                color: AppColors.blue,
-              ),
+            SizedBox(width: 10),
+            Text(
+              '${user.userName}',
+              style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                  color: Theme.of(context).textTheme.displayLarge!.color),
             ),
           ],
         ),
-        body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                AppImages.bg,
-              ), // Replace with your image path
-              fit: BoxFit.fill,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              IconBroken.Call,
+              color: AppColors.blue,
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Expanded(child: SingleChildScrollView()),
-                Row(
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              IconBroken.Video,
+              color: AppColors.blue,
+            ),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.more_vert_rounded,
+              color: AppColors.blue,
+            ),
+          ),
+        ],
+      ),
+      body: StreamBuilder(
+        stream: messages.orderBy('date', descending: true).snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text('Something went wrong'));
+          }
+          if (snapshot.hasData) {
+            List<MessageModel> messagesList = [];
+            for (int i = 0; i < snapshot.data!.docs.length; i++) {
+              messagesList.add(MessageModel.fromJson(snapshot.data!.docs[i]));
+            }
+            return Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                    AppImages.bg,
+                  ), // Replace with your image path
+                  fit: BoxFit.fill,
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
                   children: [
                     Expanded(
-                      child: CustomTextField(
-                        controller: cubit.messageController,
-                        height: 50,
-                        hintText: 'Write a message....',
-                        bsc: Theme.of(context).scaffoldBackgroundColor,
-                        radius: 18,
-                        bgc: Theme.of(context).scaffoldBackgroundColor,
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 8),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: IconButton(
-                        onPressed: () {
-                          cubit.addMessage(
-                            reciverId: user.uId,
-                            message: cubit.messageController.text,
-                            date: DateTime.now().toString(),
-                          );
-                        },
-                        icon: Icon(
-                          IconBroken.Send,
-                          color: Theme.of(context).textTheme.bodyLarge!.color,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListView.builder(
+                          reverse: true,
+                          controller: cubit.controller,
+                          itemCount: messagesList.length,
+                          itemBuilder: (context, index) => CustomChatBubble(
+                            type: messagesList[index].senderId ==
+                                    sl<SocialCubit>().model!.uId
+                                ? BubbleType.sendBubble
+                                : BubbleType.receiverBubble,
+                            model: messagesList[index],
+                          ),
                         ),
                       ),
                     ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomTextField(
+                            onFieldSubmitted: (value) {
+                              cubit.addMessage(
+                                reciverId: user.uId,
+                                message: cubit.messageController.text,
+                                date: DateTime.now().toString(),
+                              );
+                              cubit.controller.animateTo(
+                                0,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.easeIn,
+                              );
+                            },
+                            controller: cubit.messageController,
+                            height: 50,
+                            hintText: 'Write a message....',
+                            bsc: Theme.of(context).scaffoldBackgroundColor,
+                            radius: 18,
+                            bgc: Theme.of(context).scaffoldBackgroundColor,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 8),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: IconButton(
+                            onPressed: () {
+                              cubit.addMessage(
+                                reciverId: user.uId,
+                                message: cubit.messageController.text,
+                                date: DateTime.now().toString(),
+                              );
+                            },
+                            icon: Icon(
+                              IconBroken.Send,
+                              color:
+                                  Theme.of(context).textTheme.bodyLarge!.color,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
-          ),
-        ));
+              ),
+            );
+          } else {
+            return Center(child: Text('Try again later'));
+          }
+        },
+      ),
+    );
   }
 }
