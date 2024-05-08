@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
     this.onFieldSubmitted,
     this.bgc,
     this.suffix,
+    this.onChanged,
   });
 
   final TextEditingController? controller;
@@ -26,6 +27,7 @@ class CustomTextField extends StatelessWidget {
   final bool? autofocus;
   final void Function(String?)? onFieldSubmitted;
   final void Function(String?)? onSaved;
+  final void Function(String?)? onChanged;
   final TextInputType? keyboardType;
   final double? height;
   final double? radius;
@@ -40,11 +42,14 @@ class CustomTextField extends StatelessWidget {
         borderRadius: BorderRadius.circular(radius ?? 0),
       ),
       child: TextFormField(
+        onChanged: onChanged,
         keyboardType: keyboardType,
         controller: controller,
         cursorColor: bsc ?? Colors.blue,
         autofocus: autofocus ?? false,
+        // style: TextStyle(color: Colors.blue,),
         decoration: InputDecoration(
+          constraints: BoxConstraints(minHeight: 50),
           prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
           labelText: labelText,
           hintText: hintText,
@@ -58,6 +63,10 @@ class CustomTextField extends StatelessWidget {
         ),
         onFieldSubmitted: onFieldSubmitted,
         onSaved: onSaved,
+        maxLines: 2,
+        scrollPadding: EdgeInsets.all(0),
+        scrollPhysics: BouncingScrollPhysics(),
+        minLines: 1,
       ),
     );
   }

@@ -9,6 +9,7 @@ import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/core/widgets/chat_buble.dart';
 import 'package:moga/core/widgets/custom_text_f_field.dart';
+import 'package:moga/core/widgets/show_hero_image.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
 import 'package:moga/features/chats/data/models/message_model.dart';
 import 'package:moga/features/chats/presentation/manager/chats/chats_cubit.dart';
@@ -28,7 +29,7 @@ class ChatDetailsView extends StatelessWidget {
         .collection('chats')
         .doc(user.uId)
         .collection('messages');
-
+    double? textFormFieldHeight;
     var cubit = ChatsCubit.get(context);
     return Scaffold(
       appBar: AppBar(
@@ -42,9 +43,15 @@ class ChatDetailsView extends StatelessWidget {
         titleSpacing: -5.0,
         title: Row(
           children: [
-            CircleAvatar(
-              radius: 16,
-              backgroundImage: NetworkImage('${user.profilePhoto}'),
+            InkWell(
+              borderRadius: BorderRadius.circular(30),
+              onTap: () {
+                showHeroImage(context, user.profilePhoto);
+              },
+              child: CircleAvatar(
+                radius: 18,
+                backgroundImage: NetworkImage('${user.profilePhoto}'),
+              ),
             ),
             SizedBox(width: 10),
             Text(
@@ -80,6 +87,8 @@ class ChatDetailsView extends StatelessWidget {
             ),
           )
         ],
+        elevation: 10,
+        shadowColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(.8),
       ),
       body: StreamBuilder(
         stream: messages.orderBy('date', descending: true).snapshots(),
@@ -139,9 +148,9 @@ class ChatDetailsView extends StatelessWidget {
                               );
                             },
                             controller: cubit.messageController,
-                            height: 50,
+                            height: textFormFieldHeight,
                             hintText: 'Write a message....',
-                            bsc: Theme.of(context).scaffoldBackgroundColor,
+                            bsc: Theme.of(context).textTheme.bodyLarge!.color,
                             radius: 18,
                             bgc: Theme.of(context).scaffoldBackgroundColor,
                           ),
@@ -152,15 +161,18 @@ class ChatDetailsView extends StatelessWidget {
                             color: Theme.of(context).scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          child: IconButton(
-                            onPressed: () {
-                              cubit.addMessage(
-                                reciverId: user.uId,
-                                message: cubit.messageController.text,
-                                date: DateTime.now().toString(),
-                              );
+                          child: InkWell(
+                            onTap: () {
+                              if (cubit.messageController.text
+                                  .trim()
+                                  .isNotEmpty)
+                                cubit.addMessage(
+                                  reciverId: user.uId,
+                                  message: cubit.messageController.text.trim(),
+                                  date: DateTime.now().toString(),
+                                );
                             },
-                            icon: Icon(
+                            child: Icon(
                               IconBroken.Send,
                               color:
                                   Theme.of(context).textTheme.bodyLarge!.color,
