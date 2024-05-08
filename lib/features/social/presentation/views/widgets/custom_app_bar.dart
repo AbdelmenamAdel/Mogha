@@ -2,7 +2,7 @@ import 'package:icon_broken/icon_broken.dart';
 import 'package:flutter/material.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
-import 'package:moga/core/widgets/custom_navigate.dart';
+import 'package:moga/core/common/custom_navigate.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({

@@ -7,7 +7,7 @@ import 'package:moga/core/bloc/global_cubit/app_language_states.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/core/widgets/custom_button.dart';
-import 'package:moga/core/widgets/custom_navigate.dart';
+import 'package:moga/core/common/custom_navigate.dart';
 import 'package:rive/rive.dart';
 
 class ChangeLangView extends StatelessWidget {

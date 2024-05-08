@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/features/chats/data/firebase/chat_repo.dart';
 import 'package:moga/features/chats/data/models/message_model.dart';
-import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 
 class ChatRepoImplementation implements ChatRepository {
   FirebaseFirestore instance = FirebaseFirestore.instance;

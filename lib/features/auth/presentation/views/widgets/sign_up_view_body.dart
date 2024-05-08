@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/core/utils/app_strings.dart';
-import 'package:moga/core/widgets/custom_notifier.dart';
+import 'package:moga/core/common/custom_notifier.dart';
 import 'package:moga/core/widgets/custom_profile_image.dart';
 import 'package:moga/core/widgets/custom_text_form_field.dart';
 import 'package:moga/core/local/app_local.dart';

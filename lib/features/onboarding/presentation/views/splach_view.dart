@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:moga/core/common/custom_navigate.dart';
 import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/core/utils/app_strings.dart';
-import 'package:moga/core/widgets/custom_navigate.dart';
 import '../../../../../../../core/database/cache/cache_helper.dart';
 import '../../../../../../../core/services/service_locator.dart';
 

@@ -9,8 +9,8 @@ import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/core/utils/app_strings.dart';
-import 'package:moga/core/widgets/custom_navigate.dart';
-import 'package:moga/core/widgets/custom_notifier.dart';
+import 'package:moga/core/common/custom_navigate.dart';
+import 'package:moga/core/common/custom_notifier.dart';
 import 'package:moga/core/widgets/custom_text_form_field.dart';
 import 'package:moga/features/auth/presentation/manager/auth/auth_cubit.dart';
 import 'package:rive/rive.dart';
@@ -94,9 +94,10 @@ class LoginViewBody extends StatelessWidget {
                                   type: TextInputType.emailAddress,
                                   controller: cubit.emailController,
                                   validator: (value) {
-                                    if (!value!.isEmail()&&(!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                        .hasMatch(value) ||
-                                        !value.contains('@gmail.com'))) {
+                                    if (!value!.isEmail() &&
+                                        (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                                .hasMatch(value) ||
+                                            !value.contains('@gmail.com'))) {
                                       showAchievementView(
                                         context: context,
                                         title: "Please,",
@@ -119,8 +120,7 @@ class LoginViewBody extends StatelessWidget {
                                       showAchievementView(
                                           context: context,
                                           title: "Please,",
-                                          subTitle:
-                                              "Enter a valid password");
+                                          subTitle: "Enter a valid password");
                                       return null;
                                     }
                                     return null;

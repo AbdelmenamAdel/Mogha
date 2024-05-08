@@ -6,7 +6,7 @@ import 'package:icon_broken/icon_broken.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
-import 'package:moga/core/widgets/custom_navigate.dart';
+import 'package:moga/core/common/custom_navigate.dart';
 import 'package:moga/core/widgets/custom_text_f_field.dart';
 import 'package:moga/features/post/presentation/views/widgets/default_app_bar.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
@@ -27,12 +27,13 @@ class EditProfileView extends StatelessWidget {
           GoRouter.of(context).pop();
           cubit.coverImage = null;
           cubit.profileImage = null;
-          cubit.inAsyncCall=false;
+          cubit.inAsyncCall = false;
         }
-        if(state is SocialGetUserLoadingState){
-          cubit.inAsyncCall=true;
-        }  if(state is SocialLikePostFailureState){
-          cubit.inAsyncCall=false;
+        if (state is SocialGetUserLoadingState) {
+          cubit.inAsyncCall = true;
+        }
+        if (state is SocialLikePostFailureState) {
+          cubit.inAsyncCall = false;
         }
       },
       builder: (context, state) {
@@ -43,7 +44,7 @@ class EditProfileView extends StatelessWidget {
         return ModalProgressHUD(
           inAsyncCall: cubit.inAsyncCall,
           progressIndicator: CupertinoActivityIndicator(
-            radius:25 ,
+            radius: 25,
             // color: AppColors.grey,
           ),
           child: Scaffold(

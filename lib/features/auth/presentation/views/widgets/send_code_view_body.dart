@@ -6,7 +6,7 @@ import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/core/utils/app_strings.dart';
-import 'package:moga/core/widgets/custom_navigate.dart';
+import 'package:moga/core/common/custom_navigate.dart';
 import 'package:moga/core/widgets/custom_text_form_field.dart';
 import 'package:rive/rive.dart';
 

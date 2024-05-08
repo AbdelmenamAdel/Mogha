@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
@@ -6,7 +5,7 @@ import 'package:moga/core/database/cache/cache_helper.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_strings.dart';
-import 'package:moga/core/widgets/custom_navigate.dart';
+import 'package:moga/core/common/custom_navigate.dart';
 
 class CustomOnBoardingButtons extends StatelessWidget {
   const CustomOnBoardingButtons({

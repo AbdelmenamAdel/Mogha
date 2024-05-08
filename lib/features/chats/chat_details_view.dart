@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/utils/app_images.dart';
@@ -31,25 +32,31 @@ class ChatDetailsView extends StatelessWidget {
     var cubit = ChatsCubit.get(context);
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              GoRouter.of(context).pop();
-            },
-            icon: Icon(IconBroken.Arrow___Left_2)),
-        titleSpacing: -10.0,
+        leading: Center(
+          child: IconButton(
+              onPressed: () {
+                GoRouter.of(context).pop();
+              },
+              icon: Icon(IconBroken.Arrow___Left_2)),
+        ),
+        titleSpacing: -5.0,
         title: Row(
           children: [
             CircleAvatar(
+              radius: 16,
               backgroundImage: NetworkImage('${user.profilePhoto}'),
             ),
             SizedBox(width: 10),
             Text(
               '${user.userName}',
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
               style: Theme.of(context).textTheme.labelMedium!.copyWith(
                   color: Theme.of(context).textTheme.displayLarge!.color),
             ),
           ],
         ),
+        leadingWidth: 35,
         actions: [
           IconButton(
             onPressed: () {},
@@ -71,7 +78,7 @@ class ChatDetailsView extends StatelessWidget {
               Icons.more_vert_rounded,
               color: AppColors.blue,
             ),
-          ),
+          )
         ],
       ),
       body: StreamBuilder(
@@ -167,9 +174,66 @@ class ChatDetailsView extends StatelessWidget {
               ),
             );
           } else {
-            return Center(child: Text('Try again later'));
+            return ConnectionChatWaiting();
           }
         },
+      ),
+    );
+  }
+}
+
+class ConnectionChatWaiting extends StatelessWidget {
+  const ConnectionChatWaiting({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ModalProgressHUD(
+      inAsyncCall: true,
+      child: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              AppImages.bg,
+            ), // Replace with your image path
+            fit: BoxFit.fill,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Expanded(child: SizedBox()),
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomTextField(
+                      onFieldSubmitted: (value) {},
+                      height: 50,
+                      hintText: 'Write a message....',
+                      bsc: Theme.of(context).scaffoldBackgroundColor,
+                      radius: 18,
+                      bgc: Theme.of(context).scaffoldBackgroundColor,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 8),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        IconBroken.Send,
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
