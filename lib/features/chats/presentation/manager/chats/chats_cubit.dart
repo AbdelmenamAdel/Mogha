@@ -14,6 +14,7 @@ class ChatsCubit extends Cubit<ChatsStates> {
   TextEditingController messageController = TextEditingController();
   List<UserModel> users = [];
   UserModel currentUser = sl<SocialCubit>().model!;
+  final ScrollController controller = ScrollController();
 
   void getAllUsers() {
     try {

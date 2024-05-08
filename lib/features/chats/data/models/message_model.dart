@@ -23,7 +23,7 @@ class MessageModel {
     };
   }
 
-  factory MessageModel.fromJson(Map<String, dynamic> jsonData) {
+  factory MessageModel.fromJson(jsonData) {
     return MessageModel(
       message: jsonData['message'],
       image: jsonData['image'],
