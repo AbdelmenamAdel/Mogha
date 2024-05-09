@@ -46,11 +46,15 @@ class ChatDetailsView extends StatelessWidget {
             InkWell(
               borderRadius: BorderRadius.circular(30),
               onTap: () {
-                showHeroImage(context, user.profilePhoto);
+                showHeroImage(
+                    context: context, image: user.profilePhoto, tag: '');
               },
-              child: CircleAvatar(
-                radius: 18,
-                backgroundImage: NetworkImage('${user.profilePhoto}'),
+              child: Hero(
+                tag: 'chatImage${user.uId}',
+                child: CircleAvatar(
+                  radius: 18,
+                  backgroundImage: NetworkImage('${user.profilePhoto}'),
+                ),
               ),
             ),
             SizedBox(width: 10),
@@ -63,7 +67,7 @@ class ChatDetailsView extends StatelessWidget {
             ),
           ],
         ),
-        leadingWidth: 35,
+        // leadingWidth: 35,
         actions: [
           IconButton(
             onPressed: () {},
@@ -161,8 +165,8 @@ class ChatDetailsView extends StatelessWidget {
                             color: Theme.of(context).scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          child: InkWell(
-                            onTap: () {
+                          child: IconButton(
+                            onPressed: () {
                               if (cubit.messageController.text
                                   .trim()
                                   .isNotEmpty)
@@ -172,7 +176,7 @@ class ChatDetailsView extends StatelessWidget {
                                   date: DateTime.now().toString(),
                                 );
                             },
-                            child: Icon(
+                            icon: Icon(
                               IconBroken.Send,
                               color:
                                   Theme.of(context).textTheme.bodyLarge!.color,

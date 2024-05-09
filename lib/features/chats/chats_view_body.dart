@@ -17,6 +17,7 @@ class ChatsViewBody extends StatelessWidget {
         builder: (context, state) {
           return Expanded(
             child: ListView.separated(
+              padding: EdgeInsets.zero,
               physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) => InkWell(
                 onTap: () {
@@ -30,23 +31,34 @@ class ChatsViewBody extends StatelessWidget {
                 },
                 child: Padding(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8),
-                  child: ListTile(
-                    leading: InkWell(
-                      borderRadius: BorderRadius.circular(30),
-                      onTap: () {
-                        showHeroImage(context, cubit.users[index].profilePhoto);
-                      },
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          cubit.users[index].profilePhoto,
-                        ),
-                        radius: 30,
-                        backgroundColor: AppColors.blue,
-                      ),
-                    ),
-                    title: Text(cubit.users[index].userName),
-                  ),
+                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
+                  child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            borderRadius: BorderRadius.circular(30),
+                            onTap: () {
+                              showHeroImage(
+                                  context: context,
+                                  image: cubit.users[index].profilePhoto,
+                                  tag: 'chatImage${index}');
+                            },
+                            child: Hero(
+                              tag: 'chatImage${cubit.users[index].uId}',
+                              child: CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                  cubit.users[index].profilePhoto,
+                                ),
+                                radius: 25,
+                                backgroundColor: AppColors.blue,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 12),
+                          Text(cubit.users[index].userName),
+                        ],
+                      )),
                 ),
               ),
               separatorBuilder: (context, index) => Divider(
