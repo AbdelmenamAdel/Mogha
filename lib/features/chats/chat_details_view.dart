@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
@@ -9,7 +10,6 @@ import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/core/widgets/chat_buble.dart';
 import 'package:moga/core/widgets/custom_text_f_field.dart';
-import 'package:moga/core/widgets/show_hero_image.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
 import 'package:moga/features/chats/data/models/message_model.dart';
 import 'package:moga/features/chats/presentation/manager/chats/chats_cubit.dart';
@@ -43,27 +43,22 @@ class ChatDetailsView extends StatelessWidget {
         titleSpacing: -5.0,
         title: Row(
           children: [
-            InkWell(
-              borderRadius: BorderRadius.circular(30),
-              onTap: () {
-                showHeroImage(
-                    context: context, image: user.profilePhoto, tag: '');
-              },
-              child: Hero(
-                tag: 'chatImage${user.uId}',
-                child: CircleAvatar(
-                  radius: 18,
-                  backgroundImage: NetworkImage('${user.profilePhoto}'),
-                ),
+            Hero(
+              tag: 'chat',
+              child: CircleAvatar(
+                radius: 18,
+                backgroundImage: NetworkImage('${user.profilePhoto}'),
               ),
             ),
             SizedBox(width: 10),
-            Text(
-              '${user.userName}',
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                  color: Theme.of(context).textTheme.displayLarge!.color),
+            Expanded(
+              child: Text(
+                '${user.userName}',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                    color: Theme.of(context).textTheme.displayLarge!.color),
+              ),
             ),
           ],
         ),

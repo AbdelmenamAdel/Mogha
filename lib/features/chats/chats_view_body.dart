@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moga/core/utils/app_colors.dart';
-import 'package:moga/core/widgets/show_hero_image.dart';
+import 'package:moga/core/widgets/show_image.dart';
 import 'package:moga/features/chats/chat_details_view.dart';
 import 'package:moga/features/chats/presentation/manager/chats/chats_cubit.dart';
 import 'package:moga/features/chats/presentation/manager/chats/chats_states.dart';
@@ -39,13 +39,13 @@ class ChatsViewBody extends StatelessWidget {
                           InkWell(
                             borderRadius: BorderRadius.circular(30),
                             onTap: () {
-                              showHeroImage(
-                                  context: context,
-                                  image: cubit.users[index].profilePhoto,
-                                  tag: 'chatImage${index}');
+                              showImage(
+                                context: context,
+                                image: cubit.users[index].profilePhoto,
+                              );
                             },
                             child: Hero(
-                              tag: 'chatImage${cubit.users[index].uId}',
+                              tag: 'chat',
                               child: CircleAvatar(
                                 backgroundImage: NetworkImage(
                                   cubit.users[index].profilePhoto,

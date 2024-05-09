@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/utils/app_colors.dart';
-import 'package:moga/core/widgets/show_hero_image.dart';
+import 'package:moga/core/widgets/show_image.dart';
 import 'package:moga/features/post/data/model/post_model.dart';
 import 'package:moga/features/post/presentation/views/comments.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
@@ -33,7 +33,7 @@ class CustomPostWidget extends StatelessWidget {
                 minVerticalPadding: 0,
                 leading: InkWell(
                   onTap: () {
-                    showHeroImage(context, postModel.image);
+                    showImage(context: context, image: postModel.image);
                   },
                   child: CircleAvatar(
                       radius: 20,
