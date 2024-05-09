@@ -26,6 +26,9 @@ class GetUserImplementation implements GetUserAuth {
 
   @override
   Future<QuerySnapshot<Map<String, dynamic>>> getPosts() async {
-    return await FirebaseFirestore.instance.collection('posts').get();
+    return await FirebaseFirestore.instance
+        .collection('posts')
+        .orderBy('date', descending: false)
+        .get();
   }
 }
