@@ -6,6 +6,7 @@ import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+
 class OpenCoverPhotoView extends StatelessWidget {
   const OpenCoverPhotoView({
     super.key,
@@ -76,16 +77,19 @@ class OpenCoverPhotoView extends StatelessWidget {
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                child: cubit.coverImage == null
-                    ? Image.network(
-                        fit: BoxFit.cover,
-                        cubit.model!.coverPhoto,
-                      )
-                    : Image.file(
-                        cubit.coverImage!,
-                        fit: BoxFit.cover,
-                      ),
+              Hero(
+                tag: 'coverPhoto',
+                child: Container(
+                  child: cubit.coverImage == null
+                      ? Image.network(
+                          fit: BoxFit.cover,
+                          cubit.model!.coverPhoto,
+                        )
+                      : Image.file(
+                          cubit.coverImage!,
+                          fit: BoxFit.cover,
+                        ),
+                ),
               )
             ],
           ),

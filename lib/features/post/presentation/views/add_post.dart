@@ -24,7 +24,6 @@ class _AddPostViewState extends State<AddPostView> {
   @override
   void dispose() {
     postController.dispose();
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -50,64 +49,65 @@ class _AddPostViewState extends State<AddPostView> {
         }
       },
       builder: (context, state) {
-        return SafeArea(
-          child: ModalProgressHUD(
-            inAsyncCall: cubit.inAsyncCall,
-            child: Scaffold(
-              body: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    DefaultAppBar(
-                      title: 'New Post',
-                      actions: [
-                        OutlinedButton(
-                          style: ButtonStyle(),
-                          onPressed: () {
-                            cubit.createPost(
-                              text: postController.text,
-                              postImage: cubit.postImageUrl,
-                            );
-                          },
-                          child: Text(
-                            'post',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                      ],
+        return ModalProgressHUD(
+          inAsyncCall: cubit.inAsyncCall,
+          child: Scaffold(
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                DefaultAppBar(
+                  title: 'New Post',
+                  actions: [
+                    OutlinedButton(
+                      style: ButtonStyle(),
                       onPressed: () {
-                        cubit.postPhoto = null;
-                        GoRouter.of(context).pop();
+                        cubit.createPost(
+                          text: postController.text,
+                          postImage: cubit.postImageUrl,
+                        );
                       },
+                      child: Text(
+                        'post',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
-                    Divider(
-                      height: 0,
-                      color: Theme.of(context).dividerColor,
+                    SizedBox(
+                      width: 5,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        children: [
-                          ListTile(
-                            minVerticalPadding: 0,
-                            leading: CircleAvatar(
-                              radius: 20,
-                              backgroundImage: NetworkImage(
-                                '${cubit.model!.profilePhoto}',
-                              ),
+                  ],
+                  onPressed: () {
+                    cubit.postPhoto = null;
+                    GoRouter.of(context).pop();
+                  },
+                ),
+                Divider(
+                  height: 0,
+                  color: Theme.of(context).dividerColor,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          minVerticalPadding: 0,
+                          leading: CircleAvatar(
+                            radius: 20,
+                            backgroundImage: NetworkImage(
+                              '${cubit.model!.profilePhoto}',
                             ),
-                            contentPadding: EdgeInsets.zero,
-                            title: Text('${cubit.model!.userName}',
-                                style:
-                                    Theme.of(context).textTheme.displaySmall),
                           ),
-                          TextField(
+                          contentPadding: EdgeInsets.zero,
+                          title: Text('${cubit.model!.userName}',
+                              style: Theme.of(context).textTheme.displaySmall),
+                        ),
+                        Expanded(
+                          child: TextField(
+                            maxLines: 5,
+                            minLines: 1,
                             cursorColor: AppColors.blue,
                             controller: postController,
                             style: Theme.of(context)
@@ -126,103 +126,104 @@ class _AddPostViewState extends State<AddPostView> {
                                   ),
                             ),
                           ),
-                          SizedBox(height: 50.h),
-                          if (cubit.postPhoto != null)
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  bottom: 24.0, top: 24.0),
-                              child: Stack(
-                                alignment: Alignment.topLeft,
-                                children: [
-                                  Container(
-                                    child: Image.file(
-                                      cubit.postPhoto!,
-                                      fit: BoxFit.cover,
-                                    ),
-                                    height: 350.h,
-                                    width: double.infinity,
+                        ),
+                        // SizedBox(height: 50.h),
+                        if (cubit.postPhoto != null)
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(bottom: 24.0, top: 24.0),
+                            child: Stack(
+                              alignment: Alignment.topLeft,
+                              children: [
+                                Container(
+                                  child: Image.file(
+                                    cubit.postPhoto!,
+                                    fit: BoxFit.cover,
                                   ),
-                                  IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        cubit.postPhoto = null;
-                                      });
-                                    },
-                                    icon: Icon(
-                                      Icons.close_outlined,
-                                      color: AppColors.grey,
-                                      size: 28,
-                                    ),
+                                  height: 350.h,
+                                  width: double.infinity,
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      cubit.postPhoto = null;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.close_outlined,
+                                    color: AppColors.grey,
+                                    size: 28,
                                   ),
-                                ],
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 80.h),
-                    if (cubit.postPhoto == null) SizedBox(height: 395.h),
-                    Divider(
-                      height: 0,
-                      color: Theme.of(context).dividerColor,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: OutlinedButton(
-                              style: ButtonStyle(),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    IconBroken.Image,
-                                  ),
-                                  SizedBox(width: 5),
-                                  Text(
-                                    'Gallery',
-                                    style: TextStyle(fontSize: 16),
-                                  )
-                                ],
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => OpenPostPhotoView(),
-                                  ),
-                                );
-                                // cubit.getPostImage(context);
-                              },
+                                ),
+                              ],
                             ),
                           ),
-                          Expanded(
-                            child: OutlinedButton(
-                              style: ButtonStyle(),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '#',
-                                    style: TextStyle(fontSize: 24),
-                                  ),
-                                  SizedBox(width: 5),
-                                  Text(
-                                    'Tags',
-                                    style: TextStyle(fontSize: 16),
-                                  )
-                                ],
-                              ),
-                              onPressed: () {},
-                            ),
-                          )
-                        ],
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+                // SizedBox(height: 80.h),
+                // if (cubit.postPhoto == null) SizedBox(height: 395.h),
+                Divider(
+                  height: 0,
+                  color: Theme.of(context).dividerColor,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton(
+                          style: ButtonStyle(),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                IconBroken.Image,
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'Gallery',
+                                style: TextStyle(fontSize: 16),
+                              )
+                            ],
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => OpenPostPhotoView(),
+                              ),
+                            );
+                            // cubit.getPostImage(context);
+                          },
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: OutlinedButton(
+                          style: ButtonStyle(),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '#',
+                                style: TextStyle(fontSize: 24),
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'Tags',
+                                style: TextStyle(fontSize: 16),
+                              )
+                            ],
+                          ),
+                          onPressed: () {},
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         );
