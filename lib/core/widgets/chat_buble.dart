@@ -26,12 +26,32 @@ class CustomChatBubble extends StatelessWidget {
           constraints: BoxConstraints(
             maxWidth: MediaQuery.of(context).size.width * 0.7,
           ),
-          child: (model.message != null)
+          child: (model.image == null)
               ? Text(
                   model.message!,
                   style: TextStyle(color: AppColors.black),
                 )
-              : null,
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        // Navigator.pushNamed(context, '/image', arguments: model.image);
+                      },
+                      child: Container(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12)),
+                        child: Image.network(model.image!, fit: BoxFit.fill),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      model.message!,
+                      style: TextStyle(color: AppColors.black),
+                    ),
+                  ],
+                ),
         ),
       );
 }
