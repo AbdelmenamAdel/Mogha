@@ -34,10 +34,14 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is RegisterSuccessState) {
-          GoRouter.of(context).pop();
           cubit.userNameController.clear();
           cubit.emailController.clear();
           cubit.passwordController.clear();
+          showAchievementView(
+              context: context,
+              title: "Check,",
+              subTitle: "Your email verification link");
+          GoRouter.of(context).pop();
         }
         if (state is RegisterErrorState) {
           showAchievementView(

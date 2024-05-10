@@ -41,8 +41,8 @@ class LoginViewBody extends StatelessWidget {
         if (state is LoginSuccessState) {
           showAchievementView(
               context: context,
-              title: "Check,",
-              subTitle: "Your email verification link");
+              title: "Hi There 👋,",
+              subTitle: "Welcome in MOGHA");
           context.navigate(AppRoutes.socialLayout, context);
         }
         if (state is EmailVerifiedState) {
