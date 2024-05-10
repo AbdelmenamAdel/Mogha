@@ -13,3 +13,13 @@ final class AddMessageLoadingState extends ChatsStates {}
 final class AddMessageSuccessState extends ChatsStates {}
 
 final class AddMessageFailureState extends ChatsStates {}
+
+final class SocialChatImagePickedSuccessState extends ChatsStates {}
+
+final class SocialChatImagePickedFailureState extends ChatsStates {}
+
+final class UploadChatImageFailureState extends ChatsStates {}
+
+final class UploadChatImageSuccessState extends ChatsStates {}
+
+final class UploadChatImageLoadingState extends ChatsStates {}
