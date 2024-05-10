@@ -7,7 +7,7 @@ class ConnectivityController {
   static final ConnectivityController instance = ConnectivityController._();
   ValueNotifier<bool> isConnected = ValueNotifier(true);
   Future<void> initialize() async {
-    final result = await _connectivity.checkConnectivity();
+    List<ConnectivityResult> result = await _connectivity.checkConnectivity();
     isInternerConnected(result);
     _connectivity.onConnectivityChanged.listen((isInternerConnected) {});
   }
