@@ -34,11 +34,15 @@ class SocialCoverImagePickedFailureState extends SocialStates {}
 
 class SocialUploadCoverImageSuccessState extends SocialStates {}
 
+class SocialUploadCoverImageLoadingState extends SocialStates {}
+
 class SocialUploadCoverImageFailureState extends SocialStates {}
 
 class SocialUploadProfileImageSuccessState extends SocialStates {}
 
 class SocialUploadProfileImageFailureState extends SocialStates {}
+
+class SocialUploadProfileImageLoadingState extends SocialStates {}
 
 class SocialUploadPostImageSuccessState extends SocialStates {}
 

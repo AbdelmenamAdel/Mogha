@@ -116,6 +116,7 @@ class SocialCubit extends Cubit<SocialStates> {
   var storage = firebase_storage.FirebaseStorage.instance;
 
   Future<void> uploadProfileImage() async {
+    emit(SocialUploadProfileImageLoadingState());
     storage
         .ref()
         .child('photos/${Uri.file(profileImage!.path).pathSegments.last}')
@@ -144,6 +145,7 @@ class SocialCubit extends Cubit<SocialStates> {
   String? coverImageUrl;
 
   Future<void> uploadCoverImage() async {
+    emit(SocialUploadCoverImageLoadingState());
     storage
         .ref()
         .child('users/${Uri.file(coverImage!.path).pathSegments.last}')

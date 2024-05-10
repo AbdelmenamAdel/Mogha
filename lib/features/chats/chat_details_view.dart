@@ -44,7 +44,7 @@ class ChatDetailsView extends StatelessWidget {
         title: Row(
           children: [
             Hero(
-              tag: 'chat',
+              tag: 'chat${user.uId}',
               child: CircleAvatar(
                 radius: 18,
                 backgroundImage: NetworkImage('${user.profilePhoto}'),

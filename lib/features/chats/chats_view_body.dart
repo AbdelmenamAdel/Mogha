@@ -45,7 +45,7 @@ class ChatsViewBody extends StatelessWidget {
                               );
                             },
                             child: Hero(
-                              tag: 'chat',
+                              tag: 'chat${cubit.users[index].uId}',
                               child: CircleAvatar(
                                 backgroundImage: NetworkImage(
                                   cubit.users[index].profilePhoto,
