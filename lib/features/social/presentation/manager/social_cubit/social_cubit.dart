@@ -119,7 +119,7 @@ class SocialCubit extends Cubit<SocialStates> {
     emit(SocialUploadProfileImageLoadingState());
     storage
         .ref()
-        .child('photos/${Uri.file(profileImage!.path).pathSegments.last}')
+        .child('users/${Uri.file(profileImage!.path).pathSegments.last}')
         .putFile(profileImage!)
         .then((value) {
       value.ref.getDownloadURL().then((value) async {
