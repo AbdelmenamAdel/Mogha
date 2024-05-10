@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/utils/app_images.dart';
@@ -14,6 +12,8 @@ import 'package:moga/features/auth/data/models/create_user_model.dart';
 import 'package:moga/features/chats/data/models/message_model.dart';
 import 'package:moga/features/chats/presentation/manager/chats/chats_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
+import 'presentation/views/widgets/connection_chat_waiting.dart';
+import 'presentation/views/widgets/custom_attatch_widget.dart';
 
 class ChatDetailsView extends StatelessWidget {
   const ChatDetailsView({
@@ -32,63 +32,7 @@ class ChatDetailsView extends StatelessWidget {
     double? textFormFieldHeight;
     var cubit = ChatsCubit.get(context);
     return Scaffold(
-      appBar: AppBar(
-        leading: Center(
-          child: IconButton(
-              onPressed: () {
-                GoRouter.of(context).pop();
-              },
-              icon: Icon(IconBroken.Arrow___Left_2)),
-        ),
-        titleSpacing: -5.0,
-        title: Row(
-          children: [
-            Hero(
-              tag: 'chat${user.uId}',
-              child: CircleAvatar(
-                radius: 18,
-                backgroundImage: NetworkImage('${user.profilePhoto}'),
-              ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                '${user.userName}',
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                    color: Theme.of(context).textTheme.displayLarge!.color),
-              ),
-            ),
-          ],
-        ),
-        // leadingWidth: 35,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              IconBroken.Call,
-              color: AppColors.blue,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              IconBroken.Video,
-              color: AppColors.blue,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.more_vert_rounded,
-              color: AppColors.blue,
-            ),
-          )
-        ],
-        elevation: 10,
-        shadowColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(.8),
-      ),
+      appBar: appBar(context),
       body: StreamBuilder(
         stream: messages.orderBy('date', descending: true).snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -134,6 +78,9 @@ class ChatDetailsView extends StatelessWidget {
                       children: [
                         Expanded(
                           child: CustomTextField(
+                            suffix: CustomAttatchWidget(
+                              uId: user.uId,
+                            ),
                             onFieldSubmitted: (value) {
                               cubit.addMessage(
                                 reciverId: user.uId,
@@ -154,12 +101,10 @@ class ChatDetailsView extends StatelessWidget {
                             bgc: Theme.of(context).scaffoldBackgroundColor,
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(left: 8),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
+                        CircleAvatar(
+                          radius: 30,
+                          backgroundColor:
+                              Theme.of(context).scaffoldBackgroundColor,
                           child: IconButton(
                             onPressed: () {
                               if (cubit.messageController.text
@@ -191,61 +136,64 @@ class ChatDetailsView extends StatelessWidget {
       ),
     );
   }
-}
 
-class ConnectionChatWaiting extends StatelessWidget {
-  const ConnectionChatWaiting({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ModalProgressHUD(
-      inAsyncCall: true,
-      child: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(
-              AppImages.bg,
-            ), // Replace with your image path
-            fit: BoxFit.fill,
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Expanded(child: SizedBox()),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTextField(
-                      onFieldSubmitted: (value) {},
-                      height: 50,
-                      hintText: 'Write a message....',
-                      bsc: Theme.of(context).scaffoldBackgroundColor,
-                      radius: 18,
-                      bgc: Theme.of(context).scaffoldBackgroundColor,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 8),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        IconBroken.Send,
-                        color: Theme.of(context).textTheme.bodyLarge!.color,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
+  appBar(context) {
+    return AppBar(
+      leading: Center(
+        child: IconButton(
+            onPressed: () {
+              GoRouter.of(context).pop();
+            },
+            icon: Icon(IconBroken.Arrow___Left_2)),
       ),
+      titleSpacing: -5.0,
+      title: Row(
+        children: [
+          Hero(
+            tag: 'chat${user.uId}',
+            child: CircleAvatar(
+              radius: 18,
+              backgroundImage: NetworkImage('${user.profilePhoto}'),
+            ),
+          ),
+          SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              '${user.userName}',
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                  color: Theme.of(context).textTheme.displayLarge!.color),
+            ),
+          ),
+        ],
+      ),
+      // leadingWidth: 35,
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: Icon(
+            IconBroken.Call,
+            color: AppColors.blue,
+          ),
+        ),
+        IconButton(
+          onPressed: () {},
+          icon: Icon(
+            IconBroken.Video,
+            color: AppColors.blue,
+          ),
+        ),
+        IconButton(
+          onPressed: () {},
+          icon: Icon(
+            Icons.more_vert_rounded,
+            color: AppColors.blue,
+          ),
+        )
+      ],
+      elevation: 10,
+      shadowColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(.8),
     );
   }
 }

@@ -61,7 +61,7 @@ class OpenPostPhotoView extends StatelessWidget {
                       ),
                     )
                   : Row(children: [
-                      Text('Update', style: TextStyle(color: AppColors.bGL)),
+                      Text('upload', style: TextStyle(color: AppColors.bGL)),
                       IconButton(
                         onPressed: () {
                           cubit.uploadPostPhoto();
