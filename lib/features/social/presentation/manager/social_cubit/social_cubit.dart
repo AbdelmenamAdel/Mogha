@@ -18,7 +18,6 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 class SocialCubit extends Cubit<SocialStates> {
   SocialCubit(this.userRepo) : super(SocialInitState());
   GetUserAuth userRepo;
-
   static SocialCubit get(context) => BlocProvider.of(context);
   UserModel? model;
   GetUserImplementation user = GetUserImplementation();
@@ -272,6 +271,11 @@ class SocialCubit extends Cubit<SocialStates> {
     try {
       emit(SocialCreatePostLoadingState());
       await instance.collection('posts').add(postModel.toMap());
+      await instance
+          .collection('users')
+          .doc(model!.uId)
+          .collection('posts')
+          .add(postModel.toMap());
       posts.add(postModel);
       emit(SocialCreatePostSuccessState());
     } catch (e) {
@@ -287,6 +291,30 @@ class SocialCubit extends Cubit<SocialStates> {
   Future<List<PostModel>> getPosts() async {
     try {
       await userRepo.getPosts().then((value) {
+        value.docs.forEach((element) async {
+          element.reference.collection('likes').get().then((value) {
+            likes.add(value.docs.length);
+            emit(SocialGetLikedPostsSuccessState());
+          });
+          await element.reference.collection('comments').get().then((value) {
+            comments.add(value.docs.length);
+            emit(SocialGetCommentsSuccessState());
+            postsId.add(element.id);
+            posts.add(PostModel.fromJson(element.data()));
+          });
+        });
+      });
+      emit(SocialGetPostsSuccessState());
+    } catch (e) {
+      log(e.toString());
+      emit(SocialGetPostsFailureState());
+    }
+    return posts;
+  }
+
+  Future<List<PostModel>> getMyPosts() async {
+    try {
+      await userRepo.getMyPosts(model!.uId).then((value) {
         value.docs.forEach((element) async {
           element.reference.collection('likes').get().then((value) {
             likes.add(value.docs.length);
