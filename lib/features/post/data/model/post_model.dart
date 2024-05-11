@@ -26,7 +26,7 @@ class PostModel {
     };
   }
 
-  factory PostModel.fromJson(Map<String, dynamic> json) {
+  factory PostModel.fromJson(json) {
     return PostModel(
       date: json['date'],
       name: json['name'],
