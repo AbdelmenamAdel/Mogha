@@ -6,6 +6,8 @@ import 'package:moga/core/database/cache/cache_helper.dart';
 import 'package:moga/core/services/service_locator.dart';
 import "package:moga/core/widgets/error_used_when_you_don't_expect.dart";
 import 'app/mogha.dart';
+import 'package:flutter/services.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
@@ -15,5 +17,10 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   await initServiceLocator();
   await sl<CacheHelper>().init();
-  runApp(const Mogha());
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp,
+  ]).then((_) {
+    runApp(const Mogha());
+  });
 }
