@@ -312,30 +312,6 @@ class SocialCubit extends Cubit<SocialStates> {
     return posts;
   }
 
-  Future<List<PostModel>> getMyPosts() async {
-    try {
-      await userRepo.getMyPosts(model!.uId).then((value) {
-        value.docs.forEach((element) async {
-          element.reference.collection('likes').get().then((value) {
-            likes.add(value.docs.length);
-            emit(SocialGetLikedPostsSuccessState());
-          });
-          await element.reference.collection('comments').get().then((value) {
-            comments.add(value.docs.length);
-            emit(SocialGetCommentsSuccessState());
-            postsId.add(element.id);
-            posts.add(PostModel.fromJson(element.data()));
-          });
-        });
-      });
-      emit(SocialGetPostsSuccessState());
-    } catch (e) {
-      log(e.toString());
-      emit(SocialGetPostsFailureState());
-    }
-    return posts;
-  }
-
   Future<void> likePost(String postId, isLiked) async {
     try {
       clicked

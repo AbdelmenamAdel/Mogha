@@ -4,6 +4,7 @@ import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/common/custom_navigate.dart';
+import 'package:moga/features/settings/presentation/views/widgets/my_all_posts.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
 
@@ -204,7 +205,9 @@ class SettingsView extends StatelessWidget {
                         },
                       )
                     ],
-                  )
+                  ),
+                  SizedBox(height: 20),
+                  MyPostsWidget(),
                 ],
               ),
             ),
