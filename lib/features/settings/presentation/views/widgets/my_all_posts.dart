@@ -24,15 +24,15 @@ class MyPostsWidget extends StatelessWidget {
             if (snapshot.data!.docs[i]['uId'] == sl<SocialCubit>().model!.uId)
               posts.add(PostModel.fromJson(snapshot.data!.docs[i]));
           }
-          return Expanded(
-            child: ListView.builder(
-              itemCount: posts.length,
-              itemBuilder: (context, index) =>
-                  CustomPostWidget(postModel: posts[index], index: index),
-            ),
+          return ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: posts.length,
+            itemBuilder: (context, index) =>
+                CustomPostWidget(postModel: posts[index], index: index),
           );
         } else {
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         }
       },
     );
