@@ -77,3 +77,7 @@ class SocialGetPostsSuccessState extends SocialStates {}
 class SocialGetPostsFailureState extends SocialStates {}
 
 class SocialUserUpdateFailureState extends SocialStates {}
+
+class SocialFollowState extends SocialStates {}
+
+class SocialUnFollowState extends SocialStates {}

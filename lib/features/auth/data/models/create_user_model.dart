@@ -23,7 +23,7 @@ class UserModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'phone':phone,
+      'phone': phone,
       'coverPhoto': coverPhoto,
       'bio': bio,
       'profilePhoto': profilePhoto,
@@ -35,7 +35,7 @@ class UserModel {
     };
   }
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
+  factory UserModel.fromJson(json) {
     return UserModel(
       email: json['email'],
       userName: json['userName'],

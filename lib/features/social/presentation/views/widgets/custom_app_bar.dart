@@ -35,7 +35,9 @@ class CustomAppBar extends StatelessWidget {
       ),
       actions: [
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            context.navigate(AppRoutes.notification, context);
+          },
           icon: Icon(
             IconBroken.Notification,
             size: 28,
@@ -43,7 +45,9 @@ class CustomAppBar extends StatelessWidget {
           ),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            context.navigate(AppRoutes.search, context);
+          },
           icon: Icon(
             IconBroken.Search,
             size: 28,

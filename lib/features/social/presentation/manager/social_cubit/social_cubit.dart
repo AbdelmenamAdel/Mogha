@@ -362,4 +362,17 @@ class SocialCubit extends Cubit<SocialStates> {
   void createComment(String postId) {
     // instance.collection('posts').doc(postId).collection('comments').add(data)
   }
+  Future<void> follow(doc) async {
+    doc.reference.collection('followers').doc(model!.uId).set(
+      {
+        'time': DateTime.now(),
+      },
+    );
+    emit(SocialFollowState());
+  }
+
+  Future<void> unFollow(var doc) async {
+    doc.reference.collection('followers').doc(model!.uId).delete();
+    emit(SocialUnFollowState());
+  }
 }
