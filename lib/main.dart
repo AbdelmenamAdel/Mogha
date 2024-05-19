@@ -16,9 +16,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await notificationHandler();
-  // ErrorWidget.builder = (FlutterErrorDetails details) {
-  //   return ErrorUsedWhenYouDonotExpect(details: details);
-  // };
   Bloc.observer = MyBlocObserver();
   await initServiceLocator();
   await sl<CacheHelper>().init();
