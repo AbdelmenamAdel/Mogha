@@ -5,7 +5,7 @@ import 'package:moga/core/utils/custom_gnav_bar.dart';
 import 'package:moga/features/chats/chats_view.dart';
 import 'package:moga/features/home/presentation/views/home_view.dart';
 import 'package:icon_broken/icon_broken.dart';
-import 'package:moga/features/settings/presentation/views/settings_view.dart';
+import 'package:moga/features/settings/presentation/views/settings.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
 import 'package:moga/features/users/users_view.dart';
