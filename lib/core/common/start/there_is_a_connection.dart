@@ -19,7 +19,9 @@ class ThereIsAConnectionStart extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => sl<GlobalCubit>()..updateLangage(),
+          create: (context) => sl<GlobalCubit>()
+            ..updateLangage()
+            ..getTheme(),
         ),
         BlocProvider(
           create: (context) => sl<ChatsCubit>()..getAllUsers(),
@@ -55,7 +57,9 @@ class ThereIsAConnectionStart extends StatelessWidget {
           },
           debugShowCheckedModeBanner: false,
           routerConfig: AppRouter.route,
-          theme: getAppDarkTheme(),
+          theme: BlocProvider.of<GlobalCubit>(context).isDark
+              ? getAppDarkTheme()
+              : getAppLightTheme(),
         ),
       ),
     );
