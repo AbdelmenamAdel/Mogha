@@ -23,3 +23,9 @@ final class UploadChatImageFailureState extends ChatsStates {}
 final class UploadChatImageSuccessState extends ChatsStates {}
 
 final class UploadChatImageLoadingState extends ChatsStates {}
+
+final class UploadChatVideoFailureState extends ChatsStates {}
+
+final class UploadChatVideoSuccessState extends ChatsStates {}
+
+final class UploadChatVideoLoadingState extends ChatsStates {}

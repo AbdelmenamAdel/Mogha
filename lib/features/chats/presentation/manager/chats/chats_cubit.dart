@@ -112,8 +112,10 @@ class ChatsCubit extends Cubit<ChatsStates> {
     });
   }
 
-  Future<void> getCameraImage(
-      {required BuildContext context, required String reciverId}) async {
+  Future<void> getCameraImage({
+    required BuildContext context,
+    required String reciverId,
+  }) async {
     pickImage(ImageSource.camera).then((value) {
       chatCamera = File(value!.path);
       emit(SocialChatImagePickedSuccessState());
@@ -153,33 +155,34 @@ class ChatsCubit extends Cubit<ChatsStates> {
     });
   }
 
-  Future<void> getVideoImage({
+  Future<void> getVideo({
     required BuildContext context,
     required String reciverId,
   }) async {
-    pickVideo(ImageSource.camera).then((value) {
+    await pickVideo(ImageSource.gallery).then((value) {
       chatVideo = File(value!.path);
-      emit(SocialChatImagePickedSuccessState());
-      uploadVideoImage(message: messageController.text, reciverId: reciverId);
+      emit(UploadChatVideoSuccessState());
+      uploadVideo(message: messageController.text, reciverId: reciverId);
     }).catchError((onError) {
-      emit(SocialChatImagePickedFailureState());
+      log('fuck while get video');
+      emit(UploadChatVideoFailureState());
     });
   }
 
-  Future<void> uploadVideoImage({
+  Future<void> uploadVideo({
     String? message,
     required String reciverId,
   }) async {
-    emit(UploadChatImageLoadingState());
-    storage
+    emit(UploadChatVideoLoadingState());
+    await storage
         .ref()
         .child('chat/${Uri.file(chatVideo!.path).pathSegments.last}')
         .putFile(chatVideo!)
         .then((value) {
       value.ref.getDownloadURL().then((value) async {
         chatVideoUrl = value;
-        emit(UploadChatImageSuccessState());
         log(chatVideoUrl ?? '');
+        emit(UploadChatVideoSuccessState());
         addMessage(
           reciverId: reciverId,
           date: DateTime.now().toString(),
@@ -188,11 +191,11 @@ class ChatsCubit extends Cubit<ChatsStates> {
         );
       }).catchError((error) {
         log(error.toString());
-        emit(UploadChatImageFailureState());
+        emit(UploadChatVideoFailureState());
       });
     }).catchError((error) {
       log(error.toString());
-      emit(UploadChatImageFailureState());
+      emit(UploadChatVideoFailureState());
     });
   }
 
