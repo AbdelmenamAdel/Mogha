@@ -48,8 +48,9 @@ class CustomAttatchWidget extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                        onPressed: () {
-                          cubit.getVideoImage(context: context, reciverId: uId);
+                        onPressed: () async {
+                          await cubit.getVideo(
+                              context: context, reciverId: uId);
                         },
                         icon: Icon(IconBroken.Video),
                       ),
