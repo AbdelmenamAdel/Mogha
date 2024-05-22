@@ -13,7 +13,9 @@
 #include <firebase_core/firebase_core_plugin_c_api.h>
 #include <firebase_storage/firebase_storage_plugin_c_api.h>
 #include <flutter_localization/flutter_localization_plugin_c_api.h>
+#include <permission_handler_windows/permission_handler_windows_plugin.h>
 #include <rive_common/rive_plugin.h>
+#include <zego_zim/zego_zim_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   CloudFirestorePluginCApiRegisterWithRegistrar(
@@ -30,6 +32,10 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("FirebaseStoragePluginCApi"));
   FlutterLocalizationPluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("FlutterLocalizationPluginCApi"));
+  PermissionHandlerWindowsPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("PermissionHandlerWindowsPlugin"));
   RivePluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("RivePlugin"));
+  ZegoZimPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("ZegoZimPlugin"));
 }
