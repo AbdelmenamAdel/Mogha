@@ -10,9 +10,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   firebase_core
   firebase_storage
   flutter_localization
-  permission_handler_windows
   rive_common
-  zego_zim
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
