@@ -7,7 +7,7 @@ import 'package:moga/core/common/firebase/firebase_messaging_background_handler.
 Future<void> notificationHandler() async {
   String? token = await FirebaseMessaging.instance.getToken();
   log('user token is ${token}');
-  FirebaseMessaging.onMessage.listen((event) {
+  await FirebaseMessaging.onMessage.listen((event) {
     print('on message');
     log(event.data.toString());
     log(event.notification.toString());
@@ -18,7 +18,7 @@ Future<void> notificationHandler() async {
   });
 
   // when click on notification to open app
-  FirebaseMessaging.onMessageOpenedApp.listen((event) {
+  await FirebaseMessaging.onMessageOpenedApp.listen((event) {
     print('on message opened app');
     print(event.data.toString());
     showToast(
