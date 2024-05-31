@@ -15,7 +15,7 @@ void main() async {
   FlutterErrorWidget();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await notificationHandler();
+  // await notificationHandler();
   Bloc.observer = MyBlocObserver();
   await initServiceLocator();
   await sl<CacheHelper>().init();
