@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/services/service_locator.dart';

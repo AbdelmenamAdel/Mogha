@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moga/features/auth/presentation/views/change_language_view.dart';
@@ -48,13 +46,17 @@ abstract class AppRouter {
       GoRoute(
         path: AppRoutes.initialRoute,
         builder: (context, state) => const SplashView(),
-      ),  GoRoute(
+      ),
+      GoRoute(
         path: AppRoutes.profile,
-        builder: (context, state) =>  ProfileView(userModel: SocialCubit.get(context).model!),
-      ), GoRoute(
+        builder: (context, state) =>
+            ProfileView(userModel: SocialCubit.get(context).model!),
+      ),
+      GoRoute(
         path: AppRoutes.socialLayout,
         builder: (context, state) => const SocialLayoutView(),
-      ),GoRoute(
+      ),
+      GoRoute(
         path: AppRoutes.editProfile,
         builder: (context, state) => const EditProfileView(),
       ),
@@ -83,13 +85,16 @@ abstract class AppRouter {
       GoRoute(
         path: AppRoutes.chageLang,
         builder: (context, state) => const ChangeLangView(),
-      ), GoRoute(
+      ),
+      GoRoute(
         path: AppRoutes.newPost,
         builder: (context, state) => const AddPostView(),
-      ), GoRoute(
+      ),
+      GoRoute(
         path: AppRoutes.profilePhoto,
         builder: (context, state) => const OpenProfilePhotoView(),
-      ), GoRoute(
+      ),
+      GoRoute(
         path: AppRoutes.coverPhoto,
         builder: (context, state) => const OpenCoverPhotoView(),
       ),
@@ -100,10 +105,12 @@ abstract class AppRouter {
       GoRoute(
         path: AppRoutes.sendCode,
         builder: (context, state) => const SendCodeView(),
-      ), GoRoute(
+      ),
+      GoRoute(
         path: AppRoutes.notification,
         builder: (context, state) => const NotificationsView(),
-      ), GoRoute(
+      ),
+      GoRoute(
         path: AppRoutes.search,
         builder: (context, state) => const SearchViw(),
       ),

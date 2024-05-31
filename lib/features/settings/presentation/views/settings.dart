@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hidable/hidable.dart';
 import 'package:moga/core/bloc/global_cubit/app_language_cubit.dart';
 import 'package:moga/core/bloc/global_cubit/app_language_states.dart';
-import 'package:moga/core/common/media_size.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/widgets/custom_divider.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
@@ -81,6 +80,7 @@ class SettingsView extends StatelessWidget {
     );
   }
 }
+
 class ProfileHeaderLabel extends StatelessWidget {
   final String headerLabel;
 
@@ -93,11 +93,7 @@ class ProfileHeaderLabel extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            height: 35.h,
-            width: 105.w,
-            child: CustomDivider()
-          ),
+          SizedBox(height: 35.h, width: 105.w, child: CustomDivider()),
           Text(
             headerLabel,
             style: TextStyle(

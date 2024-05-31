@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/features/home/presentation/views/widgets/custom_post_widget.dart';
 import 'package:moga/features/post/data/model/post_model.dart';
-import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 
 class MyPostsWidget extends StatelessWidget {
   const MyPostsWidget({

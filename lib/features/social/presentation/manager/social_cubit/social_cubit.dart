@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -261,9 +260,10 @@ class SocialCubit extends Cubit<SocialStates> {
     String? postImage,
     required String text,
   }) async {
- var user=  UserModel.fromJson(instance.collection('users').doc(model!.uId).get());
+    var user =
+        UserModel.fromJson(instance.collection('users').doc(model!.uId).get());
 
-  PostModel postModel = PostModel(
+    PostModel postModel = PostModel(
       image: user.profilePhoto,
       date: DateTime.now().toString(),
       name: model!.userName,
@@ -355,8 +355,8 @@ class SocialCubit extends Cubit<SocialStates> {
           .get();
       log(postModel.uId);
       log(data.toString());
-     return UserModel.fromJson(data);
-    }  catch (e) {
+      return UserModel.fromJson(data);
+    } catch (e) {
       log(e.toString());
       return null;
     }
