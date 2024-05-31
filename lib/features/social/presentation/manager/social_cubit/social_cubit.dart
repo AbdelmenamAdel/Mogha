@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -18,6 +19,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 class SocialCubit extends Cubit<SocialStates> {
   SocialCubit(this.userRepo) : super(SocialInitState());
   GetUserAuth userRepo;
+
   static SocialCubit get(context) => BlocProvider.of(context);
   UserModel? model;
   GetUserImplementation user = GetUserImplementation();
@@ -255,13 +257,14 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   FirebaseFirestore instance = FirebaseFirestore.instance;
-
   Future<void> createPost({
     String? postImage,
     required String text,
   }) async {
-    PostModel postModel = PostModel(
-      image: model!.profilePhoto,
+ var user=  UserModel.fromJson(instance.collection('users').doc(model!.uId).get());
+
+  PostModel postModel = PostModel(
+      image: user.profilePhoto,
       date: DateTime.now().toString(),
       name: model!.userName,
       text: text,
@@ -344,6 +347,21 @@ class SocialCubit extends Cubit<SocialStates> {
     color = clicked ? AppColors.red : null;
   }
 
+  Future<UserModel?> goToProfile(PostModel postModel) async {
+    try {
+      var data = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(postModel.uId)
+          .get();
+      log(postModel.uId);
+      log(data.toString());
+     return UserModel.fromJson(data);
+    }  catch (e) {
+      log(e.toString());
+      return null;
+    }
+  }
+
   Future<void> commentPost(String postId, String comment) async {
     try {
       instance
@@ -362,6 +380,7 @@ class SocialCubit extends Cubit<SocialStates> {
   void createComment(String postId) {
     // instance.collection('posts').doc(postId).collection('comments').add(data)
   }
+
   Future<void> follow(doc) async {
     doc.reference.collection('followers').doc(model!.uId).set(
       {

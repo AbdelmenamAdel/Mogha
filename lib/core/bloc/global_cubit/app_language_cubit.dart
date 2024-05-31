@@ -39,7 +39,7 @@ class GlobalCubit extends Cubit<GlobalState> {
 
   //! Get App Theme
   void getTheme() async {
-    isDark = await sl<CacheHelper>().getData(key: 'isDark');
+    isDark = await sl<CacheHelper>().getData(key: 'isDark') ?? true;
     emit(GetThemeState());
   }
 }

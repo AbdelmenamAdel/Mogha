@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moga/features/auth/presentation/views/change_language_view.dart';
@@ -15,6 +17,8 @@ import 'package:moga/features/open_profile_photo_view.dart';
 import 'package:moga/features/post/presentation/views/add_post.dart';
 import 'package:moga/features/search/search_view.dart';
 import 'package:moga/features/settings/presentation/views/edit_profile_view.dart';
+import 'package:moga/features/settings/presentation/views/profile.dart';
+import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import 'package:moga/features/social/presentation/views/social_layout_view.dart';
 import '../services/service_locator.dart';
 
@@ -28,6 +32,7 @@ class AppRoutes {
   static const String newPassword = '/newPassword';
   static const String signUp = '/signUp';
   static const String home = '/home';
+  static const String profile = '/profile';
   static const String profilePhoto = '/profilePhoto';
   static const String coverPhoto = '/coverPhoto';
   static const String notification = '/notification';
@@ -43,6 +48,9 @@ abstract class AppRouter {
       GoRoute(
         path: AppRoutes.initialRoute,
         builder: (context, state) => const SplashView(),
+      ),  GoRoute(
+        path: AppRoutes.profile,
+        builder: (context, state) =>  ProfileView(userModel: SocialCubit.get(context).model!),
       ), GoRoute(
         path: AppRoutes.socialLayout,
         builder: (context, state) => const SocialLayoutView(),
