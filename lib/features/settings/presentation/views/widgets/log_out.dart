@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:moga/core/services/service_locator.dart';
+import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/core/widgets/custom_divider.dart';
+import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 
 class LogOutBottomBar extends StatelessWidget {
   const LogOutBottomBar({super.key});
@@ -32,27 +36,127 @@ class LogOutWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
-      height: 350.h,
+      color: Theme.of(context).scaffoldBackgroundColor,
+      // color: Colors.blueGrey,
+      height: 350,
       width: double.infinity,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
         child: Column(
           children: [
-            ListTile(
-              leading: IconButton(
-                onPressed: () {},
-                icon: Icon(IconBroken.Logout),
+            Card(
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Column(
+                children: [
+                  InkWell(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 18,
+                            backgroundImage: NetworkImage(
+                              sl<SocialCubit>().model!.profilePhoto,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 12,
+                          ),
+                          Text(
+                            sl<SocialCubit>().model!.userName,
+                            style: Theme.of(context).textTheme.displaySmall,
+                          ),
+                          Spacer(),
+                          Icon(
+                            Icons.verified,
+                            color: AppColors.blue,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  CustomDivider(),
+                  InkWell(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Row(
+                        children: [
+                          Icon(
+                            IconBroken.Logout,
+                            size: 28,
+                          ),
+                          SizedBox(
+                            width: 12,
+                          ),
+                          Text(
+                            'Exit ',
+                            style: Theme.of(context).textTheme.displaySmall,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  CustomDivider(),
+                  InkWell(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Row(
+                        children: [
+                          Icon(
+                            IconBroken.Plus,
+                            size: 28,
+                          ),
+                          SizedBox(
+                            width: 12,
+                          ),
+                          Text(
+                            'Create a new account ',
+                            style: Theme.of(context).textTheme.displaySmall,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  CustomDivider(),
+                  InkWell(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Row(
+                        children: [
+                          Icon(
+                            IconBroken.Delete,
+                            size: 28,
+                          ),
+                          SizedBox(
+                            width: 12,
+                          ),
+                          Text(
+                            'Delete this account ',
+                            style: Theme.of(context).textTheme.displaySmall,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
+            Spacer(),
             Row(
               children: [
                 Expanded(
-                  child: OutlinedButton(
-                    onPressed: () {
-                      GoRouter.of(context).pop();
-                    },
-                    child: Text('Cancel'),
+                  child: SizedBox(
+                    height: 50,
+                    child: OutlinedButton(
+                      onPressed: () {
+                        GoRouter.of(context).pop();
+                      },
+                      child: Text('Cancel'),
+                    ),
                   ),
                 ),
               ],
