@@ -17,7 +17,7 @@ class AuthCubit extends Cubit<AuthState> {
   TextEditingController userNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  late Either<String, String> res;
+  Either<String, String>? res;
   bool isPassword = true;
   IconData? secure = Icons.visibility_off;
 
@@ -42,7 +42,7 @@ class AuthCubit extends Cubit<AuthState> {
       password: password,
       userName: userName,
     );
-    res.fold((failure) {
+    res!.fold((failure) {
       emit(RegisterErrorState(failure));
     }, (success) {
       emit(RegisterSuccessState());
@@ -137,7 +137,7 @@ class AuthCubit extends Cubit<AuthState> {
       log(e.toString());
     }
 
-    res.fold((failure) {
+    res!.fold((failure) {
       emit(LoginErrorState());
     }, (success) {
       log(success);

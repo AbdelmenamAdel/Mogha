@@ -6,7 +6,12 @@ import 'package:moga/features/post/data/model/post_model.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 
 class MyPostsWidget extends StatelessWidget {
-  const MyPostsWidget({super.key});
+  const MyPostsWidget({
+    super.key,
+    required this.uId,
+  });
+
+  final String uId;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +26,7 @@ class MyPostsWidget extends StatelessWidget {
         if (snapshot.hasData) {
           List<PostModel> posts = [];
           for (int i = 0; i < snapshot.data!.docs.length; i++) {
-            if (snapshot.data!.docs[i]['uId'] == sl<SocialCubit>().model!.uId)
+            if (snapshot.data!.docs[i]['uId'] == uId)
               posts.add(PostModel.fromJson(snapshot.data!.docs[i]));
           }
           return ListView.builder(

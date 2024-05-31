@@ -1,9 +1,15 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/widgets/show_image.dart';
+import 'package:moga/features/auth/data/models/create_user_model.dart';
 import 'package:moga/features/post/data/model/post_model.dart';
 import 'package:moga/features/post/presentation/views/comments.dart';
+import 'package:moga/features/settings/presentation/views/profile.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 
 class CustomPostWidget extends StatelessWidget {
@@ -44,8 +50,19 @@ class CustomPostWidget extends StatelessWidget {
                 contentPadding: EdgeInsets.zero,
                 title: Row(
                   children: [
-                    Text(postModel.name,
-                        style: Theme.of(context).textTheme.displaySmall),
+                    InkWell(
+                      onTap: () async {
+                        UserModel? userModel =
+                            await sl<SocialCubit>().goToProfile(postModel);
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return ProfileView(userModel: userModel!);
+                          },
+                        ));
+                      },
+                      child: Text(postModel.name,
+                          style: Theme.of(context).textTheme.displaySmall),
+                    ),
                     SizedBox(width: 2),
                     Icon(Icons.verified, color: Colors.blue, size: 18)
                   ],
