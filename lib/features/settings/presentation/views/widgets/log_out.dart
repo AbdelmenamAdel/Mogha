@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:moga/core/common/custom_navigate.dart';
+import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/widgets/custom_divider.dart';
@@ -36,7 +38,6 @@ class LogOutWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Theme.of(context).scaffoldBackgroundColor,
-      // color: Colors.blueGrey,
       height: 350,
       width: double.infinity,
       child: Padding(
@@ -48,7 +49,9 @@ class LogOutWidget extends StatelessWidget {
               child: Column(
                 children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      context.navigate(AppRoutes.profile,context);
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Row(
@@ -90,7 +93,7 @@ class LogOutWidget extends StatelessWidget {
                             width: 12,
                           ),
                           Text(
-                            'Exit ',
+                            'Log Out ',
                             style: Theme.of(context).textTheme.displaySmall,
                           ),
                         ],
