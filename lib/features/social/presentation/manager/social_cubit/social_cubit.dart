@@ -394,4 +394,5 @@ class SocialCubit extends Cubit<SocialStates> {
     doc.reference.collection('followers').doc(model!.uId).delete();
     emit(SocialUnFollowState());
   }
+
 }
