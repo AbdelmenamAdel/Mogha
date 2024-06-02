@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:moga/core/common/custom_navigate.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/widgets/custom_divider.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
@@ -24,7 +25,7 @@ class ProfileDataInSection extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                GoRouter.of(context).push(AppRoutes.profile);
+                context.navigate(AppRoutes.profile,context);
               },
               child: ListTile(
                 leading: CircleAvatar(
