@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +62,42 @@ class AuthCubit extends Cubit<AuthState> {
     return await authRepo.registerWithGoogle();
   }
 
+  Future<void> logOut() async {
+    await authRepo.logOut();
+  }
+
+  Future<void> sendPasswordResetEmail(email, context) async {
+    await authRepo.sendPasswordResetEmail(email, context);
+  }
+
+  Future<bool> checkOldPassword(email, password) async {
+    return await authRepo.checkOldPassword(email, password);
+  }
+
+  Future<void> updateUserPassword(newPassword) async {
+
+    await authRepo.updateUserPassword(newPassword);
+  }
+Future<void>runTransactionPassword(String newPassword)async{
+  await FirebaseFirestore.instance
+      .runTransaction(
+        (transaction) async {
+      DocumentReference documentReference =
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(
+        FirebaseAuth.instance
+            .currentUser!.uid,
+      );
+      transaction.update(
+        documentReference,
+        {
+          'password':newPassword,
+        },
+      );
+    },
+  );
+}
   var storage = firebase_storage.FirebaseStorage.instance;
 
   Future<void> uploadProfileImage() async {

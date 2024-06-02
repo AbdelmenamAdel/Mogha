@@ -34,7 +34,7 @@ class _SplashViewState extends State<SplashView> {
       () => emailVerified
           ? context.navigate(AppRoutes.socialLayout, context)
           : isVisted
-              ? context.navigate(AppRoutes.chageLang, context)
+              ? context.navigate(AppRoutes.changeLang, context)
               : context.navigate(AppRoutes.onBoarding, context),
     );
   }
