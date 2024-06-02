@@ -6,7 +6,7 @@ import 'package:moga/core/widgets/show_image.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
 import 'package:moga/features/post/data/model/post_model.dart';
 import 'package:moga/features/post/presentation/views/comments.dart';
-import 'package:moga/features/settings/presentation/views/profile.dart';
+import 'package:moga/features/settings/presentation/views/profile_view.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 
 class CustomPostWidget extends StatelessWidget {

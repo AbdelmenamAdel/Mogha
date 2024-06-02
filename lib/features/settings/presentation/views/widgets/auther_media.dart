@@ -12,7 +12,7 @@ class AuthorMedia extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(15).r,
+          padding: const EdgeInsets.only(top: 15,left: 15,right: 15).r,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

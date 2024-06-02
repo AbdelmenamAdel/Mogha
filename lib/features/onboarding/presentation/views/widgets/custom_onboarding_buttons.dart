@@ -55,7 +55,7 @@ class CustomOnBoardingButtons extends StatelessWidget {
                     .saveData(key: Strings.onBoardingKey, value: true)
                     .then((value) {
                   debugPrint('onBoarding is Visited');
-                  context.navigate(AppRoutes.chageLang, context);
+                  context.navigate(AppRoutes.changeLang, context);
                 }).catchError((e) {
                   debugPrint(e.toString());
                 });
