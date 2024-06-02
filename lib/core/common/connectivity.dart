@@ -9,7 +9,9 @@ class ConnectivityController {
   Future<void> initialize() async {
     List<ConnectivityResult> result = await _connectivity.checkConnectivity();
     isInternerConnected(result);
-    _connectivity.onConnectivityChanged.listen((isInternerConnected) {});
+    _connectivity.onConnectivityChanged.listen((isInternetConnected) {
+      result=isInternetConnected;
+    });
   }
 
   bool isInternerConnected(List<ConnectivityResult> result) {

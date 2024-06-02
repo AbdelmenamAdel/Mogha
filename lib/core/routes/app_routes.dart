@@ -14,15 +14,18 @@ import 'package:moga/features/open_cover_photo_view.dart';
 import 'package:moga/features/open_profile_photo_view.dart';
 import 'package:moga/features/post/presentation/views/add_post.dart';
 import 'package:moga/features/search/search_view.dart';
+import 'package:moga/features/settings/presentation/minor_views/change_password_view.dart';
+import 'package:moga/features/settings/presentation/minor_views/friends_view.dart';
 import 'package:moga/features/settings/presentation/views/edit_profile_view.dart';
-import 'package:moga/features/settings/presentation/views/profile.dart';
+import 'package:moga/features/settings/presentation/views/profile_view.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import 'package:moga/features/social/presentation/views/social_layout_view.dart';
+import '../../features/settings/presentation/minor_views/about_view.dart';
 import '../services/service_locator.dart';
 
 class AppRoutes {
   static const String initialRoute = '/';
-  static const String chageLang = '/chageLang';
+  static const String changeLang = '/changeLang';
   static const String login = '/login';
   static const String onBoarding = '/onBoarding';
   static const String sendCode = '/sendCode';
@@ -38,6 +41,9 @@ class AppRoutes {
   static const String editProfile = '/editProfile';
   static const String newPost = '/newPost';
   static const String socialLayout = '/socialLayout';
+  static const String friends = '/friends';
+  static const String about = '/about';
+  static const String changePass = '/changePass';
 }
 
 abstract class AppRouter {
@@ -55,6 +61,15 @@ abstract class AppRouter {
       GoRoute(
         path: AppRoutes.socialLayout,
         builder: (context, state) => const SocialLayoutView(),
+      ), GoRoute(
+        path: AppRoutes.about,
+        builder: (context, state) => const AboutView(),
+      ), GoRoute(
+        path: AppRoutes.changePass,
+        builder: (context, state) => const ChangePasswordView(),
+      ), GoRoute(
+        path: AppRoutes.friends,
+        builder: (context, state) => const FriendsView(),
       ),
       GoRoute(
         path: AppRoutes.editProfile,
@@ -83,7 +98,7 @@ abstract class AppRouter {
         ),
       ),
       GoRoute(
-        path: AppRoutes.chageLang,
+        path: AppRoutes.changeLang,
         builder: (context, state) => const ChangeLangView(),
       ),
       GoRoute(
