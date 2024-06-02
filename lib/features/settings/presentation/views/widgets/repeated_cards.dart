@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:moga/core/common/custom_navigate.dart';
 import 'package:moga/core/routes/app_routes.dart';
-import 'package:moga/features/settings/presentation/views/settings.dart';
+import 'package:moga/features/settings/presentation/views/settings_view.dart';
+import '../../minor_views/widgets/change_lang_sheet.dart';
 import 'repeated_card.dart';
 
 class RepeatedCards extends StatelessWidget {
@@ -26,30 +27,44 @@ class RepeatedCards extends StatelessWidget {
         RepeatedCard(
           prefix: IconBroken.User,
           title: 'Friends',
-          onTap: () {},
+          onTap: () {
+            context.navigate(AppRoutes.friends, context);
+          },
         ),
         RepeatedCard(
           prefix: Icons.language_sharp,
           title: 'Change Language',
-          onTap: () {},
+          onTap: () {
+            showModalBottomSheet(
+              elevation: 5,
+              context: context,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              builder: (context) => ChangeLanguageSheet(),
+            );
+            // context.navigate(AppRoutes.changeLanguage, context);
+          },
         ),
         ProfileHeaderLabel(headerLabel: 'Account Settings'),
         RepeatedCard(
           prefix: IconBroken.Edit_Square,
           title: 'Edit Profile',
           onTap: () {
-            GoRouter.of(context).push(AppRoutes.editProfile);
+            context.navigate(AppRoutes.editProfile, context);
           },
         ),
         RepeatedCard(
           prefix: BoxIcons.bx_lock,
           title: 'Change Password',
-          onTap: () {},
+          onTap: () {
+            context.navigate(AppRoutes.changePass, context);
+          },
         ),
         RepeatedCard(
           prefix: BoxIcons.bx_paperclip,
           title: 'About',
-          onTap: () {},
+          onTap: () {
+            context.navigate(AppRoutes.about, context);
+          },
         ),
         RepeatedCard(
           prefix: IconBroken.Logout,
