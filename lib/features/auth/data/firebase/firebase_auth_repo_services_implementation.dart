@@ -4,9 +4,11 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:moga/core/common/custom_notifier.dart';
 import 'package:moga/core/database/cache/cache_helper.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/features/auth/data/firebase/firebase_auth_repo_services.dart';
+import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import '../models/create_user_model.dart';
 
 class AuthRepoImplementation implements FirebaseAuthRepository {
@@ -136,6 +138,11 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
   }
 
   @override
+  Future<void> logOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
+  @override
   Future<void> sendEmailVerification() async {
     try {
       await _auth.currentUser!.sendEmailVerification();
@@ -151,6 +158,54 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
       return emailVerified == true;
     } catch (e) {
       return false;
+    }
+  }
+
+  Future<void> sendPasswordResetEmail(email, context) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      showAchievementView(
+          context: context, title: 'Error', subTitle: e.toString());
+    }
+  }
+
+  Future<bool> checkOldPassword(email, password) async {
+    AuthCredential authCredential =
+        EmailAuthProvider.credential(email: email, password: password);
+    try {
+      var credentialResult =
+          await _auth.currentUser!.reauthenticateWithCredential(authCredential);
+      return credentialResult.user != null;
+    } catch (e) {
+      log('error while check Old Password');
+      log(e.toString());
+      return false;
+    }
+  }
+
+  Future<void> updateUserPassword(newPassword) async {
+    try {
+      await _auth.currentUser!.updatePassword(newPassword).then((value) {
+        UserModel updatedModel = UserModel(
+          email:  sl<SocialCubit>().model!.email,
+          userName: sl<SocialCubit>().model!.userName,
+          password: newPassword,
+          uId: sl<SocialCubit>().model!.uId,
+          bio: sl<SocialCubit>().model!.bio,
+          coverPhoto: sl<SocialCubit>().model!.coverPhoto,
+          profilePhoto: sl<SocialCubit>().model!.profilePhoto,
+          isEmailVerified: sl<SocialCubit>().model!.isEmailVerified,
+          phone: sl<SocialCubit>().model!.phone,
+        );
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(sl<SocialCubit>().model!.uId)
+            .update(updatedModel.toMap());
+      });
+    } catch (e) {
+      log('error while update User Password');
+      log(e.toString());
     }
   }
 }

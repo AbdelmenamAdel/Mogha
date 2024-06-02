@@ -15,6 +15,12 @@ abstract class FirebaseAuthRepository {
     required bool isEmailVerified,
   });
 
+  Future<void> sendPasswordResetEmail(email, context);
+
+  Future<bool> checkOldPassword(email, password);
+
+  Future<void> updateUserPassword(newPassword);
+
   Future<void> sendEmailVerification();
 
   Future<Either<String, String>> register({
@@ -24,6 +30,8 @@ abstract class FirebaseAuthRepository {
   });
 
   Future<bool> isEmailVerified();
+
+  Future<void> logOut();
 
   Future<UserCredential> registerWithGoogle();
 
