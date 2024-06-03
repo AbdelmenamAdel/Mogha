@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:moga/core/bloc/global_cubit/app_language_cubit.dart';
+import 'package:moga/core/services/service_locator.dart';
 
 class DefaultAppBar extends StatelessWidget {
-  const DefaultAppBar({
-    super.key,
-    this.actions,
-    this.title,
-    this.onPressed,
-    this.style,
-    this.centerTitle,
-    this.leading,
-    this.backgroundColor,
-    this.elevation,this.clipBehavior
-  });
+  const DefaultAppBar(
+      {super.key,
+      this.actions,
+      this.title,
+      this.onPressed,
+      this.style,
+      this.centerTitle,
+      this.leading,
+      this.backgroundColor,
+      this.elevation,
+      this.clipBehavior});
 
   final String? title;
   final List<Widget>? actions;
@@ -43,7 +45,9 @@ class DefaultAppBar extends StatelessWidget {
                 () {
                   GoRouter.of(context).pop();
                 },
-            icon: Icon(IconBroken.Arrow___Left_2),
+            icon: sl<GlobalCubit>().langCode == 'en'
+                ? Icon(IconBroken.Arrow___Left_2)
+                : Icon(IconBroken.Arrow___Right_2),
           ),
       actions: actions,
     );

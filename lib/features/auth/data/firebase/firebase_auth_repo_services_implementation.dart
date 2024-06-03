@@ -140,6 +140,7 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
   @override
   Future<void> logOut() async {
     await FirebaseAuth.instance.signOut();
+    await sl<CacheHelper>().saveData(key: 'isDark', value: true);
   }
 
   @override
@@ -188,7 +189,7 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
     try {
       await _auth.currentUser!.updatePassword(newPassword).then((value) {
         UserModel updatedModel = UserModel(
-          email:  sl<SocialCubit>().model!.email,
+          email: sl<SocialCubit>().model!.email,
           userName: sl<SocialCubit>().model!.userName,
           password: newPassword,
           uId: sl<SocialCubit>().model!.uId,
