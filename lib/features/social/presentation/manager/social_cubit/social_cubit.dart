@@ -260,9 +260,9 @@ class SocialCubit extends Cubit<SocialStates> {
     String? postImage,
     required String text,
   }) async {
+    log(model!.uId);
     var user =
         UserModel.fromJson(instance.collection('users').doc(model!.uId).get());
-
     PostModel postModel = PostModel(
       image: user.profilePhoto,
       date: DateTime.now().toString(),
@@ -394,5 +394,4 @@ class SocialCubit extends Cubit<SocialStates> {
     doc.reference.collection('followers').doc(model!.uId).delete();
     emit(SocialUnFollowState());
   }
-
 }

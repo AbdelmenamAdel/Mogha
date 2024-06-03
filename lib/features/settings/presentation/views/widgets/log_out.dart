@@ -6,6 +6,7 @@ import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/widgets/custom_divider.dart';
+import 'package:moga/features/auth/presentation/manager/auth/auth_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 
 class LogOutBottomBar extends StatelessWidget {
@@ -44,108 +45,108 @@ class LogOutWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
         child: Column(
           children: [
-            Card(
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              child: Column(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      context.navigate(AppRoutes.profile,context);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 18,
-                            backgroundImage: NetworkImage(
-                              sl<SocialCubit>().model!.profilePhoto,
-                            ),
+            Column(
+              children: [
+                InkWell(
+                  onTap: () {
+                    context.navigate(AppRoutes.profile,context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 18,
+                          backgroundImage: NetworkImage(
+                            sl<SocialCubit>().model!.profilePhoto,
                           ),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          Text(
-                            sl<SocialCubit>().model!.userName,
-                            style: Theme.of(context).textTheme.displaySmall,
-                          ),
-                          Spacer(),
-                          Icon(
-                            Icons.verified,
-                            color: AppColors.blue,
-                          )
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          sl<SocialCubit>().model!.userName,
+                          style: Theme.of(context).textTheme.displaySmall,
+                        ),
+                        Spacer(),
+                        Icon(
+                          Icons.verified,
+                          color: AppColors.blue,
+                        )
+                      ],
                     ),
                   ),
-                  CustomDivider(),
-                  InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            IconBroken.Logout,
-                            size: 28,
-                          ),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          Text(
-                            'Log Out ',
-                            style: Theme.of(context).textTheme.displaySmall,
-                          ),
-                        ],
-                      ),
+                ),
+                CustomDivider(),
+                InkWell(
+                  onTap: () {
+                    sl<AuthCubit>().logOut();
+                    GoRouter.of(context).pushReplacement(AppRoutes.login);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          IconBroken.Logout,
+                          size: 28,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          'Log Out ',
+                          style: Theme.of(context).textTheme.displaySmall,
+                        ),
+                      ],
                     ),
                   ),
-                  CustomDivider(),
-                  InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            IconBroken.Plus,
-                            size: 28,
-                          ),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          Text(
-                            'Create a new account ',
-                            style: Theme.of(context).textTheme.displaySmall,
-                          ),
-                        ],
-                      ),
+                ),
+                CustomDivider(),
+                InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          IconBroken.Plus,
+                          size: 28,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          'Create a new account ',
+                          style: Theme.of(context).textTheme.displaySmall,
+                        ),
+                      ],
                     ),
                   ),
-                  CustomDivider(),
-                  InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            IconBroken.Delete,
-                            size: 28,
-                          ),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          Text(
-                            'Delete this account ',
-                            style: Theme.of(context).textTheme.displaySmall,
-                          ),
-                        ],
-                      ),
+                ),
+                CustomDivider(),
+                InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          IconBroken.Delete,
+                          size: 28,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          'Delete this account ',
+                          style: Theme.of(context).textTheme.displaySmall,
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             Spacer(),
             Row(

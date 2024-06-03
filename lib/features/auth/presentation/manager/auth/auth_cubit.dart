@@ -175,7 +175,8 @@ Future<void>runTransactionPassword(String newPassword)async{
     }
 
     res!.fold((failure) {
-      emit(LoginErrorState());
+      log(failure);
+      emit(LoginErrorState(failure));
     }, (success) {
       log(success);
       emit(LoginSuccessState());

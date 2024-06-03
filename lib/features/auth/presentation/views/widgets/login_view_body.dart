@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
@@ -31,11 +32,10 @@ class LoginViewBody extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is LoginErrorState) {
-          // showAchievementView(
-          //  context:  context,
-          //  title:  "Please,",
-          //  subTitle:  "Enter a valid email and password"
-          // );
+          showAchievementView(
+              context: context,
+              title: "OOPS,There was an error",
+              subTitle: state.errMessage);
         }
         if (state is LoginLoadingState) {}
         if (state is LoginSuccessState) {
@@ -43,7 +43,10 @@ class LoginViewBody extends StatelessWidget {
               context: context,
               title: "Hi There 👋,",
               subTitle: "Welcome in MOGHA");
-          context.navigate(AppRoutes.socialLayout, context);
+          GoRouter.of(context).pushReplacement(AppRoutes.socialLayout);
+          cubit.emailController.clear();
+          cubit.passwordController.clear();
+          cubit.userNameController.clear();
         }
         if (state is EmailVerifiedState) {
           context.navigate(AppRoutes.home, context);

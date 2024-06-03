@@ -35,7 +35,11 @@ final class LoginLoadingState extends AuthState {}
 
 final class LoginSuccessState extends AuthState {}
 
-final class LoginErrorState extends AuthState {}
+final class LoginErrorState extends AuthState {
+  final String errMessage;
+
+  LoginErrorState(this.errMessage);
+}
 
 final class EmailVerifiedState extends AuthState {}
 

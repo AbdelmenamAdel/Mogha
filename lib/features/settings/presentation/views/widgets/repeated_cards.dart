@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:moga/core/common/custom_navigate.dart';
 import 'package:moga/core/routes/app_routes.dart';
+import 'package:moga/core/services/service_locator.dart';
+import 'package:moga/features/auth/presentation/manager/auth/auth_cubit.dart';
 import 'package:moga/features/settings/presentation/views/settings_view.dart';
 import '../../minor_views/widgets/change_lang_sheet.dart';
 import 'repeated_card.dart';
@@ -69,7 +72,11 @@ class RepeatedCards extends StatelessWidget {
         RepeatedCard(
           prefix: IconBroken.Logout,
           title: 'Log Out',
-          onTap: () {},
+          onTap: () {
+            sl<AuthCubit>().logOut();
+            GoRouter.of(context).pushReplacement(AppRoutes.login);
+
+          },
         ),
       ],
     );

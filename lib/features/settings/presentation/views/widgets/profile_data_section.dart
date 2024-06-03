@@ -1,13 +1,10 @@
-
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/common/custom_navigate.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/widgets/custom_divider.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
-
 import 'log_out.dart';
 
 class ProfileDataInSection extends StatelessWidget {
@@ -25,7 +22,7 @@ class ProfileDataInSection extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                context.navigate(AppRoutes.profile,context);
+                context.navigate(AppRoutes.profile, context);
               },
               child: ListTile(
                 leading: CircleAvatar(
