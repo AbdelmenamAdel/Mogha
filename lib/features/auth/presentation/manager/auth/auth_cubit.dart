@@ -66,6 +66,10 @@ class AuthCubit extends Cubit<AuthState> {
     await authRepo.logOut();
   }
 
+  Future<void> deleteAccount() async {
+    await authRepo.deleteAccount();
+  }
+
   Future<void> sendPasswordResetEmail(email, context) async {
     await authRepo.sendPasswordResetEmail(email, context);
   }
@@ -75,29 +79,26 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> updateUserPassword(newPassword) async {
-
     await authRepo.updateUserPassword(newPassword);
   }
-Future<void>runTransactionPassword(String newPassword)async{
-  await FirebaseFirestore.instance
-      .runTransaction(
-        (transaction) async {
-      DocumentReference documentReference =
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(
-        FirebaseAuth.instance
-            .currentUser!.uid,
-      );
-      transaction.update(
-        documentReference,
-        {
-          'password':newPassword,
-        },
-      );
-    },
-  );
-}
+
+  Future<void> runTransactionPassword(String newPassword) async {
+    await FirebaseFirestore.instance.runTransaction(
+      (transaction) async {
+        DocumentReference documentReference =
+            FirebaseFirestore.instance.collection('users').doc(
+                  FirebaseAuth.instance.currentUser!.uid,
+                );
+        transaction.update(
+          documentReference,
+          {
+            'password': newPassword,
+          },
+        );
+      },
+    );
+  }
+
   var storage = firebase_storage.FirebaseStorage.instance;
 
   Future<void> uploadProfileImage() async {
