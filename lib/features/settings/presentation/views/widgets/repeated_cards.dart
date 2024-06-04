@@ -8,6 +8,7 @@ import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/features/auth/presentation/manager/auth/auth_cubit.dart';
 import 'package:moga/features/settings/presentation/views/settings_view.dart';
 import '../../minor_views/widgets/change_lang_sheet.dart';
+import 'log_out_dialog.dart';
 import 'repeated_card.dart';
 
 class RepeatedCards extends StatelessWidget {
@@ -73,9 +74,18 @@ class RepeatedCards extends StatelessWidget {
           prefix: IconBroken.Logout,
           title: 'Log Out',
           onTap: () {
-            sl<AuthCubit>().logOut();
-            GoRouter.of(context).pushReplacement(AppRoutes.login);
-
+            showAdaptiveDialog(
+              context: context,
+              builder: (context) {
+                return CustomDialog(
+                  title: 'Confirm Log Out',
+                  onYesTap: () {
+                    sl<AuthCubit>().logOut();
+                    GoRouter.of(context).pushReplacement(AppRoutes.login);
+                  },
+                );
+              },
+            );
           },
         ),
       ],
