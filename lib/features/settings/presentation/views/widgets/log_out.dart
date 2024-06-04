@@ -9,6 +9,8 @@ import 'package:moga/core/widgets/custom_divider.dart';
 import 'package:moga/features/auth/presentation/manager/auth/auth_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 
+import 'log_out_dialog.dart';
+
 class LogOutBottomBar extends StatelessWidget {
   const LogOutBottomBar({super.key});
 
@@ -49,7 +51,7 @@ class LogOutWidget extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    context.navigate(AppRoutes.profile,context);
+                    context.navigate(AppRoutes.profile, context);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
@@ -80,8 +82,23 @@ class LogOutWidget extends StatelessWidget {
                 CustomDivider(),
                 InkWell(
                   onTap: () {
-                    sl<AuthCubit>().logOut();
-                    GoRouter.of(context).pushReplacement(AppRoutes.login);
+                    showAdaptiveDialog(
+                      context: context,
+                      builder: (context) {
+                        return CustomDialog(
+                          title: 'Confirm Log Out',
+                          onYesTap: () {
+                            sl<AuthCubit>().logOut().whenComplete(() {
+                              Future.delayed(Duration(milliseconds: 500))
+                                  .then((value) {
+                                context.navigateReplace(
+                                    AppRoutes.login, context);
+                              });
+                            });
+                          },
+                        );
+                      },
+                    );
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
@@ -104,7 +121,25 @@ class LogOutWidget extends StatelessWidget {
                 ),
                 CustomDivider(),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    showAdaptiveDialog(
+                      context: context,
+                      builder: (context) {
+                        return CustomDialog(
+                          title: 'Create a new account',
+                          onYesTap: () {
+                            sl<AuthCubit>().logOut().whenComplete(() {
+                              Future.delayed(Duration(milliseconds: 500))
+                                  .then((value) {
+                                context.navigateReplace(
+                                    AppRoutes.signUp, context);
+                              });
+                            });
+                          },
+                        );
+                      },
+                    );
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Row(
@@ -126,7 +161,25 @@ class LogOutWidget extends StatelessWidget {
                 ),
                 CustomDivider(),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    showAdaptiveDialog(
+                      context: context,
+                      builder: (context) {
+                        return CustomDialog(
+                          title: 'Confirm delete this account',
+                          onYesTap: () {
+                            sl<AuthCubit>().deleteAccount().whenComplete(() {
+                              Future.delayed(Duration(milliseconds: 500))
+                                  .then((value) {
+                                context.navigateReplace(
+                                    AppRoutes.login, context);
+                              });
+                            });
+                          },
+                        );
+                      },
+                    );
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Row(
