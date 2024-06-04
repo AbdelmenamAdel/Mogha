@@ -55,7 +55,7 @@ class _AboutViewState extends State<AboutView> {
                   children: [
                     SizedBox(width: 5.w),
                     SizedBox(
-                      height: 130.h,
+                      height: 140.h,
                       width: 140.w,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10).r,
@@ -67,16 +67,15 @@ class _AboutViewState extends State<AboutView> {
                       ),
                     ),
                     SizedBox(width: 5.w),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 200.w,
-                          child: Text(
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
                             "Abdelmoneim Diff Allah",
                             overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
+                            maxLines: 2,
                             style: TextStyle(
                               fontFamily: "Dosis",
                               letterSpacing: 1.sp,
@@ -84,32 +83,34 @@ class _AboutViewState extends State<AboutView> {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                        ),
-                        SizedBox(height: 15.h),
-                        Text(
-                          "Studying at Faculty of Computers &\nArtificial Intelligence Benha University",
-                          style: TextStyle(
-                            fontFamily: "Dosis",
-                            letterSpacing: 1.sp,
-                            fontSize: 11.sp,
-                          ),
-                        ),
-                        SizedBox(height: 15.h),
-                        SizedBox(
-                          width: 200.w,
-                          child: Text(
-                            "وَأَنْ لَيْسَ لِلْإِنْسَانِ إِلَّا مَا سَعَى (39) وَأَنَّ سَعْيَهُ سَوْفَ يُرَى (40) ثُمَّ يُجْزَاهُ الْجَزَاءَ الْأَوْفَى (41)",
-                            textDirection: TextDirection.rtl,
-                            maxLines: 2,
+                          SizedBox(height: 15.h),
+                          Text(
+                            "Studying at Faculty of Computers &\nArtificial Intelligence Benha University",
                             style: TextStyle(
                               fontFamily: "Dosis",
                               letterSpacing: 1.sp,
-                              fontSize: 11.sp,
-                              // color: textColor,
+                              fontSize: 12.sp,
                             ),
                           ),
-                        ),
-                      ],
+                          SizedBox(height: 15.h),
+                          SizedBox(
+                            width: 210.w,
+                            child: Text(
+                              "وَأَنْ لَيْسَ لِلْإِنْسَانِ إِلَّا مَا سَعَى (39) وَأَنَّ سَعْيَهُ سَوْفَ يُرَى (40) ثُمَّ يُجْزَاهُ الْجَزَاءَ الْأَوْفَى (41)",
+                              textDirection: TextDirection.rtl,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontFamily: "Dosis",
+                                letterSpacing: 1.sp,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 11.sp,
+                                // color: textColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -164,7 +165,7 @@ class _AboutViewState extends State<AboutView> {
               Padding(
                 padding: const EdgeInsets.only(left: 5, bottom: 10).r,
                 child: Text(
-                  "Technologies",
+                  "Social Media",
                   style: TextStyle(
                     fontSize: 15.sp,
                     letterSpacing: 3.sp,
