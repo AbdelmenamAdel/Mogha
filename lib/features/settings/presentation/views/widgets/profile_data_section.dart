@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/common/custom_navigate.dart';
 import 'package:moga/core/routes/app_routes.dart';
+import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/widgets/custom_divider.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
+import 'package:moga/features/auth/presentation/manager/auth/auth_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import 'log_out.dart';
+import 'log_out_dialog.dart';
 
 class ProfileDataInSection extends StatelessWidget {
   const ProfileDataInSection({super.key});
@@ -38,7 +41,24 @@ class ProfileDataInSection extends StatelessWidget {
             ),
             CustomDivider(),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                showAdaptiveDialog(
+                  context: context,
+                  builder: (context) {
+                    return CustomDialog(
+                      title: 'Create a New Account',
+                      onYesTap: () {
+                        sl<AuthCubit>().logOut().whenComplete(() {
+                          Future.delayed(Duration(milliseconds: 500))
+                              .then((value) {
+                            context.navigateReplace(AppRoutes.signUp, context);
+                          });
+                        });
+                      },
+                    );
+                  },
+                );
+              },
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Row(
