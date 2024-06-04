@@ -144,6 +144,12 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
   }
 
   @override
+  Future<void> deleteAccount() async {
+    await FirebaseAuth.instance.currentUser!.delete();
+    await sl<CacheHelper>().saveData(key: 'isDark', value: true);
+  }
+
+  @override
   Future<void> sendEmailVerification() async {
     try {
       await _auth.currentUser!.sendEmailVerification();

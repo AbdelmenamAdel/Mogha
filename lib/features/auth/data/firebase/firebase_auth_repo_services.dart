@@ -32,6 +32,7 @@ abstract class FirebaseAuthRepository {
   Future<bool> isEmailVerified();
 
   Future<void> logOut();
+  Future<void> deleteAccount();
 
   Future<UserCredential> registerWithGoogle();
 
