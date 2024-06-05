@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:moga/core/bloc/global_cubit/app_language_cubit.dart';
+import 'package:moga/core/common/constants/constants.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/features/post/presentation/views/widgets/default_app_bar.dart';
@@ -33,7 +34,7 @@ class _AboutViewState extends State<AboutView> {
             children: [
               DefaultAppBar(
                 elevation: 1,
-                title: 'About Developer',
+                title: 'About The Founder',
                 centerTitle: true,
                 style: TextStyle(
                   fontSize: 24,
@@ -141,12 +142,7 @@ class _AboutViewState extends State<AboutView> {
                 child: Align(
                   alignment: AlignmentDirectional.topStart,
                   child: Text(
-                    "an online application that allows users to purchase handmade items from artisans and Crafters around Egypt. "
-                    "It provides a convenient way for customers to find unique, one-of-a-kind items that are not available in stores. "
-                    "\n\nThe application features a wide selection of handmade items ranging from clothing, home decor and more. "
-                    "Customers can browse through the different categories to find the perfect item for their needs."
-                    "\n\nThe application also offers secure payment options and fast shipping to ensure customer satisfaction. "
-                    "With its easy-to-use interface and wide selection of handmade products, this e-commerce application is an ideal choice for those looking for unique gifts or special items.",
+                    Constants.aboutMogha,
                     style: TextStyle(
                       color: Theme.of(context)
                           .textTheme
