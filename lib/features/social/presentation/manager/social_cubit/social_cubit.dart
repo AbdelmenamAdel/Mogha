@@ -381,17 +381,30 @@ class SocialCubit extends Cubit<SocialStates> {
     // instance.collection('posts').doc(postId).collection('comments').add(data)
   }
 
-  Future<void> follow(doc) async {
+  Future<void> follow(QueryDocumentSnapshot doc) async {
+    UserModel user = await UserModel.fromJson(doc.data());
     doc.reference.collection('followers').doc(model!.uId).set(
-      {
-        'time': DateTime.now(),
-      },
+      {"user": model!.uId},
+    );
+    instance
+        .collection('users')
+        .doc(model!.uId)
+        .collection('following')
+        .doc(user.uId)
+        .set(
+      {"user": user.uId},
     );
     emit(SocialFollowState());
   }
 
-  Future<void> unFollow(var doc) async {
+  Future<void> unFollow(QueryDocumentSnapshot doc) async {
     doc.reference.collection('followers').doc(model!.uId).delete();
+    instance
+        .collection('users')
+        .doc(model!.uId)
+        .collection('following')
+        .doc()
+        .delete();
     emit(SocialUnFollowState());
   }
 }
