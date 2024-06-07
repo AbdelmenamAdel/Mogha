@@ -17,7 +17,7 @@ class ChatsView extends StatelessWidget {
           child: Scaffold(
             body: Column(
               children: [
-                CustomAppBar(title: 'Users'),
+                CustomAppBar(title: 'Chats'),
                 ChatsViewBody(),
               ],
             ),
