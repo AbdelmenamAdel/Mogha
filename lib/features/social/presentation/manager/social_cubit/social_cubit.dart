@@ -23,12 +23,7 @@ class SocialCubit extends Cubit<SocialStates> {
   UserModel? model;
   GetUserImplementation user = GetUserImplementation();
   bool inAsyncCall = false;
-  List<String> titles = [
-    'Home',
-    'Chats',
-    'Users',
-    'settings',
-  ];
+
   int currentIndex = 0;
 
   void changeBottomNav(int index) {
@@ -260,11 +255,8 @@ class SocialCubit extends Cubit<SocialStates> {
     String? postImage,
     required String text,
   }) async {
-    log(model!.uId);
-    var user =
-        UserModel.fromJson(instance.collection('users').doc(model!.uId).get());
     PostModel postModel = PostModel(
-      image: user.profilePhoto,
+      image: model!.profilePhoto,
       date: DateTime.now().toString(),
       name: model!.userName,
       text: text,
@@ -279,7 +271,6 @@ class SocialCubit extends Cubit<SocialStates> {
           .doc(model!.uId)
           .collection('posts')
           .add(postModel.toMap());
-      posts.add(postModel);
       emit(SocialCreatePostSuccessState());
     } catch (e) {
       emit(SocialCreatePostFailureState());

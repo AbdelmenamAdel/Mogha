@@ -8,25 +8,27 @@ class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
     super.key,
     required this.title,
+    this.iconButton,
   });
 
   final String title;
-
+  final IconButton? iconButton;
   @override
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 1,
       shadowColor: AppColors.grey,
-      leading: IconButton(
-        onPressed: () {
-          context.navigate(AppRoutes.newPost, context);
-        },
-        icon: Icon(
-          IconBroken.Paper_Upload,
-          size: 28,
-          weight: 24,
-        ),
-      ),
+      leading: iconButton ??
+          IconButton(
+            onPressed: () {
+              context.navigate(AppRoutes.newPost, context);
+            },
+            icon: Icon(
+              IconBroken.Paper_Upload,
+              size: 28,
+              weight: 24,
+            ),
+          ),
       centerTitle: true,
       title: Text(
         title,
