@@ -4,6 +4,7 @@ import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/widgets/show_image.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
 import 'package:moga/features/chats/chat_details_view.dart';
+import 'package:moga/features/chats/presentation/manager/chats/chats_cubit.dart';
 
 class ChatsViewBody extends StatelessWidget {
   const ChatsViewBody({
@@ -13,15 +14,11 @@ class ChatsViewBody extends StatelessWidget {
   final List<String> chatList;
   @override
   Widget build(BuildContext context) {
-    final List<String> users = [
-      'A5f4djPdVdNTLInrlDh0Rsocd4c2',
-      // 'PvZ6ldgM1YXVZOAwnneJAgHfAkr2',
-      // 'mQ5ofBufJChMtgZTOPI3fFTGlJt1'
-    ];
+    var cubit = ChatsCubit.get(context);
     return StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('users')
-            .where('uId', whereIn: chatList.isEmpty ? users : chatList)
+            .where('uId', whereIn: cubit.users)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
