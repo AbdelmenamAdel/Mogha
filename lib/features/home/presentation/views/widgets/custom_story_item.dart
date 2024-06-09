@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moga/core/widgets/custom_cached_network_image.dart';
 
 class CustomStoryItem extends StatelessWidget {
@@ -13,7 +13,7 @@ class CustomStoryItem extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: height*1.05,
+          height: height * 1.05,
           child: Stack(
             alignment: Alignment.center,
             children: [
@@ -23,15 +23,11 @@ class CustomStoryItem extends StatelessWidget {
                   aspectRatio: 9 / 12.5,
                   child: Container(
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [
-                            Color(0xffA60F93),
-                            Color(0xffD91A46),
-                            Color(0xffFBAA47),
-                          ],
-                          begin: Alignment.topRight
-                          ,end: Alignment.bottomLeft
-                      ),
+                      gradient: LinearGradient(colors: [
+                        Color(0xffA60F93),
+                        Color(0xffD91A46),
+                        Color(0xffFBAA47),
+                      ], begin: Alignment.topRight, end: Alignment.bottomLeft),
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
@@ -52,7 +48,14 @@ class CustomStoryItem extends StatelessWidget {
             ],
           ),
         ),
-Text('User Name',style: Theme.of(context).textTheme.displaySmall,)
+        SizedBox(
+          width: 120.w,
+          child: Text(
+            'Men3em Ibn 3del',
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.displaySmall,
+          ),
+        )
       ],
     );
   }
