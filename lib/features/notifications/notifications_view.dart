@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moga/features/post/presentation/views/widgets/default_app_bar.dart';
 
 class NotificationsView extends StatelessWidget {
   const NotificationsView({super.key});
@@ -6,7 +7,13 @@ class NotificationsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('Notifications'),),
+      body: Column(
+        children: [
+          DefaultAppBar(
+            title: 'Notifications',
+          ),
+        ],
+      ),
     );
   }
 }
