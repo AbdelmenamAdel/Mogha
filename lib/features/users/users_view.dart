@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/core/widgets/custom_divider.dart';
 import 'package:moga/core/widgets/show_image.dart';
 import 'package:moga/features/chats/presentation/views/chat_details_view.dart';
 import 'package:moga/features/settings/presentation/views/widgets/log_out_dialog.dart';
@@ -75,8 +76,7 @@ class UsersViewBody extends StatelessWidget {
                             );
                           },
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 8),
+                            padding: const EdgeInsets.only(top: 8),
                             child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
@@ -134,10 +134,7 @@ class UsersViewBody extends StatelessWidget {
                           ),
                         );
                       },
-                      separatorBuilder: (context, index) => Divider(
-                        height: 0,
-                        color: Theme.of(context).dividerColor,
-                      ),
+                      separatorBuilder: (context, index) => CustomDivider(),
                       itemCount: cubit.users.length,
                     ),
                   );
