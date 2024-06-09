@@ -1,23 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/widgets/show_image.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
 import 'package:moga/features/chats/chat_details_view.dart';
-import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 
 class ChatsViewBody extends StatelessWidget {
-  const ChatsViewBody({super.key});
-
+  const ChatsViewBody({
+    super.key,
+    required this.chatList,
+  });
+  final List<String> chatList;
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: FirebaseFirestore.instance
+    final List<String> users = [
+      'A5f4djPdVdNTLInrlDh0Rsocd4c2',
+      // 'PvZ6ldgM1YXVZOAwnneJAgHfAkr2',
+      // 'mQ5ofBufJChMtgZTOPI3fFTGlJt1'
+    ];
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
             .collection('users')
-            .doc(sl<SocialCubit>().model!.uId)
-            .collection('chats')
-            .get(),
+            .where('uId', whereIn: chatList.isEmpty ? users : chatList)
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(child: Text('Something went wrong'));
