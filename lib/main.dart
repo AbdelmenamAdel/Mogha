@@ -1,13 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moga/app/mogha.dart';
 import 'package:moga/core/bloc/bloc_observer.dart';
 import 'package:moga/core/database/cache/cache_helper.dart';
 import 'package:moga/core/services/service_locator.dart';
 import "package:moga/core/widgets/error_used_when_you_don't_expect.dart";
-import 'app/mogha.dart';
 import 'package:flutter/services.dart';
-
 import 'core/common/firebase/firebase_options.dart';
 
 void main() async {
