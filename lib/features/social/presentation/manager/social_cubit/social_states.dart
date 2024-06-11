@@ -52,6 +52,16 @@ class SocialUploadPostImageLoadingState extends SocialStates {}
 
 class SocialCreatePostSuccessState extends SocialStates {}
 
+class SocialCreatePostFailureState extends SocialStates {}
+
+class SocialCreatePostLoadingState extends SocialStates {}
+
+class SocialCreateStorySuccessState extends SocialStates {}
+
+class SocialCreateStoryFailureState extends SocialStates {}
+
+class SocialCreateStoryLoadingState extends SocialStates {}
+
 class SocialPostImagePickedSuccessState extends SocialStates {}
 
 class SocialPostImagePickedFailureState extends SocialStates {}
@@ -67,10 +77,6 @@ class SocialGetCommentsSuccessState extends SocialStates {}
 class SocialCommentPostFailureState extends SocialStates {}
 
 class SocialCommentPostSuccessState extends SocialStates {}
-
-class SocialCreatePostFailureState extends SocialStates {}
-
-class SocialCreatePostLoadingState extends SocialStates {}
 
 class SocialGetPostsSuccessState extends SocialStates {}
 

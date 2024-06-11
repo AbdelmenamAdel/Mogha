@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/widgets/custom_image_picker.dart';
 import 'package:moga/core/widgets/custom_pick_image.dart';
+import 'package:moga/core/widgets/custom_video_picker.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
 import 'package:moga/features/post/data/model/post_model.dart';
 import 'package:moga/features/social/data/get_user_auth_impl.dart';
@@ -371,7 +372,8 @@ class SocialCubit extends Cubit<SocialStates> {
   void createComment(String postId) {
     // instance.collection('posts').doc(postId).collection('comments').add(data)
   }
-
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!! follow and unfollow
   Future<void> follow(QueryDocumentSnapshot doc) async {
     UserModel user = await UserModel.fromJson(doc.data());
     doc.reference.collection('followers').doc(model!.uId).set(
@@ -397,5 +399,141 @@ class SocialCubit extends Cubit<SocialStates> {
         .doc()
         .delete();
     emit(SocialUnFollowState());
+  }
+
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //!!!!!!!!!!!!! add story methods
+  File? addStoryImage;
+  String? addStoryImageUrl;
+  File? addStoryCamera;
+  String? addStoryCameraUrl;
+  File? addStoryVideo;
+  String? addStoryVideoUrl;
+
+  Future<void> getStoryImage(
+      {required BuildContext context, required String reciverId}) async {
+    pickImage(ImageSource.gallery).then((value) {
+      addStoryImage = File(value!.path);
+      // emit(SocialChatImagePickedSuccessState());
+      // uploadChatImage(message: messageController.text, reciverId: reciverId);
+    }).catchError((onError) {
+      // emit(SocialChatImagePickedFailureState());
+    });
+  }
+
+  Future<void> uploadStoryImage({
+    String? message,
+    required String reciverId,
+  }) async {
+    // emit(UploadChatImageLoadingState());
+    storage
+        .ref()
+        .child('story/${Uri.file(addStoryImage!.path).pathSegments.last}')
+        .putFile(addStoryImage!)
+        .then((value) {
+      value.ref.getDownloadURL().then((value) async {
+        addStoryImageUrl = value;
+        // emit(UploadChatImageSuccessState());
+        // log(chatImageUrl ?? '');
+        // addMessage(
+        //   reciverId: reciverId,
+        //   date: DateTime.now().toString(),
+        //   image: chatImageUrl,
+        //   message: message,
+        // );
+      }).catchError((error) {
+        log(error.toString());
+        // emit(UploadChatImageFailureState());
+      });
+    }).catchError((error) {
+      log(error.toString());
+      // emit(UploadChatImageFailureState());
+    });
+  }
+
+  Future<void> getStoryCameraImage({
+    required BuildContext context,
+    required String reciverId,
+  }) async {
+    pickImage(ImageSource.camera).then((value) {
+      addStoryCamera = File(value!.path);
+      // emit(SocialChatImagePickedSuccessState());
+      // uploadCameraImage(message: messageController.text, reciverId: reciverId);
+    }).catchError((onError) {
+      // emit(SocialChatImagePickedFailureState());
+    });
+  }
+
+  Future<void> uploadStoryCameraImage({
+    String? message,
+    required String reciverId,
+  }) async {
+    // emit(UploadChatImageLoadingState());
+    storage
+        .ref()
+        .child('story/${Uri.file(addStoryCamera!.path).pathSegments.last}')
+        .putFile(addStoryCamera!)
+        .then((value) {
+      value.ref.getDownloadURL().then((value) async {
+        addStoryCameraUrl = value;
+        // emit(UploadChatImageSuccessState());
+        log(addStoryCameraUrl ?? '');
+        // addMessage(
+        //   reciverId: reciverId,
+        //   date: DateTime.now().toString(),
+        //   image: chatCameraUrl,
+        //   message: message,
+        // );
+      }).catchError((error) {
+        log(error.toString());
+        // emit(UploadChatImageFailureState());
+      });
+    }).catchError((error) {
+      log(error.toString());
+      // emit(UploadChatImageFailureState());
+    });
+  }
+
+  Future<void> getStoryVideo({
+    required BuildContext context,
+    required String reciverId,
+  }) async {
+    await pickVideo(ImageSource.gallery).then((value) {
+      addStoryVideo = File(value!.path);
+      // uploadVideo(message: messageController.text, reciverId: reciverId);
+    }).catchError((onError) {
+      log('fuck while get video');
+      // emit(UploadChatVideoFailureState());
+    });
+  }
+
+  Future<void> uploadStoryVideo({
+    String? message,
+    required String reciverId,
+  }) async {
+    // emit(UploadChatVideoLoadingState());
+    await storage
+        .ref()
+        .child('story/${Uri.file(addStoryVideo!.path).pathSegments.last}')
+        .putFile(addStoryVideo!)
+        .then((value) {
+      value.ref.getDownloadURL().then((value) async {
+        addStoryVideoUrl = value;
+        log(addStoryVideoUrl ?? '');
+        // emit(UploadChatVideoSuccessState());
+        // addMessage(
+        //   reciverId: reciverId,
+        //   date: DateTime.now().toString(),
+        //   image: chatVideoUrl,
+        //   message: message,
+        // );
+      }).catchError((error) {
+        log(error.toString());
+        // emit(UploadChatVideoFailureState());
+      });
+    }).catchError((error) {
+      log(error.toString());
+      // emit(UploadChatVideoFailureState());
+    });
   }
 }
