@@ -2,12 +2,14 @@
 class MessageModel {
   String? message;
   String? image;
+  String? video;
   String senderId;
   String reciverId;
   String date;
   MessageModel({
     this.message,
     this.image,
+    this.video,
     required this.senderId,
     required this.reciverId,
     required this.date,
@@ -17,6 +19,7 @@ class MessageModel {
     return {
       'message': message,
       'image': image,
+      'video': video,
       'senderId': senderId,
       'reciverId': reciverId,
       'date': date,
@@ -30,6 +33,7 @@ class MessageModel {
       senderId: jsonData['senderId'],
       reciverId: jsonData['reciverId'],
       date: jsonData['date'],
+      video: jsonData['video'],
     );
   }
 }
