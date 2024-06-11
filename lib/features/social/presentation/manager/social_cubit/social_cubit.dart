@@ -10,6 +10,8 @@ import 'package:moga/core/widgets/custom_image_picker.dart';
 import 'package:moga/core/widgets/custom_pick_image.dart';
 import 'package:moga/core/widgets/custom_video_picker.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
+import 'package:moga/features/chats/data/models/message_model.dart';
+import 'package:moga/features/chats/data/models/story_model.dart';
 import 'package:moga/features/post/data/model/post_model.dart';
 import 'package:moga/features/social/data/get_user_auth_impl.dart';
 import 'package:moga/features/social/data/get_user_authorization.dart';
@@ -327,7 +329,6 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(SocialLikePostSuccessState());
     } catch (e) {
       emit(SocialLikePostFailureState());
-      // TODO
     }
   }
 
@@ -365,7 +366,6 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(SocialCommentPostSuccessState());
     } catch (e) {
       emit(SocialCommentPostFailureState());
-      // TODO
     }
   }
 
@@ -403,6 +403,26 @@ class SocialCubit extends Cubit<SocialStates> {
 
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //!!!!!!!!!!!!! add story methods
+  void addStory({
+    String? image,
+    String? message,
+    String? video,
+  }) {
+    try {
+      emit(SocialAddStoryLoadingState());
+      user.addStory(
+          story: StoryModel(
+        date: DateTime.now().toString(),
+        message: message,
+        image: image,
+        video: video,
+      ));
+      emit(SocialAddStorySuccessState());
+    } catch (e) {
+      emit(SocialAddStoryFailureState());
+    }
+  }
+
   File? addStoryImage;
   String? addStoryImageUrl;
   File? addStoryCamera;
@@ -410,22 +430,21 @@ class SocialCubit extends Cubit<SocialStates> {
   File? addStoryVideo;
   String? addStoryVideoUrl;
 
-  Future<void> getStoryImage(
-      {required BuildContext context, required String reciverId}) async {
+  Future<void> getStoryImage() async {
     pickImage(ImageSource.gallery).then((value) {
       addStoryImage = File(value!.path);
-      // emit(SocialChatImagePickedSuccessState());
-      // uploadChatImage(message: messageController.text, reciverId: reciverId);
+      addStoryCamera = null;
+      addStoryVideo = null;
+      emit(SocialAddStoryPickImageSuccessState());
     }).catchError((onError) {
-      // emit(SocialChatImagePickedFailureState());
+      emit(SocialAddStoryPickImageFailureState());
     });
   }
 
   Future<void> uploadStoryImage({
     String? message,
-    required String reciverId,
   }) async {
-    // emit(UploadChatImageLoadingState());
+    emit(SocialUploadStoryPickImageLoadingState());
     storage
         .ref()
         .child('story/${Uri.file(addStoryImage!.path).pathSegments.last}')
@@ -433,42 +452,37 @@ class SocialCubit extends Cubit<SocialStates> {
         .then((value) {
       value.ref.getDownloadURL().then((value) async {
         addStoryImageUrl = value;
-        // emit(UploadChatImageSuccessState());
-        // log(chatImageUrl ?? '');
-        // addMessage(
-        //   reciverId: reciverId,
-        //   date: DateTime.now().toString(),
-        //   image: chatImageUrl,
-        //   message: message,
-        // );
+        emit(SocialUploadStoryPickImageSuccessState());
+        log(addStoryImageUrl ?? '');
+        addStory(
+          message: message,
+          image: addStoryImageUrl,
+        );
       }).catchError((error) {
         log(error.toString());
-        // emit(UploadChatImageFailureState());
+        emit(SocialUploadStoryPickImageFailureState());
       });
     }).catchError((error) {
       log(error.toString());
-      // emit(UploadChatImageFailureState());
+      emit(SocialUploadStoryPickImageFailureState());
     });
   }
 
-  Future<void> getStoryCameraImage({
-    required BuildContext context,
-    required String reciverId,
-  }) async {
+  Future<void> getStoryCameraImage() async {
     pickImage(ImageSource.camera).then((value) {
       addStoryCamera = File(value!.path);
-      // emit(SocialChatImagePickedSuccessState());
-      // uploadCameraImage(message: messageController.text, reciverId: reciverId);
+      addStoryImage = null;
+      addStoryVideo = null;
+      emit(SocialAddStoryPickCameraSuccessState());
     }).catchError((onError) {
-      // emit(SocialChatImagePickedFailureState());
+      emit(SocialAddStoryPickCameraFailureState());
     });
   }
 
   Future<void> uploadStoryCameraImage({
     String? message,
-    required String reciverId,
   }) async {
-    // emit(UploadChatImageLoadingState());
+    emit(SocialUploadStoryPickCameraLoadingState());
     storage
         .ref()
         .child('story/${Uri.file(addStoryCamera!.path).pathSegments.last}')
@@ -476,42 +490,38 @@ class SocialCubit extends Cubit<SocialStates> {
         .then((value) {
       value.ref.getDownloadURL().then((value) async {
         addStoryCameraUrl = value;
-        // emit(UploadChatImageSuccessState());
+        emit(SocialUploadStoryPickCameraSuccessState());
         log(addStoryCameraUrl ?? '');
-        // addMessage(
-        //   reciverId: reciverId,
-        //   date: DateTime.now().toString(),
-        //   image: chatCameraUrl,
-        //   message: message,
-        // );
+        addStory(
+          message: message,
+          image: addStoryCameraUrl,
+        );
       }).catchError((error) {
         log(error.toString());
-        // emit(UploadChatImageFailureState());
+        emit(SocialUploadStoryPickCameraFailureState());
       });
     }).catchError((error) {
       log(error.toString());
-      // emit(UploadChatImageFailureState());
+      emit(SocialUploadStoryPickCameraFailureState());
     });
   }
 
-  Future<void> getStoryVideo({
-    required BuildContext context,
-    required String reciverId,
-  }) async {
+  Future<void> getStoryVideo() async {
     await pickVideo(ImageSource.gallery).then((value) {
       addStoryVideo = File(value!.path);
-      // uploadVideo(message: messageController.text, reciverId: reciverId);
+      addStoryCamera = null;
+      addStoryImage = null;
+      emit(SocialAddStoryPickVodeoSuccessState());
     }).catchError((onError) {
       log('fuck while get video');
-      // emit(UploadChatVideoFailureState());
+      emit(SocialAddStoryPickVodeoFailureState());
     });
   }
 
   Future<void> uploadStoryVideo({
     String? message,
-    required String reciverId,
   }) async {
-    // emit(UploadChatVideoLoadingState());
+    emit(SocialUploadStoryPickVodeoLoadingState());
     await storage
         .ref()
         .child('story/${Uri.file(addStoryVideo!.path).pathSegments.last}')
@@ -520,20 +530,18 @@ class SocialCubit extends Cubit<SocialStates> {
       value.ref.getDownloadURL().then((value) async {
         addStoryVideoUrl = value;
         log(addStoryVideoUrl ?? '');
-        // emit(UploadChatVideoSuccessState());
-        // addMessage(
-        //   reciverId: reciverId,
-        //   date: DateTime.now().toString(),
-        //   image: chatVideoUrl,
-        //   message: message,
-        // );
+        emit(SocialUploadStoryPickVodeoSuccessState());
+        addStory(
+          message: message,
+          video: addStoryVideoUrl,
+        );
       }).catchError((error) {
         log(error.toString());
-        // emit(UploadChatVideoFailureState());
+        emit(SocialUploadStoryPickVodeoFailureState());
       });
     }).catchError((error) {
       log(error.toString());
-      // emit(UploadChatVideoFailureState());
+      emit(SocialUploadStoryPickVodeoFailureState());
     });
   }
 }
