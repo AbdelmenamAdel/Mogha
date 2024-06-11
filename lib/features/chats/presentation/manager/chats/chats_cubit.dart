@@ -46,6 +46,7 @@ class ChatsCubit extends Cubit<ChatsStates> {
     required String date,
     String? image,
     String? message,
+    String? video,
   }) {
     try {
       emit(AddMessageLoadingState());
@@ -56,6 +57,7 @@ class ChatsCubit extends Cubit<ChatsStates> {
         date: date,
         message: message,
         image: image,
+        video: video,
       ));
       messageController.clear();
       emit(AddMessageSuccessState());
@@ -186,7 +188,7 @@ class ChatsCubit extends Cubit<ChatsStates> {
         addMessage(
           reciverId: reciverId,
           date: DateTime.now().toString(),
-          image: chatVideoUrl,
+          video: chatVideoUrl,
           message: message,
         );
       }).catchError((error) {
