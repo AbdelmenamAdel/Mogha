@@ -13,7 +13,7 @@ class CustomStoryItem extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: height * 1.05,
+          height: height,
           child: Stack(
             alignment: Alignment.center,
             children: [
@@ -34,7 +34,7 @@ class CustomStoryItem extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: height,
+                height: height * .96,
                 child: AspectRatio(
                   aspectRatio: 9 / 13,
                   child: ClipRRect(
@@ -49,7 +49,7 @@ class CustomStoryItem extends StatelessWidget {
           ),
         ),
         SizedBox(
-          width: 120.w,
+          width: 110.w,
           child: Text(
             'Men3em Ibn 3del',
             overflow: TextOverflow.ellipsis,
