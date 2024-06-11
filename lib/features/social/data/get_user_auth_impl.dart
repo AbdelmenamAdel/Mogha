@@ -3,7 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:moga/core/database/cache/cache_helper.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
+import 'package:moga/features/chats/data/models/story_model.dart';
 import 'package:moga/features/social/data/get_user_authorization.dart';
+import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 
 class GetUserImplementation implements GetUserAuth {
   FirebaseFirestore _auth = FirebaseFirestore.instance;
@@ -40,5 +42,16 @@ class GetUserImplementation implements GetUserAuth {
         .collection('posts')
         .orderBy('date', descending: true)
         .get();
+  }
+
+  final instance = FirebaseFirestore.instance;
+  @override
+  Future<void> addStory({required StoryModel story}) async {
+    //! to put the message in current user data
+    await instance
+        .collection('users')
+        .doc(sl<SocialCubit>().model!.uId)
+        .collection('story')
+        .add(story.toMap());
   }
 }
