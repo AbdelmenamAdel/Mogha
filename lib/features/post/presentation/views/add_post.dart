@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -87,83 +88,78 @@ class _AddPostViewState extends State<AddPostView> {
                   height: 0,
                   color: Theme.of(context).dividerColor,
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        ListTile(
-                          minVerticalPadding: 0,
-                          leading: CircleAvatar(
-                            radius: 20,
-                            backgroundImage: NetworkImage(
-                              '${cubit.model!.profilePhoto}',
-                            ),
-                          ),
-                          contentPadding: EdgeInsets.zero,
-                          title: Text('${cubit.model!.userName}',
-                              style: Theme.of(context).textTheme.displaySmall),
-                        ),
-                        Expanded(
-                          child: TextField(
-                            maxLines: 5,
-                            minLines: 1,
-                            cursorColor: AppColors.blue,
-                            controller: postController,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium!
-                                .copyWith(fontSize: 22),
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "What's on your mind?",
-                              hintStyle: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium!
-                                  .copyWith(
-                                    color: AppColors.grey,
-                                    fontSize: 24,
-                                  ),
-                            ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        minVerticalPadding: 0,
+                        leading: CircleAvatar(
+                          radius: 20,
+                          backgroundImage: NetworkImage(
+                            '${cubit.model!.profilePhoto}',
                           ),
                         ),
-                        // SizedBox(height: 50.h),
-                        if (cubit.postPhoto != null)
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(bottom: 24.0, top: 24.0),
-                            child: Stack(
-                              alignment: Alignment.topLeft,
-                              children: [
-                                Container(
-                                  child: Image.file(
-                                    cubit.postPhoto!,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  height: 350.h,
-                                  width: double.infinity,
+                        contentPadding: EdgeInsets.zero,
+                        title: Text('${cubit.model!.userName}',
+                            style: Theme.of(context).textTheme.displaySmall),
+                      ),
+                      TextField(
+                        maxLines: 5,
+                        minLines: 1,
+                        cursorColor: AppColors.blue,
+                        controller: postController,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(fontSize: 22),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "What's on your mind?",
+                          hintStyle: Theme.of(context)
+                              .textTheme
+                              .displayMedium!
+                              .copyWith(
+                                color: AppColors.grey,
+                                fontSize: 24,
+                              ),
+                        ),
+                      ),
+                      // SizedBox(height: 50.h),
+                      if (cubit.postPhoto != null)
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(bottom: 24.0, top: 24.0),
+                          child: Stack(
+                            alignment: Alignment.topLeft,
+                            children: [
+                              Container(
+                                child: Image.file(
+                                  cubit.postPhoto!,
+                                  fit: BoxFit.cover,
                                 ),
-                                IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      cubit.postPhoto = null;
-                                    });
-                                  },
-                                  icon: Icon(
-                                    Icons.close_outlined,
-                                    color: AppColors.grey,
-                                    size: 28,
-                                  ),
+                                height: 350.h,
+                                width: double.infinity,
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    cubit.postPhoto = null;
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.close_outlined,
+                                  color: AppColors.grey,
+                                  size: 28,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                      ],
-                    ),
+                        ),
+                    ],
                   ),
                 ),
-                // SizedBox(height: 80.h),
-                // if (cubit.postPhoto == null) SizedBox(height: 395.h),
+                Spacer(),
                 Divider(
                   height: 0,
                   color: Theme.of(context).dividerColor,
