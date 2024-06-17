@@ -1,14 +1,21 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:moga/core/common/custom_navigate.dart';
 import 'package:moga/core/common/custom_notifier.dart';
+import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/features/post/presentation/views/widgets/default_app_bar.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
+import 'package:video_player/video_player.dart';
+
+import 'widgets/custom_add_story_attachment.dart';
 
 class AddStoryView extends StatefulWidget {
   const AddStoryView({super.key});
@@ -18,11 +25,12 @@ class AddStoryView extends StatefulWidget {
 }
 
 class _AddStoryViewState extends State<AddStoryView> {
-  var postController = TextEditingController();
+  var storyController = TextEditingController();
 
   @override
   void dispose() {
-    postController.dispose();
+    storyController.clear();
+    storyController.dispose();
     super.dispose();
   }
 
@@ -31,17 +39,20 @@ class _AddStoryViewState extends State<AddStoryView> {
     var cubit = SocialCubit.get(context);
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {
-        if (state is SocialCreateStoryLoadingState) {
+        if (state is SocialAddStoryLoadingState ||
+            state is SocialUploadStoryPickImageLoadingState ||
+            state is SocialUploadStoryPickVodeoLoadingState ||
+            state is SocialUploadStoryPickCameraLoadingState) {
           cubit.inAsyncCall = true;
         }
-        if (state is SocialCreateStorySuccessState) {
+        if (state is SocialAddStorySuccessState) {
           cubit.inAsyncCall = false;
-          GoRouter.of(context).pop();
-          // cubit.add = null;
-          // cubit.addStory = null;
-          // cubit.
+          context.navigateReplace(AppRoutes.socialLayout, context);
+          cubit.addStoryCamera = null;
+          cubit.addStoryImage = null;
+          cubit.addStoryVideo = null;
         }
-        if (state is SocialCreateStoryFailureState) {
+        if (state is SocialAddStoryFailureState) {
           cubit.inAsyncCall = false;
           showAchievementView(
               context: context,
@@ -63,10 +74,23 @@ class _AddStoryViewState extends State<AddStoryView> {
                       OutlinedButton(
                         style: ButtonStyle(),
                         onPressed: () {
-                          // cubit.createPost(
-                          //   text: postController.text,
-                          //   postImage: cubit.postImageUrl,
-                          // );
+                          if (cubit.addStoryImage != null) {
+                            cubit.uploadStoryImage(
+                              message: storyController.text,
+                            );
+                          } else if (cubit.addStoryCamera != null) {
+                            cubit.uploadStoryCameraImage(
+                                message: storyController.text);
+                          } else if (cubit.addStoryVideo != null) {
+                            cubit.uploadStoryVideo(
+                              message: storyController.text,
+                            );
+                          } else {
+                            if (storyController.text.length > 0)
+                              cubit.addStory(
+                                message: storyController.text,
+                              );
+                          }
                         },
                         child: Text(
                           'publish',
@@ -81,7 +105,9 @@ class _AddStoryViewState extends State<AddStoryView> {
                       ),
                     ],
                     onPressed: () {
-                      // cubit.postPhoto = null;
+                      cubit.addStoryCamera = null;
+                      cubit.addStoryImage = null;
+                      cubit.addStoryVideo = null;
                       GoRouter.of(context).pop();
                     },
                   ),
@@ -110,7 +136,7 @@ class _AddStoryViewState extends State<AddStoryView> {
                           maxLines: 3,
                           minLines: 1,
                           cursorColor: AppColors.blue,
-                          controller: postController,
+                          controller: storyController,
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium!
@@ -127,35 +153,32 @@ class _AddStoryViewState extends State<AddStoryView> {
                                 ),
                           ),
                         ),
-                        if (cubit.postPhoto != null)
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(bottom: 24.0, top: 24.0),
-                            child: Stack(
-                              alignment: Alignment.topLeft,
-                              children: [
-                                Container(
-                                  child: Image.file(
-                                    cubit.postPhoto!,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  height: 350.h,
-                                  width: double.infinity,
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      cubit.postPhoto = null;
-                                    });
-                                  },
-                                  icon: Icon(
-                                    Icons.close_outlined,
-                                    color: AppColors.grey,
-                                    size: 28,
-                                  ),
-                                ),
-                              ],
-                            ),
+                        if (cubit.addStoryImage != null)
+                          ShowImage(
+                            image: cubit.addStoryImage!,
+                            onPressed: () {
+                              setState(() {
+                                cubit.addStoryImage = null;
+                              });
+                            },
+                          ),
+                        if (cubit.addStoryCamera != null)
+                          ShowImage(
+                            image: cubit.addStoryCamera!,
+                            onPressed: () {
+                              setState(() {
+                                cubit.addStoryCamera = null;
+                              });
+                            },
+                          ),
+                        if (cubit.addStoryVideo != null)
+                          ShowVideo(
+                            video: cubit.videoController,
+                            onPressed: () {
+                              setState(() {
+                                cubit.addStoryVideo = null;
+                              });
+                            },
                           ),
                       ],
                     ),
@@ -170,78 +193,81 @@ class _AddStoryViewState extends State<AddStoryView> {
   }
 }
 
-class CustomAddStoryAttachment extends StatelessWidget {
-  const CustomAddStoryAttachment({super.key});
-
+class ShowImage extends StatelessWidget {
+  const ShowImage({
+    super.key,
+    this.onPressed,
+    required this.image,
+  });
+  final File image;
+  final VoidCallback? onPressed;
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SocialCubit, SocialStates>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        var cubit = SocialCubit.get(context);
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SubmenuButton(
-              menuChildren: [
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            // cubit.getChatImage(context: context, reciverId: uId);
-                          },
-                          icon: Icon(IconBroken.Image),
-                        ),
-                        Text('Image'),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            // cubit.getCameraImage(
-                            //     context: context, reciverId: uId);
-                          },
-                          icon: Icon(IconBroken.Camera),
-                        ),
-                        Text('Camera'),
-                        SizedBox(
-                          width: 12,
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: () async {
-                            // await cubit.getVideo(
-                            //     context: context, reciverId: uId);
-                          },
-                          icon: Icon(IconBroken.Video),
-                        ),
-                        Text('Video'),
-                      ],
-                    ),
-                  ],
-                )
-              ],
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.attach_file,
-                  ),
-                  Text(
-                    'click to add',
-                    style: TextStyle(fontSize: 12),
-                  )
-                ],
-              ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24.0, top: 24.0),
+      child: Stack(
+        alignment: Alignment.topLeft,
+        children: [
+          Container(
+            child: Image.file(
+              image,
+              fit: BoxFit.cover,
             ),
-          ],
-        );
-      },
+            height: 350.h,
+            width: double.infinity,
+          ),
+          IconButton(
+            onPressed: onPressed,
+            icon: Icon(
+              Icons.close_outlined,
+              color: AppColors.grey,
+              size: 28,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ShowVideo extends StatelessWidget {
+  const ShowVideo({
+    super.key,
+    this.onPressed,
+    required this.video,
+  });
+  final VideoPlayerController video;
+  final VoidCallback? onPressed;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24.0, top: 24.0),
+      child: Stack(
+        alignment: Alignment.topLeft,
+        children: [
+          InkWell(
+            onLongPress: () {
+              video.pause();
+            },
+            onTap: () {
+              video.play();
+            },
+            child: Container(
+              child: VideoPlayer(video),
+              height: 350.h,
+              width: double.infinity,
+            ),
+          ),
+          IconButton(
+            onPressed: onPressed,
+            icon: Icon(
+              Icons.close_outlined,
+              color: AppColors.grey,
+              size: 28,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
