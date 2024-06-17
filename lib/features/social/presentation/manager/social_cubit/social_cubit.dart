@@ -17,6 +17,7 @@ import 'package:moga/features/social/data/get_user_auth_impl.dart';
 import 'package:moga/features/social/data/get_user_authorization.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:video_player/video_player.dart';
 
 class SocialCubit extends Cubit<SocialStates> {
   SocialCubit(this.userRepo) : super(SocialInitState());
@@ -429,12 +430,14 @@ class SocialCubit extends Cubit<SocialStates> {
   String? addStoryCameraUrl;
   File? addStoryVideo;
   String? addStoryVideoUrl;
+  late VideoPlayerController videoController;
 
   Future<void> getStoryImage() async {
     pickImage(ImageSource.gallery).then((value) {
       addStoryImage = File(value!.path);
       addStoryCamera = null;
       addStoryVideo = null;
+      videoController.play();
       emit(SocialAddStoryPickImageSuccessState());
     }).catchError((onError) {
       emit(SocialAddStoryPickImageFailureState());
@@ -473,6 +476,7 @@ class SocialCubit extends Cubit<SocialStates> {
       addStoryCamera = File(value!.path);
       addStoryImage = null;
       addStoryVideo = null;
+      videoController.pause();
       emit(SocialAddStoryPickCameraSuccessState());
     }).catchError((onError) {
       emit(SocialAddStoryPickCameraFailureState());
@@ -511,6 +515,10 @@ class SocialCubit extends Cubit<SocialStates> {
       addStoryVideo = File(value!.path);
       addStoryCamera = null;
       addStoryImage = null;
+      videoController = VideoPlayerController.file(addStoryVideo!);
+      videoController.initialize().then((value) {
+        videoController.play();
+      });
       emit(SocialAddStoryPickVodeoSuccessState());
     }).catchError((onError) {
       log('fuck while get video');
