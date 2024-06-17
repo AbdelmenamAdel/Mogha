@@ -185,12 +185,14 @@ class ChatsCubit extends Cubit<ChatsStates> {
         chatVideoUrl = value;
         log(chatVideoUrl ?? '');
         emit(UploadChatVideoSuccessState());
-        addMessage(
-          reciverId: reciverId,
-          date: DateTime.now().toString(),
-          video: chatVideoUrl,
-          message: message,
-        );
+        try {
+          addMessage(
+            reciverId: reciverId,
+            date: DateTime.now().toString(),
+            video: chatVideoUrl,
+            message: message,
+          );
+        } on Exception catch (e) {}
       }).catchError((error) {
         log(error.toString());
         emit(UploadChatVideoFailureState());
