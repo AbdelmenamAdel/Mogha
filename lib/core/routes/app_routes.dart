@@ -7,7 +7,6 @@ import 'package:moga/features/auth/presentation/manager/auth/auth_cubit.dart';
 import 'package:moga/features/auth/presentation/views/send_code_view.dart';
 import 'package:moga/features/auth/presentation/views/sign_up_view.dart';
 import 'package:moga/features/chats/presentation/views/add_story_view.dart';
-import 'package:moga/features/chats/presentation/views/view_story_view.dart';
 import 'package:moga/features/home/presentation/views/home_view.dart';
 import 'package:moga/features/notifications/notifications_view.dart';
 import 'package:moga/features/onboarding/presentation/views/onboarding_view.dart';
@@ -30,7 +29,6 @@ class AppRoutes {
   static const String changeLang = '/changeLang';
   static const String login = '/login';
   static const String addStory = '/addStory';
-  static const String viewStory = '/viewStory';
   static const String onBoarding = '/onBoarding';
   static const String sendCode = '/sendCode';
   static const String settings = '/settings';
@@ -69,10 +67,6 @@ abstract class AppRouter {
       GoRoute(
         path: AppRoutes.addStory,
         builder: (context, state) => const AddStoryView(),
-      ),
-      GoRoute(
-        path: AppRoutes.viewStory,
-        builder: (context, state) => const ViewStoryView(),
       ),
       GoRoute(
         path: AppRoutes.about,
