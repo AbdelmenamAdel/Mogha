@@ -222,7 +222,7 @@ class CustomPostWidget extends StatelessWidget {
                 leading: CircleAvatar(
                   radius: 15,
                   backgroundImage: NetworkImage(
-                    cubit.model!.profilePhoto,
+                    cubit.model?.profilePhoto ?? '',
                   ),
                 ),
                 title: InkWell(
