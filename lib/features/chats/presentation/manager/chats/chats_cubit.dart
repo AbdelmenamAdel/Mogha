@@ -192,7 +192,9 @@ class ChatsCubit extends Cubit<ChatsStates> {
             video: chatVideoUrl,
             message: message,
           );
-        } on Exception catch (e) {}
+        } on Exception catch (e) {
+          log(e.toString());
+        }
       }).catchError((error) {
         log(error.toString());
         emit(UploadChatVideoFailureState());
