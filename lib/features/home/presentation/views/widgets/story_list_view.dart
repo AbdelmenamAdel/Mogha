@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:moga/core/services/service_locator.dart';
+import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 
 import 'custom_story_item.dart';
 
@@ -11,18 +14,27 @@ class StoryListView extends StatelessWidget {
 
     return SizedBox(
       height: height,
-      child: ListView.builder(
-        physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.only(left: 8, right: 8, top: 8),
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: CustomStoryItem(
-            imageUrl:
-                'https://avatars.githubusercontent.com/u/127325365?s=400&u=2be761cfa7774f75b78274bb04b13bc6561afc07&v=4',
-          ),
-        ),
-      ),
+      child: StreamBuilder<Object>(
+          stream: FirebaseFirestore.instance
+              .collection('users')
+              .where('story', isNotEqualTo: [])
+              .where('followers', arrayContains: sl<SocialCubit>().model!.uId)
+              .snapshots(),
+          builder: (context, snapshot) {
+            return ListView.builder(
+                // itemCount: snapshot.data!.docs.length,
+                physics: const BouncingScrollPhysics(),
+                padding: EdgeInsets.only(left: 8, right: 8, top: 8),
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: CustomStoryItem(
+                      user: sl<SocialCubit>().model!,
+                    ),
+                  );
+                });
+          }),
     );
   }
 }
