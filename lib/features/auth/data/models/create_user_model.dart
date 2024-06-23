@@ -1,3 +1,5 @@
+import 'package:moga/features/chats/data/models/story_model.dart';
+
 class UserModel {
   String email;
   String userName;
@@ -8,8 +10,9 @@ class UserModel {
   String bio;
   String phone;
   String coverPhoto;
-
+  List<StoryModel> story;
   UserModel({
+    required this.story,
     required this.phone,
     required this.email,
     required this.userName,
@@ -32,6 +35,7 @@ class UserModel {
       'password': password,
       'uId': uId,
       'isEmailVerified': isEmailVerified,
+      'story': story
     };
   }
 
@@ -44,6 +48,7 @@ class UserModel {
       uId: json['uId'],
       bio: json['bio'],
       phone: json['phone'],
+      story: json['story'],
       coverPhoto: json['coverPhoto'],
       isEmailVerified: json['isEmailVerified'],
     );
