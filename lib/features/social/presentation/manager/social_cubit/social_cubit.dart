@@ -10,7 +10,6 @@ import 'package:moga/core/widgets/custom_image_picker.dart';
 import 'package:moga/core/widgets/custom_pick_image.dart';
 import 'package:moga/core/widgets/custom_video_picker.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
-import 'package:moga/features/chats/data/models/message_model.dart';
 import 'package:moga/features/chats/data/models/story_model.dart';
 import 'package:moga/features/post/data/model/post_model.dart';
 import 'package:moga/features/social/data/get_user_auth_impl.dart';
@@ -183,6 +182,7 @@ class SocialCubit extends Cubit<SocialStates> {
       password: model!.password,
       uId: model!.uId,
       bio: bio,
+      story: model!.story,
       coverPhoto: cover ?? model!.coverPhoto,
       profilePhoto: profile ?? model!.profilePhoto,
       isEmailVerified: model!.isEmailVerified,
