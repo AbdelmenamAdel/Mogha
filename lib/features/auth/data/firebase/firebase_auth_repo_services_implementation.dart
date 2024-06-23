@@ -119,6 +119,7 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
         password: password,
         uId: uId,
         phone: '01',
+        story: [],
         isEmailVerified: isEmailVerified,
         bio: 'write your bio...',
         coverPhoto:
@@ -200,6 +201,7 @@ class AuthRepoImplementation implements FirebaseAuthRepository {
           password: newPassword,
           uId: sl<SocialCubit>().model!.uId,
           bio: sl<SocialCubit>().model!.bio,
+          story: sl<SocialCubit>().model!.story,
           coverPhoto: sl<SocialCubit>().model!.coverPhoto,
           profilePhoto: sl<SocialCubit>().model!.profilePhoto,
           isEmailVerified: sl<SocialCubit>().model!.isEmailVerified,
