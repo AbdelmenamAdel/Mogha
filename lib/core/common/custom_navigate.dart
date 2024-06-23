@@ -9,4 +9,8 @@ extension Navigation on BuildContext {
   navigateReplace(String route, BuildContext context) {
     return GoRouter.of(context).pushReplacement(route);
   }
+
+  navigateWithData(String route, BuildContext context, Object? extra) {
+    return GoRouter.of(context).push(route, extra: extra);
+  }
 }
