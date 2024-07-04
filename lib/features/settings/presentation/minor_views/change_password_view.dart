@@ -5,7 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moga/core/common/custom_notifier.dart';
+import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/services/service_locator.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/widgets/common_button.dart';
 import 'package:moga/core/widgets/custom_text_f_field.dart';
 import 'package:moga/features/auth/presentation/manager/auth/auth_cubit.dart';
@@ -54,8 +56,9 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                     ),
                   ),
                   children: [
-                    DefaultAppBar(elevation: 1,
-                      title: 'Change Password',
+                    DefaultAppBar(
+                      elevation: 1,
+                      title: Strings.changePassword.tr(context),
                       centerTitle: true,
                       style: TextStyle(
                         fontSize: 24,
@@ -65,7 +68,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                     ),
                     SizedBox(height: 30.h),
                     Text(
-                      'to change password please fill in the\nform below and click save changes',
+                      Strings.toChangePassDo.tr(context),
                       style: TextStyle(
                         fontFamily: 'Dosis',
                         fontSize: 18.sp,
@@ -80,8 +83,8 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                       child: CustomTextField(
                         bsc: Theme.of(context).textTheme.displaySmall!.color,
                         focus: true,
-                        hintText: 'enter your current password',
-                        labelText: 'Old Password',
+                        hintText: Strings.enterCurrentPassword.tr(context),
+                        labelText: Strings.oldPassword.tr(context),
                         validator: (value) {
                           // if (!value!.isPasswordNormal1()) {
                           //   return 'Enter a valid password';
@@ -98,8 +101,8 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                       child: CustomTextField(
                         bsc: Theme.of(context).textTheme.displaySmall!.color,
                         focus: true,
-                        hintText: 'enter your new password',
-                        labelText: 'New Password',
+                        hintText: Strings.enterNewPassword.tr(context),
+                        labelText: Strings.newPassword.tr(context),
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Password mustn\'t be empty';
@@ -117,8 +120,8 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                       child: CustomTextField(
                         bsc: Theme.of(context).textTheme.displaySmall!.color,
                         focus: true,
-                        hintText: 'enter your new password',
-                        labelText: 'New Password',
+                        hintText: Strings.enterConfirmPassword.tr(context),
+                        labelText: Strings.confirmPassword.tr(context),
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Password mustn\'t be empty';
@@ -150,7 +153,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                       alignment: AlignmentDirectional.bottomCenter,
                       child: CommonButton(
                         borderRadius: 9.r,
-                        title: 'Save Changes',
+                        title: Strings.saveChanges.tr(context),
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
                             _validationMethod();

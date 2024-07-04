@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:moga/core/local/app_local.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/features/post/presentation/views/widgets/default_app_bar.dart';
 
 class FriendsView extends StatelessWidget {
@@ -12,7 +14,7 @@ class FriendsView extends StatelessWidget {
         children: [
           DefaultAppBar(
             elevation: 1,
-            title: 'Friends',
+            title: Strings.friends.tr(context),
             centerTitle: true,
             style: TextStyle(
               fontSize: 24,
