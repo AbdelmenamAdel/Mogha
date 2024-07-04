@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:moga/core/database/cache/cache_helper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
 import 'package:moga/features/chats/data/models/story_model.dart';
@@ -14,7 +14,7 @@ class GetUserImplementation implements GetUserAuth {
   @override
   Future<UserModel?> getUserData() async {
     try {
-      String uId = sl<CacheHelper>().getData(key: 'uId');
+      String uId = FirebaseAuth.instance.currentUser!.uid;
       var document = await _auth.collection('users').doc(uId).get();
       model = UserModel.fromJson(document.data()!);
       log('user data is ${model.toString()}');

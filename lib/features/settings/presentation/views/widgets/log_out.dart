@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/common/custom_navigate.dart';
+import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/widgets/custom_divider.dart';
 import 'package:moga/features/auth/presentation/manager/auth/auth_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
@@ -86,7 +88,7 @@ class LogOutWidget extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         return CustomDialog(
-                          title: 'Confirm Log Out',
+                          title: Strings.confirmLogOut.tr(context),
                           onYesTap: () {
                             sl<AuthCubit>().logOut().whenComplete(() {
                               Future.delayed(Duration(milliseconds: 500))
@@ -112,7 +114,7 @@ class LogOutWidget extends StatelessWidget {
                           width: 12,
                         ),
                         Text(
-                          'Log Out ',
+                          Strings.logout.tr(context),
                           style: Theme.of(context).textTheme.displaySmall,
                         ),
                       ],
@@ -126,7 +128,7 @@ class LogOutWidget extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         return CustomDialog(
-                          title: 'Create a new account',
+                          title: Strings.createANewAccount.tr(context),
                           onYesTap: () {
                             sl<AuthCubit>().logOut().whenComplete(() {
                               Future.delayed(Duration(milliseconds: 500))
@@ -152,7 +154,7 @@ class LogOutWidget extends StatelessWidget {
                           width: 12,
                         ),
                         Text(
-                          'Create a new account ',
+                          Strings.createANewAccount.tr(context),
                           style: Theme.of(context).textTheme.displaySmall,
                         ),
                       ],
@@ -166,7 +168,7 @@ class LogOutWidget extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         return CustomDialog(
-                          title: 'Confirm delete this account',
+                          title: Strings.confirmDelete.tr(context),
                           onYesTap: () {
                             sl<AuthCubit>().deleteAccount().whenComplete(() {
                               Future.delayed(Duration(milliseconds: 500))
@@ -192,7 +194,7 @@ class LogOutWidget extends StatelessWidget {
                           width: 12,
                         ),
                         Text(
-                          'Delete this account ',
+                          Strings.deleteThisAccount.tr(context),
                           style: Theme.of(context).textTheme.displaySmall,
                         ),
                       ],
@@ -211,7 +213,7 @@ class LogOutWidget extends StatelessWidget {
                       onPressed: () {
                         GoRouter.of(context).pop();
                       },
-                      child: Text('Cancel'),
+                      child: Text(Strings.cancel.tr(context)),
                     ),
                   ),
                 ),
