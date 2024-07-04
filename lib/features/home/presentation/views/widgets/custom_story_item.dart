@@ -4,13 +4,16 @@ import 'package:moga/core/widgets/custom_cached_network_image.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
 import 'package:moga/features/chats/presentation/views/view_story_view.dart';
 
+import '../../../../chats/data/models/story_model.dart';
+
 class CustomStoryItem extends StatelessWidget {
   const CustomStoryItem({
     super.key,
-    required this.user,
+    required this.user, required this.stories,
   });
 
   final UserModel user;
+  final List<StoryModel> stories;
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height * .2;
@@ -24,7 +27,7 @@ class CustomStoryItem extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return ViewStoryView(stories: user.story);
+                    return ViewStoryView(stories:stories);
                   },
                 ),
               );
