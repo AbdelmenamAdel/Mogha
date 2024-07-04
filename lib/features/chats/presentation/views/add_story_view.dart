@@ -6,8 +6,10 @@ import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:moga/core/common/custom_navigate.dart';
 import 'package:moga/core/common/custom_notifier.dart';
+import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/features/post/presentation/views/widgets/default_app_bar.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
@@ -66,7 +68,7 @@ class _AddStoryViewState extends State<AddStoryView> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   DefaultAppBar(
-                    title: 'Add Story',
+                    title: Strings.addStory.tr(context),
                     actions: [
                       OutlinedButton(
                         style: ButtonStyle(),
@@ -90,7 +92,7 @@ class _AddStoryViewState extends State<AddStoryView> {
                           }
                         },
                         child: Text(
-                          'publish',
+                          Strings.publish.tr(context),
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -140,7 +142,7 @@ class _AddStoryViewState extends State<AddStoryView> {
                               .copyWith(fontSize: 22),
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: "What's on your mind?",
+                            hintText: Strings.whatsOnYourMind.tr(context),
                             hintStyle: Theme.of(context)
                                 .textTheme
                                 .displayMedium!
