@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/common/custom_navigate.dart';
+import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/services/service_locator.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/widgets/custom_divider.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import 'repeated_list_in_drawer.dart';
@@ -66,12 +68,14 @@ class CustomRepeatedRows extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             CircleAvatar(
-              backgroundImage:
-                  NetworkImage(sl<SocialCubit>().model?.profilePhoto ?? ''),
+              backgroundImage: NetworkImage(SocialCubit.get(context)
+                      .model
+                      ?.profilePhoto ??
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjclDv0e9IVQdcKL5CgI8DITEgglEavaKqww&s'),
               radius: 35,
             ),
             Text(
-              sl<SocialCubit>().model?.userName ?? '',
+              sl<SocialCubit>().model?.userName ?? 'Loading...',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -80,7 +84,7 @@ class CustomRepeatedRows extends StatelessWidget {
             CustomDivider(),
             RepeatedListTailInDrawer(
               icon: Icons.person_outline_rounded,
-              title: 'Profile',
+              title: Strings.profile.tr(context),
               onTap: () {
                 HapticFeedback.lightImpact();
                 context.navigate(AppRoutes.profile, context);
@@ -89,7 +93,7 @@ class CustomRepeatedRows extends StatelessWidget {
             CustomDivider(),
             RepeatedListTailInDrawer(
               icon: Icons.add_a_photo_outlined,
-              title: 'Add Story',
+              title: Strings.addStory.tr(context),
               onTap: () {
                 HapticFeedback.lightImpact();
                 context.navigate(AppRoutes.addStory, context);
@@ -98,7 +102,7 @@ class CustomRepeatedRows extends StatelessWidget {
             CustomDivider(),
             RepeatedListTailInDrawer(
               icon: IconBroken.Paper_Upload,
-              title: 'Add Post',
+              title: Strings.addPost.tr(context),
               onTap: () {
                 HapticFeedback.lightImpact();
                 context.navigate(AppRoutes.newPost, context);
@@ -107,7 +111,7 @@ class CustomRepeatedRows extends StatelessWidget {
             CustomDivider(),
             RepeatedListTailInDrawer(
               icon: Icons.settings_outlined,
-              title: 'Settings',
+              title: Strings.settings.tr(context),
               onTap: () {
                 HapticFeedback.lightImpact();
                 sl<SocialCubit>().changeBottomNav(3);
@@ -116,7 +120,7 @@ class CustomRepeatedRows extends StatelessWidget {
             CustomDivider(),
             RepeatedListTailInDrawer(
               icon: Icons.info_outline_rounded,
-              title: 'About',
+              title: Strings.about.tr(context),
               onTap: () {
                 HapticFeedback.lightImpact();
                 context.navigate(AppRoutes.about, context);
