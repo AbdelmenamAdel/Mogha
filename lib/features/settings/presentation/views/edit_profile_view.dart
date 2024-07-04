@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/widgets/custom_text_f_field.dart';
 import 'package:moga/features/post/presentation/views/widgets/default_app_bar.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
@@ -52,7 +54,7 @@ class EditProfileView extends StatelessWidget {
               child: Column(
                 children: [
                   DefaultAppBar(
-                    title: 'Edit Profile',
+                    title: Strings.editProfile.tr(context),
                     actions: [
                       InkWell(
                         highlightColor: AppColors.blue,
@@ -66,7 +68,7 @@ class EditProfileView extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'Update',
+                            Strings.update.tr(context),
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
@@ -91,7 +93,7 @@ class EditProfileView extends StatelessWidget {
                         CustomTextField(
                           controller: nameController,
                           prefixIcon: IconBroken.User,
-                          labelText: 'Name',
+                          labelText: Strings.name.tr(context),
                           onFieldSubmitted: (value) {
                             nameController.text = value ?? '';
                           },
@@ -101,7 +103,7 @@ class EditProfileView extends StatelessWidget {
                         CustomTextField(
                           controller: bioController,
                           prefixIcon: IconBroken.Info_Circle,
-                          labelText: 'Bio',
+                          labelText: Strings.bio.tr(context),
                           keyboardType: TextInputType.text,
                           onFieldSubmitted: (value) {
                             bioController.text = value ?? '';
@@ -111,7 +113,7 @@ class EditProfileView extends StatelessWidget {
                         CustomTextField(
                           controller: phoneController,
                           prefixIcon: IconBroken.Call,
-                          labelText: 'phone',
+                          labelText: Strings.phone.tr(context),
                           onFieldSubmitted: (value) {
                             phoneController.text = value!;
                           },

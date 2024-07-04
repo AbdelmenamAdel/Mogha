@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/common/custom_navigate.dart';
+import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/services/service_locator.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/widgets/custom_divider.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
 import 'package:moga/features/auth/presentation/manager/auth/auth_cubit.dart';
@@ -46,7 +48,7 @@ class ProfileDataInSection extends StatelessWidget {
                   context: context,
                   builder: (context) {
                     return CustomDialog(
-                      title: 'Create a New Account',
+                      title: Strings.createANewAccount.tr(context),
                       onYesTap: () {
                         sl<AuthCubit>().logOut().whenComplete(() {
                           Future.delayed(Duration(milliseconds: 500))
@@ -71,7 +73,7 @@ class ProfileDataInSection extends StatelessWidget {
                       width: 12,
                     ),
                     Text(
-                      'Create a new account ',
+                      Strings.createANewAccount.tr(context),
                       style: Theme.of(context).textTheme.displaySmall,
                     ),
                   ],

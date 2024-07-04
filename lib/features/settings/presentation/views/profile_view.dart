@@ -4,10 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:moga/core/common/custom_notifier.dart';
+import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/common/custom_navigate.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
 import 'package:moga/features/settings/presentation/views/widgets/my_all_posts.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
@@ -47,7 +49,7 @@ class _ProfileViewState extends State<ProfileView> {
     return completer.future.then<void>((_) {
       showAchievementView(
         context: context,
-        title: 'click to refresh again',
+        title: Strings.clickToRefresh.tr(context),
         alignment: Alignment.bottomCenter,
         onTap: () {
           _refreshIndicatorKey.currentState!.show();
@@ -105,7 +107,7 @@ class _ProfileViewState extends State<ProfileView> {
                                         .displaySmall!
                                         .copyWith(fontWeight: FontWeight.w600),
                                   ),
-                                  Text('Posts'),
+                                  Text(Strings.post),
                                 ]),
                                 onTap: () {},
                               )),
@@ -119,7 +121,7 @@ class _ProfileViewState extends State<ProfileView> {
                                         .displaySmall!
                                         .copyWith(fontWeight: FontWeight.w600),
                                   ),
-                                  Text('Photos'),
+                                  Text(Strings.photos.tr(context)),
                                 ]),
                                 onTap: () {},
                               )),
@@ -133,7 +135,7 @@ class _ProfileViewState extends State<ProfileView> {
                                         .displaySmall!
                                         .copyWith(fontWeight: FontWeight.w600),
                                   ),
-                                  Text('Following'),
+                                  Text(Strings.folloing.tr(context)),
                                 ]),
                                 onTap: () {},
                               )),
@@ -147,7 +149,7 @@ class _ProfileViewState extends State<ProfileView> {
                                         .displaySmall!
                                         .copyWith(fontWeight: FontWeight.w600),
                                   ),
-                                  Text('Followers'),
+                                  Text(Strings.followers.tr(context)),
                                 ]),
                                 onTap: () {},
                               )),
@@ -161,7 +163,7 @@ class _ProfileViewState extends State<ProfileView> {
                                 Expanded(
                                   child: OutlinedButton(
                                     child: Text(
-                                      'Add Photo',
+                                      Strings.addPhoto.tr(context),
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleSmall!
