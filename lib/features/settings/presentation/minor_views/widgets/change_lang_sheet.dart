@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:group_radio_button/group_radio_button.dart';
 import 'package:moga/core/bloc/global_cubit/app_language_cubit.dart';
+import 'package:moga/core/local/app_local.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/features/post/presentation/views/widgets/default_app_bar.dart';
 
 class ChangeLanguageSheet extends StatefulWidget {
@@ -35,7 +37,7 @@ class _ChangeLanguageSheetState extends State<ChangeLanguageSheet> {
           DefaultAppBar(
             clipBehavior: Clip.antiAliasWithSaveLayer,
             elevation: 1,
-            title: 'Change Language',
+            title: Strings.changeLanguage.tr(context),
             centerTitle: true,
             style: TextStyle(
               fontSize: 24,
@@ -69,7 +71,7 @@ class _ChangeLanguageSheetState extends State<ChangeLanguageSheet> {
                             onPressed: () {
                               GoRouter.of(context).pop();
                             },
-                            child: Text('Cancel'),
+                            child: Text(Strings.cancel.tr(context)),
                           ),
                         ),
                       ),
