@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/widgets/custom_text_form_field.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
@@ -28,7 +30,7 @@ class _SearchViwState extends State<SearchViw> {
       appBar: AppBar(
         title: CustomTextFormField(
           color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(.1),
-          hintText: 'search...',
+          hintText: Strings.search.tr(context),
           onChanged: (data) {
             username = data;
 
@@ -82,7 +84,7 @@ class _SearchViwState extends State<SearchViw> {
                                             setState(() {});
                                           },
                                           child: Text(
-                                            'Un Follow',
+                                            Strings.unfollow.tr(context),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .labelSmall,
@@ -95,7 +97,7 @@ class _SearchViwState extends State<SearchViw> {
                                             setState(() {});
                                           },
                                           child: Text(
-                                            'Follow',
+                                            Strings.follow.tr(context),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .labelSmall,

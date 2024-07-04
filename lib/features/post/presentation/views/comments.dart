@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/widgets/comment_widget.dart';
 import 'package:moga/core/widgets/custom_text_form_field.dart';
 
@@ -84,7 +86,7 @@ class CommentsView extends StatelessWidget {
                 ),
               ),
               CustomTextFormField(
-                hintText: 'write a comment...',
+                hintText: Strings.writeComment.tr(context),
                 showCursor: false,
                 color: AppColors.grey,
                 textColor: AppColors.black,
