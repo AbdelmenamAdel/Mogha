@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/utils/app_images.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/widgets/custom_text_form_field.dart';
 import 'package:rive/rive.dart';
 
@@ -44,28 +46,28 @@ class NewPasswordViewBody extends StatelessWidget {
                             backgroundImage: AssetImage(AppImages.appIcon),
                           ),
                           Text(
-                            'Create new password',
+                            Strings.createNewPassword.tr(context),
                             style: Theme.of(context).textTheme.displaySmall,
                           ),
                           const SizedBox(),
-                          const CustomTextFormField(
+                          CustomTextFormField(
                             icon: Icons.password_rounded,
-                            hintText: 'new password',
+                            hintText: Strings.newPassword.tr(context),
                           ),
-                          const CustomTextFormField(
+                          CustomTextFormField(
                             icon: Icons.password_rounded,
-                            hintText: 'confirm new password',
+                            hintText: Strings.createNewPassword.tr(context),
                           ),
-                          const CustomTextFormField(
+                          CustomTextFormField(
                               icon: Icons.numbers_outlined,
-                              hintText: 'verification code',
+                              hintText: Strings.verificationCode.tr(context),
                               type: TextInputType.number),
                         ],
                       ),
                     ),
                     CustomSignButton(
                       scale: scale,
-                      text: 'verify',
+                      text: Strings.verify.tr(context),
                     ),
                   ],
                 ),

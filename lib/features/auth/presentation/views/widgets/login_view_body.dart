@@ -36,7 +36,7 @@ class LoginViewBody extends StatelessWidget {
         if (state is LoginErrorState) {
           showAchievementView(
               context: context,
-              title: "OOPS,There was an error",
+              title: Strings.oopsError,
               subTitle: state.errMessage);
         }
         if (state is LoginLoadingState) {}
@@ -127,8 +127,9 @@ class LoginViewBody extends StatelessWidget {
                                       if (!value!.isPasswordNormal1()) {
                                         showAchievementView(
                                             context: context,
-                                            title: "Please,",
-                                            subTitle: "Enter a valid password");
+                                            title: "Hello,",
+                                            subTitle: Strings.validPassword
+                                                .tr(context));
                                         return null;
                                       }
                                       return null;
