@@ -38,7 +38,10 @@ class SocialCubit extends Cubit<SocialStates> {
     emit(SocialGetUserLoadingState());
     try {
       model = await user.getUserData();
+      if (model !=null)
       emit(SocialGetUserSuccessState());
+      else
+        emit(SocialGetUserFailureState('error while get the user model <= null '));
     } catch (e) {
       emit(SocialGetUserFailureState(e.toString()));
     }
@@ -182,7 +185,7 @@ class SocialCubit extends Cubit<SocialStates> {
       password: model!.password,
       uId: model!.uId,
       bio: bio,
-      story: model!.story,
+      // story: model!.story,
       coverPhoto: cover ?? model!.coverPhoto,
       profilePhoto: profile ?? model!.profilePhoto,
       isEmailVerified: model!.isEmailVerified,
@@ -552,4 +555,21 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(SocialUploadStoryPickVodeoFailureState());
     });
   }
+  List<StoryModel>stories=[];
+
+  Future<List<StoryModel>> getAllStories(BuildContext context)async{
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(SocialCubit.get(context).model!.uId)
+        .collection('story')
+        .orderBy('date', descending: true)
+        .get().then((value){
+      value.docs.forEach((doc){
+        stories.add(StoryModel.fromJson(doc.data()));
+      });
+      log(stories.toString());
+    });
+    return stories;
+  }
+
 }
