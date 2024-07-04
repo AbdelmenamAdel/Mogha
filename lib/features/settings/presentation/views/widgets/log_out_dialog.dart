@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moga/core/local/app_local.dart';
+import 'package:moga/core/utils/app_strings.dart';
 
 class CustomDialog extends StatelessWidget {
   const CustomDialog({
@@ -29,7 +31,7 @@ class CustomDialog extends StatelessWidget {
             height: 50,
             child: Center(
               child: Text(
-                'No',
+                Strings.no.tr(context),
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium!
@@ -44,7 +46,7 @@ class CustomDialog extends StatelessWidget {
             height: 50,
             child: Center(
               child: Text(
-                'Yes',
+                Strings.yes.tr(context),
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium!
