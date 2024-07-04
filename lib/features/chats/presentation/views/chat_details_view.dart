@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/utils/app_images.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/widgets/chat_buble.dart';
 import 'package:moga/core/widgets/custom_text_f_field.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
@@ -95,7 +97,7 @@ class ChatDetailsView extends StatelessWidget {
                             },
                             controller: cubit.messageController,
                             height: textFormFieldHeight,
-                            hintText: 'Write a message....',
+                            hintText: Strings.writeAMessage.tr(context),
                             bsc: Theme.of(context).textTheme.bodyLarge!.color,
                             radius: 18,
                             bgc: Theme.of(context).scaffoldBackgroundColor,
