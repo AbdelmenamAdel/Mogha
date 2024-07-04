@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_regex/flutter_regex.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moga/core/utils/app_colors.dart';
 import 'package:moga/core/utils/app_images.dart';
@@ -40,7 +39,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           showAchievementView(
               context: context,
               title: "Check,",
-              subTitle: "Your email verification link");
+              subTitle: Strings.checkYourVerificationMail.tr(context));
           GoRouter.of(context).pop();
         }
         if (state is RegisterErrorState) {
@@ -151,7 +150,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'Do you hava an account ?  ',
+                                      Strings.doYouHaveAnAccount.tr(context),
                                       style: Theme.of(context)
                                           .textTheme
                                           .displaySmall!
@@ -185,9 +184,6 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                                   userName: cubit.userNameController.text,
                                 );
                                 HapticFeedback.lightImpact();
-                                Fluttertoast.showToast(
-                                  msg: 'SIGN-IN button pressed',
-                                );
                               }
                             },
                           ),

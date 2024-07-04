@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_images.dart';
@@ -55,7 +54,7 @@ class SendCodeViewBody extends StatelessWidget {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 24.0),
                             child: Text(
-                              'Enter Your E-mail and we will send you code to reset your password',
+                              Strings.enterYourEmail_WeWillSend.tr(context),
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.displaySmall,
                             ),
@@ -69,12 +68,10 @@ class SendCodeViewBody extends StatelessWidget {
                     ),
                     CustomSignButton(
                       scale: scale,
-                      text: 'Send code',
+                      text: Strings.sendCode.tr(context),
                       onTap: () {
                         HapticFeedback.lightImpact();
-                        Fluttertoast.showToast(
-                          msg: 'SIGN-IN button pressed',
-                        );
+
                         context.navigate(AppRoutes.newPassword, context);
                       },
                     ),
