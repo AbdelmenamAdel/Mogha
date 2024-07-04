@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/widgets/show_image.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
 import 'package:moga/features/post/data/model/post_model.dart';
@@ -91,77 +93,77 @@ class CustomPostWidget extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10),
-              Wrap(
-                alignment: WrapAlignment.start,
-                children: [
-                  InkWell(
-                    overlayColor: MaterialStatePropertyAll(Color(0xf2B8EECF2)),
-                    child: Text(
-                      '#Software',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: Colors.blue),
-                    ),
-                    onTap: () {},
-                  ),
-                  InkWell(
-                    overlayColor: MaterialStatePropertyAll(Color(0xf2B8EECF2)),
-                    child: Text(
-                      '#Software',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: Colors.blue),
-                    ),
-                    onTap: () {},
-                  ),
-                  InkWell(
-                    overlayColor: MaterialStatePropertyAll(Color(0xf2B8EECF2)),
-                    child: Text(
-                      '#Software',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: Colors.blue),
-                    ),
-                    onTap: () {},
-                  ),
-                  InkWell(
-                    overlayColor: MaterialStatePropertyAll(Color(0xf2B8EECF2)),
-                    child: Text(
-                      '#Software',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: Colors.blue),
-                    ),
-                    onTap: () {},
-                  ),
-                  InkWell(
-                    overlayColor: MaterialStatePropertyAll(Color(0xf2B8EECF2)),
-                    child: Text(
-                      '#Software',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: Colors.blue),
-                    ),
-                    onTap: () {},
-                  ),
-                  InkWell(
-                    overlayColor: MaterialStatePropertyAll(Color(0xf2B8EECF2)),
-                    child: Text(
-                      '#Software_Development',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: Colors.blue),
-                    ),
-                    onTap: () {},
-                  ),
-                ],
-              ),
+              // Wrap(
+              //   alignment: WrapAlignment.start,
+              //   children: [
+              //     InkWell(
+              //       overlayColor: MaterialStatePropertyAll(Color(0xf2B8EECF2)),
+              //       child: Text(
+              //         '#Software',
+              //         style: Theme.of(context)
+              //             .textTheme
+              //             .bodySmall!
+              //             .copyWith(color: Colors.blue),
+              //       ),
+              //       onTap: () {},
+              //     ),
+              //     InkWell(
+              //       overlayColor: MaterialStatePropertyAll(Color(0xf2B8EECF2)),
+              //       child: Text(
+              //         '#Software',
+              //         style: Theme.of(context)
+              //             .textTheme
+              //             .bodySmall!
+              //             .copyWith(color: Colors.blue),
+              //       ),
+              //       onTap: () {},
+              //     ),
+              //     InkWell(
+              //       overlayColor: MaterialStatePropertyAll(Color(0xf2B8EECF2)),
+              //       child: Text(
+              //         '#Software',
+              //         style: Theme.of(context)
+              //             .textTheme
+              //             .bodySmall!
+              //             .copyWith(color: Colors.blue),
+              //       ),
+              //       onTap: () {},
+              //     ),
+              //     InkWell(
+              //       overlayColor: MaterialStatePropertyAll(Color(0xf2B8EECF2)),
+              //       child: Text(
+              //         '#Software',
+              //         style: Theme.of(context)
+              //             .textTheme
+              //             .bodySmall!
+              //             .copyWith(color: Colors.blue),
+              //       ),
+              //       onTap: () {},
+              //     ),
+              //     InkWell(
+              //       overlayColor: MaterialStatePropertyAll(Color(0xf2B8EECF2)),
+              //       child: Text(
+              //         '#Software',
+              //         style: Theme.of(context)
+              //             .textTheme
+              //             .bodySmall!
+              //             .copyWith(color: Colors.blue),
+              //       ),
+              //       onTap: () {},
+              //     ),
+              //     InkWell(
+              //       overlayColor: MaterialStatePropertyAll(Color(0xf2B8EECF2)),
+              //       child: Text(
+              //         '#Software_Development',
+              //         style: Theme.of(context)
+              //             .textTheme
+              //             .bodySmall!
+              //             .copyWith(color: Colors.blue),
+              //       ),
+              //       onTap: () {},
+              //     ),
+              //   ],
+              // ),
               if (postModel.postImage != null) SizedBox(height: 8),
               if (postModel.postImage != null)
                 Container(
@@ -206,7 +208,7 @@ class CustomPostWidget extends StatelessWidget {
                             color: Colors.amber,
                           ),
                           SizedBox(width: 5),
-                          Text('0 Comments')
+                          Text(Strings.comments.tr(context))
                         ],
                       ),
                     ),
@@ -237,7 +239,7 @@ class CustomPostWidget extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'write a comment ....',
+                      Strings.writeComment.tr(context),
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),
@@ -260,7 +262,7 @@ class CustomPostWidget extends StatelessWidget {
                         SizedBox(
                           width: 5,
                         ),
-                        Text('Like')
+                        Text(Strings.like.tr(context)),
                       ],
                     ),
                   ),
