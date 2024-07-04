@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:moga/core/common/custom_notifier.dart';
+import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_states.dart';
 
@@ -59,7 +61,8 @@ class OpenProfilePhotoView extends StatelessWidget {
                     ),
                   )
                 : Row(children: [
-                    Text('Update', style: TextStyle(color: AppColors.bGL)),
+                    Text(Strings.update.tr(context),
+                        style: TextStyle(color: AppColors.bGL)),
                     IconButton(
                       onPressed: () {
                         cubit.uploadProfileImage();
