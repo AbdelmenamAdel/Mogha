@@ -1,6 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hidable/hidable.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:moga/core/local/app_local.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/features/social/presentation/views/widgets/custom_app_bar.dart';
+import '../../../../core/common/custom_notifier.dart';
+import '../../../../core/utils/app_colors.dart';
+import '../../../social/presentation/manager/social_cubit/social_cubit.dart';
 import 'widgets/custom_drawer.dart';
 import 'widgets/home_view_body.dart';
 
@@ -33,11 +41,41 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
+      GlobalKey<LiquidPullToRefreshState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  Future<void> _handleRefresh() {
+    final Completer<void> completer = Completer<void>();
+
+    Timer(
+      const Duration(seconds: 1),
+      () {
+        completer.complete();
+      },
+    );
+    setState(() {
+      SocialCubit.get(context).posts = [];
+      SocialCubit.get(context).getPosts();
+    });
+    return completer.future.then<void>((_) {
+      showAchievementView(
+        context: context,
+        title: Strings.clickToRefresh.tr(context),
+        alignment: Alignment.bottomCenter,
+        onTap: () {
+          _refreshIndicatorKey.currentState!.show();
+        },
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
     return SafeArea(
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: Hidable(
           controller: scrollController,
           child: CustomAppBar(
@@ -52,21 +90,28 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
               },
               icon: Icon(Icons.menu_rounded),
             ),
-            title: 'Home',
+            title: Strings.home.tr(context),
           ),
         ),
-        body: Stack(
-          children: [
-            HomeViewBody(
-              scrollController: scrollController,
-            ),
-            CustomDrawer(
-              condition: _bool,
-              animation1: _animation1,
-              animation2: _animation2,
-              animation3: _animation3,
-            ),
-          ],
+        body: LiquidPullToRefresh(
+          key: _refreshIndicatorKey,
+          onRefresh: _handleRefresh,
+          showChildOpacityTransition: false,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          color: AppColors.kPrimary.withOpacity(.25),
+          child: Stack(
+            children: [
+              HomeViewBody(
+                scrollController: scrollController,
+              ),
+              CustomDrawer(
+                condition: _bool,
+                animation1: _animation1,
+                animation2: _animation2,
+                animation3: _animation3,
+              ),
+            ],
+          ),
         ),
       ),
     );
