@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moga/core/bloc/global_cubit/app_language_cubit.dart';
 import 'package:moga/core/bloc/global_cubit/app_language_states.dart';
+import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/routes/app_routes.dart';
 import 'package:moga/core/utils/app_images.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/widgets/custom_button.dart';
 import 'package:moga/core/common/custom_navigate.dart';
 import 'package:rive/rive.dart';
@@ -40,12 +42,12 @@ class ChangeLangView extends StatelessWidget {
                 ),
                 const SizedBox(),
                 Text(
-                  'Welcome to Mogha App',
+                  Strings.wealcomeToMogha.tr(context),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 SizedBox(height: 54.h),
                 Text(
-                  'Please choose your language ',
+                  Strings.chooseLang.tr(context),
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
