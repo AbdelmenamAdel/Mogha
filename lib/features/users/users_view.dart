@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/widgets/custom_divider.dart';
 import 'package:moga/core/widgets/show_image.dart';
 import 'package:moga/features/chats/presentation/views/chat_details_view.dart';
@@ -61,7 +63,8 @@ class UsersViewBody extends StatelessWidget {
                               context: context,
                               builder: (context) {
                                 return CustomDialog(
-                                  title: 'Chat ${cubit.users[index].userName}',
+                                  title:
+                                      '${Strings.chat.tr(context)} ${cubit.users[index].userName}',
                                   onYesTap: () {
                                     Navigator.push(
                                         context,
@@ -172,7 +175,7 @@ class _SnapshotHasDataState extends State<SnapshotHasData> {
           setState(() {});
         },
         child: Text(
-          'Un Follow',
+          Strings.unfollow.tr(context),
           style: Theme.of(context).textTheme.labelSmall,
         ),
       );
@@ -183,7 +186,7 @@ class _SnapshotHasDataState extends State<SnapshotHasData> {
           setState(() {});
         },
         child: Text(
-          'Follow',
+          Strings.follow.tr(context),
           style: Theme.of(context).textTheme.labelSmall,
         ),
       );
