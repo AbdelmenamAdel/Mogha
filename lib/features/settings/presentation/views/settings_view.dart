@@ -5,7 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hidable/hidable.dart';
 import 'package:moga/core/bloc/global_cubit/app_language_cubit.dart';
 import 'package:moga/core/bloc/global_cubit/app_language_states.dart';
+import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/widgets/custom_divider.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
 import 'package:moga/features/social/presentation/manager/social_cubit/social_cubit.dart';
@@ -59,7 +61,7 @@ class SettingsView extends StatelessWidget {
         shadowColor: AppColors.grey,
         titleSpacing: -40,
         title: Text(
-          'Settings',
+          Strings.settings.tr(context),
           style: Theme.of(context)
               .textTheme
               .titleMedium!
