@@ -1,8 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:moga/core/common/url_luncher.dart';
+import 'package:moga/core/local/app_local.dart';
+import 'package:moga/core/utils/app_strings.dart';
 
 class AuthorMedia extends StatelessWidget {
   const AuthorMedia({super.key});
@@ -12,7 +13,7 @@ class AuthorMedia extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 15,left: 15,right: 15).r,
+          padding: const EdgeInsets.only(top: 15, left: 15, right: 15).r,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -67,7 +68,7 @@ class AuthorMedia extends StatelessWidget {
           ),
         ),
         Text(
-          "MOGHA",
+          Strings.mogha.tr(context),
           style: TextStyle(
             fontFamily: 'Limelight',
             color: Theme.of(context).textTheme.displaySmall!.color,
