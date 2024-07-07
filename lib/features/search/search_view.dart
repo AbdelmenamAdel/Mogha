@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:moga/core/local/app_local.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_colors.dart';
+import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/widgets/custom_text_form_field.dart';
 import 'package:moga/features/auth/data/models/create_user_model.dart';
@@ -41,6 +42,8 @@ class _SearchViwState extends State<SearchViw> {
         titleSpacing: 0.0,
       ),
       body: Column(
+        mainAxisAlignment:
+            username == '' ? MainAxisAlignment.center : MainAxisAlignment.start,
         children: [
           if (username != null)
             if (username!.length > 3)
@@ -121,6 +124,8 @@ class _SearchViwState extends State<SearchViw> {
                   }
                 },
               ),
+          if (username == '') Image.asset(AppImages.search),
+          // if (username == '') Text(Strings.search.tr(context))
         ],
       ),
     );
