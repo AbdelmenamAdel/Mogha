@@ -9,7 +9,7 @@
   "forgetPass": "هل نسيت كلمة المرور!",
   "cNA": "إنشاء حساب جديد",
  "mogha": "MOGHA",
-  "wealcomeToMogha": "مرحبًا بك في تطبيق موغا",
+  "wealcomeToMogha": "مرحبًا بك في تطبيق MOGHA",
   "chooseLang": "يرجى اختيار لغتك",
   "oopsError": "عذرًا، حدث خطأ",
   "validPassword": "يرجى إدخال كلمة مرور صالحة",
@@ -72,5 +72,7 @@
   "addPhoto": "إضافة صورة",
   "users": "المستخدمون",
   "chat": "الدردشة",
-  "upload": "رفع"
+  "upload": "رفع",
+  "chats":"الدردشات",
+  "accountInfo":"معلومات الحساب"
 }

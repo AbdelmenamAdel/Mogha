@@ -71,5 +71,7 @@
   "addPhoto": "Add Photo",
   "users": "Users",
   "chat": "Chat",
-  "upload": "Upload"
+  "upload": "Upload",
+  "chats":"Chats",
+  "accountInfo":"Account Info"
 }
