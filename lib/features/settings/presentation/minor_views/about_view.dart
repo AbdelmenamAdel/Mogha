@@ -71,50 +71,48 @@ class _AboutViewState extends State<AboutView> {
                     SizedBox(width: 5.w),
                     SizedBox(
                       width: context.width(.6),
-                      child: Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Abdelmoneim Diff Allah",
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Abdelmoneim Diff Allah",
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontFamily: "Dosis",
+                              letterSpacing: 1.sp,
+                              fontSize: 21.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(height: 10.h),
+                          Text(
+                            "Studying at Faculty of Computers &\nArtificial Intelligence Benha University",
+                            style: TextStyle(
+                              fontFamily: "Dosis",
+                              letterSpacing: 1.sp,
+                              fontSize: 11.sp,
+                            ),
+                          ),
+                          SizedBox(height: 10.h),
+                          SizedBox(
+                            width: 215.w,
+                            child: Text(
+                              "وَأَنْ لَيْسَ لِلْإِنْسَانِ إِلَّا مَا سَعَى (39) وَأَنَّ سَعْيَهُ سَوْفَ يُرَى (40) ثُمَّ يُجْزَاهُ الْجَزَاءَ الْأَوْفَى (41)",
+                              textDirection: TextDirection.rtl,
+                              maxLines: 3,
                               overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
                               style: TextStyle(
                                 fontFamily: "Dosis",
                                 letterSpacing: 1.sp,
-                                fontSize: 21.sp,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 10.sp,
+                                // color: textColor,
                               ),
                             ),
-                            SizedBox(height: 10.h),
-                            Text(
-                              "Studying at Faculty of Computers &\nArtificial Intelligence Benha University",
-                              style: TextStyle(
-                                fontFamily: "Dosis",
-                                letterSpacing: 1.sp,
-                                fontSize: 11.sp,
-                              ),
-                            ),
-                            SizedBox(height: 10.h),
-                            SizedBox(
-                              width: 215.w,
-                              child: Text(
-                                "وَأَنْ لَيْسَ لِلْإِنْسَانِ إِلَّا مَا سَعَى (39) وَأَنَّ سَعْيَهُ سَوْفَ يُرَى (40) ثُمَّ يُجْزَاهُ الْجَزَاءَ الْأَوْفَى (41)",
-                                textDirection: TextDirection.rtl,
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontFamily: "Dosis",
-                                  letterSpacing: 1.sp,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 10.sp,
-                                  // color: textColor,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
