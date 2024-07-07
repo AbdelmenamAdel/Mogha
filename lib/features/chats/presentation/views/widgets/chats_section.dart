@@ -23,54 +23,52 @@ class ChatsSection extends StatelessWidget {
             if (snapshot.data?.docs.isEmpty ?? false) {
               Center(child: Text('no user found'));
             }
-            return Expanded(
-              child: ListView.separated(
-                padding: EdgeInsets.zero,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ChatDetailsView(
-                              user: cubit.users[index],
-                            ),
-                          ));
-                    },
-                    child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            InkWell(
-                              borderRadius: BorderRadius.circular(30),
-                              onTap: () {
-                                showImage(
-                                  context: context,
-                                  image: cubit.users[index].profilePhoto,
-                                );
-                              },
-                              child: Hero(
-                                tag: 'chat${cubit.users[index].uId}',
-                                child: CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                    cubit.users[index].profilePhoto,
-                                  ),
-                                  radius: 25,
-                                  backgroundColor: AppColors.blue,
+            return ListView.separated(
+              padding: EdgeInsets.zero,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChatDetailsView(
+                            user: cubit.users[index],
+                          ),
+                        ));
+                  },
+                  child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            borderRadius: BorderRadius.circular(30),
+                            onTap: () {
+                              showImage(
+                                context: context,
+                                image: cubit.users[index].profilePhoto,
+                              );
+                            },
+                            child: Hero(
+                              tag: 'chat${cubit.users[index].uId}',
+                              child: CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                  cubit.users[index].profilePhoto,
                                 ),
+                                radius: 25,
+                                backgroundColor: AppColors.blue,
                               ),
                             ),
-                            SizedBox(width: 12),
-                            Text(cubit.users[index].userName),
-                            // Spacer(),
-                          ],
-                        )),
-                  );
-                },
-                separatorBuilder: (context, index) => CustomDivider(),
-                itemCount: cubit.users.length,
-              ),
+                          ),
+                          SizedBox(width: 12),
+                          Text(cubit.users[index].userName),
+                          // Spacer(),
+                        ],
+                      )),
+                );
+              },
+              separatorBuilder: (context, index) => CustomDivider(),
+              itemCount: cubit.users.length,
             );
           } else {
             return Center(
