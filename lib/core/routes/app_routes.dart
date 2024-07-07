@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moga/core/image/open_cover_photo_view.dart';
 import 'package:moga/features/auth/presentation/views/change_language_view.dart';
 import 'package:moga/features/auth/presentation/views/create_new_password.dart';
 import 'package:moga/features/auth/presentation/views/login_view.dart';
@@ -11,7 +12,6 @@ import 'package:moga/features/home/presentation/views/home_view.dart';
 import 'package:moga/features/notifications/notifications_view.dart';
 import 'package:moga/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:moga/features/onboarding/presentation/views/splach_view.dart';
-import 'package:moga/features/open_cover_photo_view.dart';
 import 'package:moga/features/open_profile_photo_view.dart';
 import 'package:moga/features/post/presentation/views/add_post.dart';
 import 'package:moga/features/search/search_view.dart';
