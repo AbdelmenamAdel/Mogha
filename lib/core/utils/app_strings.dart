@@ -72,6 +72,8 @@ class Strings {
   static const String users = "users";
   static const String chat = "chat";
   static const String upload = "upload";
+  static const String chats = "chats";
+  static const String accountInfo = "accountInfo";
 
   ////////////////////////////////////!
 
