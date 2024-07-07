@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:moga/core/bloc/global_cubit/app_language_cubit.dart';
 import 'package:moga/core/common/constants/constants.dart';
+import 'package:moga/core/common/media_size.dart';
 import 'package:moga/core/services/service_locator.dart';
 import 'package:moga/core/utils/app_images.dart';
 import 'package:moga/features/post/presentation/views/widgets/default_app_bar.dart';
@@ -68,49 +69,52 @@ class _AboutViewState extends State<AboutView> {
                       ),
                     ),
                     SizedBox(width: 5.w),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Abdelmoneim Diff Allah",
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            style: TextStyle(
-                              fontFamily: "Dosis",
-                              letterSpacing: 1.sp,
-                              fontSize: 21.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(height: 15.h),
-                          Text(
-                            "Studying at Faculty of Computers &\nArtificial Intelligence Benha University",
-                            style: TextStyle(
-                              fontFamily: "Dosis",
-                              letterSpacing: 1.sp,
-                              fontSize: 12.sp,
-                            ),
-                          ),
-                          SizedBox(height: 15.h),
-                          SizedBox(
-                            width: 210.w,
-                            child: Text(
-                              "وَأَنْ لَيْسَ لِلْإِنْسَانِ إِلَّا مَا سَعَى (39) وَأَنَّ سَعْيَهُ سَوْفَ يُرَى (40) ثُمَّ يُجْزَاهُ الْجَزَاءَ الْأَوْفَى (41)",
-                              textDirection: TextDirection.rtl,
-                              maxLines: 3,
+                    SizedBox(
+                      width: context.width(.6),
+                      child: Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Abdelmoneim Diff Allah",
                               overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                               style: TextStyle(
                                 fontFamily: "Dosis",
                                 letterSpacing: 1.sp,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 11.sp,
-                                // color: textColor,
+                                fontSize: 21.sp,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
-                          ),
-                        ],
+                            SizedBox(height: 10.h),
+                            Text(
+                              "Studying at Faculty of Computers &\nArtificial Intelligence Benha University",
+                              style: TextStyle(
+                                fontFamily: "Dosis",
+                                letterSpacing: 1.sp,
+                                fontSize: 11.sp,
+                              ),
+                            ),
+                            SizedBox(height: 10.h),
+                            SizedBox(
+                              width: 215.w,
+                              child: Text(
+                                "وَأَنْ لَيْسَ لِلْإِنْسَانِ إِلَّا مَا سَعَى (39) وَأَنَّ سَعْيَهُ سَوْفَ يُرَى (40) ثُمَّ يُجْزَاهُ الْجَزَاءَ الْأَوْفَى (41)",
+                                textDirection: TextDirection.rtl,
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontFamily: "Dosis",
+                                  letterSpacing: 1.sp,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 10.sp,
+                                  // color: textColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

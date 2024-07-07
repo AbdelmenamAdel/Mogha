@@ -36,7 +36,9 @@ class SettingsView extends StatelessWidget {
                   children: [
                     ProfileDataInSection(),
                     SizedBox(height: 10),
-                    ProfileHeaderLabel(headerLabel: 'Account Info'),
+                    ProfileHeaderLabel(
+                      headerLabel: Strings.accountInfo.tr(context),
+                    ),
                     RepeatedCards(
                       email: model.email,
                     ),

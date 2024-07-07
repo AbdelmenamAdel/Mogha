@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:moga/core/local/app_local.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/core/utils/custom_gnav_bar.dart';
 import 'package:moga/features/chats/presentation/views/chats_view.dart';
 import 'package:moga/features/home/presentation/views/home_view.dart';
@@ -36,10 +38,22 @@ class SocialLayoutView extends StatelessWidget {
                   },
                   currentIndex: cubit.currentIndex,
                   tabs: [
-                    GButton(icon: IconBroken.Home, text: 'Home'),
-                    GButton(icon: IconBroken.Chat, text: 'Chats'),
-                    GButton(icon: IconBroken.Location, text: 'Users'),
-                    GButton(icon: IconBroken.Setting, text: 'Settings'),
+                    GButton(
+                      icon: IconBroken.Home,
+                      text: Strings.home.tr(context),
+                    ),
+                    GButton(
+                      icon: IconBroken.Chat,
+                      text: Strings.chats.tr(context),
+                    ),
+                    GButton(
+                      icon: IconBroken.Location,
+                      text: Strings.users.tr(context),
+                    ),
+                    GButton(
+                      icon: IconBroken.Setting,
+                      text: Strings.settings.tr(context),
+                    ),
                   ]),
             ),
           ),
