@@ -116,7 +116,7 @@ class _AddPostViewState extends State<AddPostView> {
                             .copyWith(fontSize: 22),
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: Strings.whatsOnYourMind,
+                          hintText: Strings.whatsOnYourMind.tr(context),
                           hintStyle: Theme.of(context)
                               .textTheme
                               .displayMedium!

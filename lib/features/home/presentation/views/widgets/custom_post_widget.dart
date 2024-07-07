@@ -67,7 +67,10 @@ class CustomPostWidget extends StatelessWidget {
                   ],
                 ),
                 subtitle: Text(
-                  postModel.date,
+                  "day: " +
+                      postModel.date.substring(5, 10) +
+                      ",  time: " +
+                      postModel.date.substring(11, 16),
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 trailing: IconButton(
