@@ -10,4 +10,5 @@ class AppImages {
   static const String noNetwork = 'assets/images/no_network.jpg';
   static const String rivBackground = 'assets/riveAssets/circle_fui.riv';
   static const String search = 'assets/images/search.png';
+  static const String defaultImage = 'assets/images/default.png';
 }
