@@ -9,7 +9,7 @@ class GlobalCubit extends Cubit<GlobalState> {
   String langCode = 'ar';
   static GlobalCubit get(context) => BlocProvider.of(context);
   bool isDark = true;
-  IconData? status = CupertinoIcons.moon_stars_fill;
+  IconData? status = CupertinoIcons.sun_max_fill;
 
   //! get lang and set it in sharedPrefrances
   void changeLang(String codeLang) async {
