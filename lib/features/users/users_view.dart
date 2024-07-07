@@ -22,7 +22,9 @@ class UsersView extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          CustomAppBar(title: 'Users'),
+          CustomAppBar(
+            title: Strings.users.tr(context),
+          ),
           UsersViewBody(),
         ],
       ),

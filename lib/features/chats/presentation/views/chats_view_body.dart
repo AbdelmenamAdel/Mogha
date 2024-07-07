@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:moga/core/local/app_local.dart';
+import 'package:moga/core/utils/app_strings.dart';
 import 'package:moga/features/home/presentation/views/widgets/story_list_view.dart';
 import 'package:moga/features/social/presentation/views/widgets/custom_app_bar.dart';
 
@@ -14,7 +16,11 @@ class ChatsViewBody extends StatelessWidget {
     return CustomScrollView(
       physics: BouncingScrollPhysics(),
       slivers: [
-        SliverToBoxAdapter(child: CustomAppBar(title: 'Chats')),
+        SliverToBoxAdapter(
+          child: CustomAppBar(
+            title: Strings.chats.tr(context),
+          ),
+        ),
         SliverToBoxAdapter(child: StoryListView()),
         SliverToBoxAdapter(child: DividerBetweenChatsAndStories()),
         SliverFillRemaining(child: ChatsSection())
